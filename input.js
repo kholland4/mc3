@@ -29,35 +29,62 @@ var e_mouseup = function(e) {};
 var e_keydown = function(e) {};
 var e_keyup = function(e) {};
 
+var eventHandlers = {
+  click: [],
+  mousedown: [],
+  mouseup: [],
+  keydown: [],
+  keyup: []
+};
+
 function initInput() {
   document.addEventListener("keydown", function(e) {
     if(document.pointerLockElement == renderer.domElement && !e.repeat) {
       e_keydown(e);
+      for(var i = 0; i < eventHandlers.keydown.length; i++) {
+        eventHandlers.keydown[i](e);
+      }
     }
   });
   document.addEventListener("keyup", function(e) {
     if(document.pointerLockElement == renderer.domElement) {
       e_keyup(e);
+      for(var i = 0; i < eventHandlers.keyup.length; i++) {
+        eventHandlers.keyup[i](e);
+      }
     }
   });
   
   document.addEventListener("click", function(e) {
     if(document.pointerLockElement == renderer.domElement) {
       e_click(e);
+      for(var i = 0; i < eventHandlers.click.length; i++) {
+        eventHandlers.click[i](e);
+      }
     }
   });
   document.addEventListener("mousedown", function(e) {
     if(document.pointerLockElement == renderer.domElement) {
       e_mousedown(e);
+      for(var i = 0; i < eventHandlers.mousedown.length; i++) {
+        eventHandlers.mousedown[i](e);
+      }
     }
   });
   document.addEventListener("mouseup", function(e) {
     if(document.pointerLockElement == renderer.domElement) {
       e_mouseup(e);
+      for(var i = 0; i < eventHandlers.mouseup.length; i++) {
+        eventHandlers.mouseup[i](e);
+      }
     }
   });
   
   //document.addEventListener("mousemove", showInventoryItemInHand);
+}
+
+function registerInputHandler(eventName, callback) {
+  eventHandlers[eventName].push(callback);
 }
 
 //---Movement---
@@ -66,7 +93,6 @@ var movement = new THREE.Vector3(0, 0, 0);
 e_keydown = function(e) {
   keysPressed.push(e.keyCode);
   updateMovement();
-  hudKeydown(e.keyCode);
 };
 e_keyup = function(e) {
   for(var i = 0; i < keysPressed.length; i++) {
