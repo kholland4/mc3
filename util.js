@@ -18,3 +18,21 @@ function vectorMod(vecA, vecB) {
 function deepcopy(obj) {
   return JSON.parse(JSON.stringify(obj));
 }
+
+function loadf(url, callback, timeout = null, timeoutCallback = null) {
+  var xhttp = new XMLHttpRequest();
+  xhttp._callback = callback;
+  xhttp.onreadystatechange = function() {
+    if(this.readyState == 4) {
+      this._callback();
+    }
+  };
+  if(timeout != null) {
+    xhttp.timeout = timeout;
+  }
+  if(timeoutCallback != null) {
+    xhttp.ontimeout = timeoutCallback;
+  }
+  xhttp.open("GET", url);
+  xhttp.send();
+}

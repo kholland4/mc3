@@ -193,6 +193,10 @@ function reloadLightMap(chunkPos) {
   return genLightMap(chunkPos);
 }
 
+function reloadLightMapRaw(chunkPos) {
+  return genLightMapRaw(chunkPos);
+}
+
 //TODO: remove light map
 
 function getLightBlockCached(localPos, lightMap) {
