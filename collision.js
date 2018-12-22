@@ -4,6 +4,11 @@ var collisionBox = [
   new THREE.Vector3(-0.2, 0.3, 0.2), //front left, top
   new THREE.Vector3(0.2, 0.3, 0.2), //front right, top
   
+  new THREE.Vector3(-0.2, -0.6, -0.2), //rear left, middle
+  new THREE.Vector3(0.2, -0.6, -0.2), //rear right, middle
+  new THREE.Vector3(-0.2, -0.6, 0.2), //front left, middle
+  new THREE.Vector3(0.2, -0.6, 0.2), //front right, middle
+  
   new THREE.Vector3(-0.2, -1.5, -0.2), //rear left, bottom
   new THREE.Vector3(0.2, -1.5, -0.2), //rear right, bottom
   new THREE.Vector3(-0.2, -1.5, 0.2), //front left, bottom
