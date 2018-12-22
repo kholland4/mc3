@@ -7,6 +7,7 @@ function init() {
   initRaycast();
   initMapInteract();
   initCollision();
+  initHUD();
   
   //setBlock(new THREE.Vector3(0, 45, 0), getItemID("default:torch"));
   

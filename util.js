@@ -2,6 +2,10 @@ function vectorAdd(vecA, vecB) {
   return new THREE.Vector3(vecA.x + vecB.x, vecA.y + vecB.y, vecA.z + vecB.z);
 }
 
+function vectorMultiply(vecA, vecB) {
+  return new THREE.Vector3(vecA.x * vecB.x, vecA.y * vecB.y, vecA.z * vecB.z);
+}
+
 function vectorDivide(vecA, vecB) {
   return new THREE.Vector3(Math.floor(vecA.x / vecB.x), Math.floor(vecA.y / vecB.y), Math.floor(vecA.z / vecB.z));
 }

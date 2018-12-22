@@ -12,6 +12,16 @@ var K_VUP = 32; //space
 var K_JUMP = K_VUP;
 var K_VDOWN = 16; //shift
 
+var K_HUD_1 = 49; //1
+var K_HUD_2 = 50; //2
+var K_HUD_3 = 51; //3
+var K_HUD_4 = 52; //4
+var K_HUD_5 = 53; //5
+var K_HUD_6 = 54; //6
+var K_HUD_7 = 55; //7
+var K_HUD_8 = 56; //8
+var K_HUD_9 = 57; //9
+
 //---General input code---
 var e_click = function(e) {};
 var e_mousedown = function(e) {};
@@ -56,6 +66,7 @@ var movement = new THREE.Vector3(0, 0, 0);
 e_keydown = function(e) {
   keysPressed.push(e.keyCode);
   updateMovement();
+  hudKeydown(e.keyCode);
 };
 e_keyup = function(e) {
   for(var i = 0; i < keysPressed.length; i++) {
