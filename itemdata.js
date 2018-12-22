@@ -1,3 +1,5 @@
+//Groups: dirt, wood, stone
+
 var itemDefaults = {
   visible: true,
   transparent: false,
@@ -10,13 +12,14 @@ var itemDefaults = {
   meshUVs: null,
   meshFaces: null,
   placeable: true,
-  icon: null
+  icon: null,
+  groups: []
 };
 var items = [
   {name: "default:air", visible: false, walkable: true, transparent: true, placeable: false},
-  {name: "default:dirt", textureOffsetAlt: {all: new THREE.Vector2(64, 112)}, icon: "textures/blocks/dirt.png"},
-  {name: "default:grass_block", textureOffsetAlt: {top: new THREE.Vector2(32, 112), bottom: new THREE.Vector2(64, 112), sides: new THREE.Vector2(48, 112)}, icon: "textures/misc/grass_side.png"},
-  {name: "default:stone", textureOffsetAlt: {all: new THREE.Vector2(16, 112)}, icon: "textures/blocks/stone.png"},
+  {name: "default:dirt", textureOffsetAlt: {all: new THREE.Vector2(64, 112)}, icon: "textures/blocks/dirt.png", groups: ["dirt"]},
+  {name: "default:grass_block", textureOffsetAlt: {top: new THREE.Vector2(32, 112), bottom: new THREE.Vector2(64, 112), sides: new THREE.Vector2(48, 112)}, icon: "textures/misc/grass_side.png", groups: ["dirt"]},
+  {name: "default:stone", textureOffsetAlt: {all: new THREE.Vector2(16, 112)}, icon: "textures/blocks/stone.png", groups: ["stone"]},
   {name: "default:torch", lightLevel: 10, transparent: true, walkable: true, icon: "textures/blocks/torch_on.png", customMesh: true,
     meshVertices: [
       //front
@@ -109,7 +112,13 @@ var items = [
       {dir: new THREE.Vector3(1, 0, 0), length: 6}, //right
       {dir: new THREE.Vector3(0, 1, 0), length: 6} //top
     ]
-  }
+  },
+  {name: "default:oak_wood_planks", textureOffsetAlt: {all: new THREE.Vector2(80, 112)}, icon: "textures/blocks/planks_oak.png", groups: ["wood"]},
+  {name: "default:sand", textureOffsetAlt: {all: new THREE.Vector2(96, 112)}, icon: "textures/blocks/sand.png", groups: ["dirt"]},
+  {name: "default:glass", textureOffsetAlt: {all: new THREE.Vector2(0, 96)}, icon: "textures/blocks/glass.png", transparent: true},
+  {name: "default:oak_log", textureOffsetAlt: {top: new THREE.Vector2(16, 96), bottom: new THREE.Vector2(16, 96), sides: new THREE.Vector2(32, 96)}, icon: "textures/blocks/log_oak.png"},
+  {name: "default:leaves", textureOffsetAlt: {all: new THREE.Vector2(48, 96)}, icon: "textures/misc/leaves_oak_color.png"}
+  //{name: "default:glass", textureOffsetAlt: {all: new THREE.Vector2(0, 96)}, icon: "textures/blocks/glass.png"}
 ];
 
 function initItemData() {

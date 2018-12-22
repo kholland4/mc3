@@ -42,6 +42,11 @@ function initHUD() {
   hudItems[1] = getItemID("default:dirt");
   hudItems[2] = getItemID("default:grass_block");
   hudItems[3] = getItemID("default:torch");
+  hudItems[4] = getItemID("default:oak_wood_planks");
+  hudItems[5] = getItemID("default:sand");
+  hudItems[6] = getItemID("default:glass");
+  hudItems[7] = getItemID("default:oak_log");
+  hudItems[8] = getItemID("default:leaves");
   
   updateHUD();
   updateHUDSelector();
