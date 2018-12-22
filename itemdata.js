@@ -82,28 +82,28 @@ var items = [
       7/128, 48/128,
       
       //left
-      7/16, 10/16,
-      9/16, 10/16,
-      9/16, 0,
-      7/16, 10/16,
-      7/16, 0,
-      9/16, 0,
+      7/128, 58/128,
+      9/128, 58/128,
+      9/128, 48/128,
+      7/128, 58/128,
+      7/128, 48/128,
+      9/128, 48/128,
       
       //right
-      9/16, 10/16,
-      7/16, 10/16,
-      7/16, 0,
-      9/16, 10/16,
-      9/16, 0,
-      7/16, 0,
+      9/128, 58/128,
+      7/128, 58/128,
+      7/128, 48/128,
+      9/128, 58/128,
+      9/128, 48/128,
+      7/128, 48/128,
       
       //top
-      7/16, 10/16,
-      9/16, 10/16,
-      9/16, 8/16,
-      7/16, 10/16,
-      7/16, 8/16,
-      9/16, 8/16
+      7/128, 58/128,
+      9/128, 58/128,
+      9/128, 56/128,
+      7/128, 58/128,
+      7/128, 56/128,
+      9/128, 56/128
     ],
     meshFaces: [
       {dir: new THREE.Vector3(0, 0, 1), length: 6}, //front
@@ -117,7 +117,7 @@ var items = [
   {name: "default:sand", textureOffsetAlt: {all: new THREE.Vector2(96, 112)}, icon: "textures/blocks/sand.png", groups: ["dirt"]},
   {name: "default:glass", textureOffsetAlt: {all: new THREE.Vector2(0, 96)}, icon: "textures/blocks/glass.png", transparent: true},
   {name: "default:oak_log", textureOffsetAlt: {top: new THREE.Vector2(16, 96), bottom: new THREE.Vector2(16, 96), sides: new THREE.Vector2(32, 96)}, icon: "textures/blocks/log_oak.png"},
-  {name: "default:leaves", textureOffsetAlt: {all: new THREE.Vector2(48, 96)}, icon: "textures/misc/leaves_oak_color.png"}
+  {name: "default:leaves", textureOffsetAlt: {all: new THREE.Vector2(48, 96)}, icon: "textures/misc/leaves_oak_color.png", transparent: true}
   //{name: "default:glass", textureOffsetAlt: {all: new THREE.Vector2(0, 96)}, icon: "textures/blocks/glass.png"}
 ];
 

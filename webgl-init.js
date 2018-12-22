@@ -53,6 +53,12 @@ function initWebGL() {
   dLight.shadow.mapSize.height = 1024;*/
   scene.add(dLight);
   
+  //Second light to illuminate the inside of transparent objects
+  var dLight2 = new THREE.DirectionalLight(0xffffff, 1);
+  dLight2.position.set(0, -1, 0); //bottom up
+  scene.add(dLight2.target);
+  scene.add(dLight2);
+  
   /*var pLight = new THREE.PointLight(0xffffff, 0.5, 100);
   pLight.position.set(5, 5, 0);
   scene.add(pLight);*/
