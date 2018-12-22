@@ -84,6 +84,9 @@ function genChunkMesh(chunkPos) {
   var vertices = [];
   var uvs = [];
   var normals = [];
+  var tVertices = [];
+  var tUVs = [];
+  var tNormals = [];
   
   var meta = getChunkMeta(chunkPos);
   if(meta.empty) {
@@ -119,11 +122,16 @@ function genChunkMesh(chunkPos) {
             meshVertices[i + 1] += blockPos.y;
             meshVertices[i + 2] += blockPos.z;
           }
-          vertices.push.apply(vertices, meshVertices);
-          uvs.push.apply(uvs, props.meshUVs);
+          if(!props.transparent) {
+            vertices.push.apply(vertices, meshVertices);
+            uvs.push.apply(uvs, props.meshUVs);
+          } else {
+            tVertices.push.apply(tVertices, meshVertices);
+            tUVs.push.apply(tUVs, props.meshUVs);
+          }
           
           for(var face = 0; face < props.meshFaces.length; face++) {
-            /*var nearbyPos = vectorAdd(blockPos, props.meshFaces[face].dir);
+            var nearbyPos = vectorAdd(blockPos, props.meshFaces[face].dir);
             var nearbyBlock = null;
             if(nearbyPos.x >= 0 && nearbyPos.y >= 0 && nearbyPos.z >= 0 && nearbyPos.x < CHUNK_SIZE.x && nearbyPos.y < CHUNK_SIZE.y && nearbyPos.z < CHUNK_SIZE.z) {
               nearbyBlock = getBlockCached(nearbyPos, chunk);
@@ -151,6 +159,9 @@ function genChunkMesh(chunkPos) {
             if(lightLevel == 0) {
               lightLevel = 1;
             }
+            if(props.lightLevel > 0) {
+              lightLevel = Math.max(lightLevel, props.lightLevel);
+            }
             
             if(props.meshFaces[face].dir.y == 1) {
               lightLevel *= 1.5;
@@ -158,19 +169,20 @@ function genChunkMesh(chunkPos) {
               lightLevel *= 0.8;
             }
             
-            lightLevel = lightLevel / (MAX_LIGHT * 2);*/
+            lightLevel = lightLevel / (MAX_LIGHT * 2);
             
             var normal = [];
             var direction = (-props.meshFaces[face].dir.x) + props.meshFaces[face].dir.y + props.meshFaces[face].dir.z;
             for(var i = 0; i < props.meshFaces[face].length; i++) {
-              /*normal.push(0);
+              normal.push(0);
               normal.push(-(direction * lightLevel));
-              normal.push((1 - lightLevel));*/
-              normal.push(0);
-              normal.push(1);
-              normal.push(0);
+              normal.push((1 - lightLevel));
             }
-            normals.push.apply(normals, normal);
+            if(!props.transparent) {
+              normals.push.apply(normals, normal);
+            } else {
+              tNormals.push.apply(tNormals, normal);
+            }
           }
           continue;
         }
@@ -195,6 +207,8 @@ function genChunkMesh(chunkPos) {
             continue;
           }
           
+          //---Vertices---
+          
           var faceSquare = deepcopy(blockMeshFaceSquares[face]);
           for(var i = 0; i < faceSquare.length; i += 3) {
             faceSquare[i] += blockPos.x;
@@ -202,7 +216,7 @@ function genChunkMesh(chunkPos) {
             faceSquare[i + 2] += blockPos.z;
           }
           
-          vertices.push.apply(vertices, faceSquare);
+          //---UVs---
           
           var uv = deepcopy(blockMeshFaceUVs);
           for(var i = 0; i < uv.length; i += 2) {
@@ -210,7 +224,7 @@ function genChunkMesh(chunkPos) {
             uv[i + 1] += props.textureOffset[face].y * textureMapIndexScale;
           }
           
-          uvs.push.apply(uvs, uv);
+          //---Normals---
           
           var lightLevel = null;
           if(nearbyPos.x >= 0 && nearbyPos.y >= 0 && nearbyPos.z >= 0 && nearbyPos.x < CHUNK_SIZE.x && nearbyPos.y < CHUNK_SIZE.y && nearbyPos.z < CHUNK_SIZE.z) {
@@ -224,6 +238,9 @@ function genChunkMesh(chunkPos) {
           }
           if(lightLevel == 0) {
             lightLevel = 1;
+          }
+          if(props.lightLevel > 0) {
+            lightLevel = Math.max(lightLevel, props.lightLevel);
           }
           
           if(faces[face].y == 1) {
@@ -241,33 +258,59 @@ function genChunkMesh(chunkPos) {
             normal.push(-(direction * lightLevel));
             normal.push((1 - lightLevel));
           }
-          normals.push.apply(normals, normal);
+          
+          //Append to main array
+          
+          if(!props.transparent) {
+            vertices.push.apply(vertices, faceSquare);
+            uvs.push.apply(uvs, uv);
+            normals.push.apply(normals, normal);
+          } else {
+            tVertices.push.apply(tVertices, faceSquare);
+            tUVs.push.apply(tUVs, uv);
+            tNormals.push.apply(tNormals, normal);
+          }
         }
       }
     }
   }
   
-  var material = new THREE.MeshLambertMaterial({map: textureMap, transparent: false});
-  //var material = new THREE.MeshLambertMaterial({color: 0x00ff00});
-  var geometry = new THREE.BufferGeometry();
-  
-  geometry.addAttribute("position", new THREE.BufferAttribute(new Float32Array(vertices), 3));
-  
-  geometry.addAttribute("uv", new THREE.BufferAttribute(new Float32Array(uvs), 2));
-  
-  geometry.addAttribute("normal", new THREE.BufferAttribute(new Float32Array(normals), 3));
-  
-  //geometry.computeFaceNormals();
-  //geometry.computeVertexNormals();
-  
-  var mesh = new THREE.Mesh(geometry, material);
-  mesh.position.x = (chunkPos.x * CHUNK_SIZE.x);
-  mesh.position.y = (chunkPos.y * CHUNK_SIZE.y);
-  mesh.position.z = (chunkPos.z * CHUNK_SIZE.z);
-  
-  mesh.material.side = THREE.DoubleSide; //FIXME
-  
-  meshes.push(mesh);
+  if(vertices.length > 0) {
+    var material = new THREE.MeshLambertMaterial({map: textureMap, transparent: false});
+    var geometry = new THREE.BufferGeometry();
+    
+    geometry.addAttribute("position", new THREE.BufferAttribute(new Float32Array(vertices), 3));
+    geometry.addAttribute("uv", new THREE.BufferAttribute(new Float32Array(uvs), 2));
+    geometry.addAttribute("normal", new THREE.BufferAttribute(new Float32Array(normals), 3));
+    
+    var mesh = new THREE.Mesh(geometry, material);
+    mesh.position.x = (chunkPos.x * CHUNK_SIZE.x);
+    mesh.position.y = (chunkPos.y * CHUNK_SIZE.y);
+    mesh.position.z = (chunkPos.z * CHUNK_SIZE.z);
+    
+    mesh.material.side = THREE.DoubleSide; //FIXME
+    mesh.renderOrder = 0;
+    
+    meshes.push(mesh);
+  }
+  if(tVertices.length > 0) {
+    var material = new THREE.MeshLambertMaterial({map: textureMap, transparent: true});
+    var geometry = new THREE.BufferGeometry();
+    
+    geometry.addAttribute("position", new THREE.BufferAttribute(new Float32Array(tVertices), 3));
+    geometry.addAttribute("uv", new THREE.BufferAttribute(new Float32Array(tUVs), 2));
+    geometry.addAttribute("normal", new THREE.BufferAttribute(new Float32Array(tNormals), 3));
+    
+    var mesh = new THREE.Mesh(geometry, material);
+    mesh.position.x = (chunkPos.x * CHUNK_SIZE.x);
+    mesh.position.y = (chunkPos.y * CHUNK_SIZE.y);
+    mesh.position.z = (chunkPos.z * CHUNK_SIZE.z);
+    
+    mesh.material.side = THREE.DoubleSide; //FIXME
+    mesh.renderOrder = 1;
+    
+    meshes.push(mesh);
+  }
   
   return meshes;
 }

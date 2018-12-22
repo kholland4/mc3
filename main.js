@@ -1,3 +1,5 @@
+var VIEW_RANGE = new THREE.Vector3(3, 2, 3);
+
 var realMovement = new THREE.Vector3(0, 0, 0);
 
 var prevTime = performance.now();
@@ -82,7 +84,7 @@ function animate() {
   //---Loading/unloading chunks---
   if(frameCount % 1 == 0) {
     var chunkIn = vectorDivide(controls.getObject().position, CHUNK_SIZE);
-    chunkMeshAutoload(chunkIn, new THREE.Vector3(3, 2, 3), 1);
+    chunkMeshAutoload(chunkIn, VIEW_RANGE, 1);
   }
   
   camera.updateProjectionMatrix();
