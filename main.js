@@ -4,6 +4,7 @@ var realMovement = new THREE.Vector3(0, 0, 0);
 
 var prevTime = performance.now();
 var frameCount = 0;
+
 function animate() {
   requestAnimationFrame(animate);
   
@@ -11,6 +12,8 @@ function animate() {
   var timeDelta = time - prevTime;
   prevTime = time;
   var timeScale = timeDelta / 1000;
+  
+  modsOnFrame(timeScale);
   
   //---Raycast---
   if(frameCount % 2 == 0) {

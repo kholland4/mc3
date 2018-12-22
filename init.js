@@ -8,6 +8,7 @@ function init() {
   initMapInteract();
   initCollision();
   initHUD();
+  initMods();
   
   //setBlock(new THREE.Vector3(0, 45, 0), getItemID("default:torch"));
   
