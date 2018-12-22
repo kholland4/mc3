@@ -20,15 +20,31 @@
   <script src="mapinteract.js"></script>
   <script src="collision.js"></script>
   <script src="maplight.js"></script>
+  <script src="hud.js"></script>
+  
+  <link rel="stylesheet" type="text/css" href="hud.css">
   
   <style>
   body {
     margin: 0px;
     overflow: hidden;
   }
+  #crosshair {
+    z-index: 1;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    color: white;
+    font-family: sans-serif;
+    font-size: 40px;
+    font-weight: 100;
+  }
   </style>
 </head>
 <body>
-
+<div id="crosshair">+</div>
+<div id="hud"></div>
 </body>
 </html>

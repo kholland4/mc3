@@ -1,4 +1,5 @@
 var MAX_LIGHT = 15;
+var SUNLIGHT_LEVEL = 15;
 
 var lightMapMap = []; //{pos: THREE.Vector3, index: int}
 var lightMapData = [];
@@ -56,7 +57,7 @@ function genLightMapRaw(chunkPos) {
         
         if(props.transparent && hasSun) {
           //lightMap[calcDataOffset(blockPos)] = 15;
-          lightSources.push({pos: blockPos, level: 15});
+          lightSources.push({pos: blockPos, level: SUNLIGHT_LEVEL});
           lightMap[calcDataOffset(blockPos)] = -2;
         }
         

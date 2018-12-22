@@ -8,14 +8,16 @@ var itemDefaults = {
   customMesh: false,
   meshVertices: null,
   meshUVs: null,
-  meshFaces: null
+  meshFaces: null,
+  placeable: true,
+  icon: null
 };
 var items = [
-  {name: "default:air", visible: false, walkable: true, transparent: true},
-  {name: "default:dirt", textureOffsetAlt: {all: new THREE.Vector2(64, 112)}},
-  {name: "default:grass_block", textureOffsetAlt: {top: new THREE.Vector2(32, 112), bottom: new THREE.Vector2(64, 112), sides: new THREE.Vector2(48, 112)}},
-  {name: "default:stone", textureOffsetAlt: {all: new THREE.Vector2(16, 112)}},
-  {name: "default:torch", lightLevel: 10, transparent: true, walkable: true, customMesh: true,
+  {name: "default:air", visible: false, walkable: true, transparent: true, placeable: false},
+  {name: "default:dirt", textureOffsetAlt: {all: new THREE.Vector2(64, 112)}, icon: "textures/blocks/dirt.png"},
+  {name: "default:grass_block", textureOffsetAlt: {top: new THREE.Vector2(32, 112), bottom: new THREE.Vector2(64, 112), sides: new THREE.Vector2(48, 112)}, icon: "textures/misc/grass_side.png"},
+  {name: "default:stone", textureOffsetAlt: {all: new THREE.Vector2(16, 112)}, icon: "textures/blocks/stone.png"},
+  {name: "default:torch", lightLevel: 10, transparent: true, walkable: true, icon: "textures/blocks/torch_on.png", customMesh: true,
     meshVertices: [
       //front
       -0.0625, 0.125, 0.0625,
