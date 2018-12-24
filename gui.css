@@ -1,0 +1,36 @@
+#popup {
+  z-index: 2;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  
+  display: none;
+}
+
+#guiHand {
+  z-index: 5;
+  position: fixed;
+  pointer-events: none;
+}
+
+.guiDialog {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.guiBlockGridContainer {
+  display: block;
+  font-size: 0;
+}
+
+.guiBlockCell {
+  display: inline-block;
+  margin: 5px;
+  border: 2px solid #333;
+  
+  background-color: rgba(0, 0, 0, 0.2);
+}

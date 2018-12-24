@@ -13,13 +13,20 @@ var itemDefaults = {
   meshFaces: null,
   placeable: true,
   icon: null,
-  groups: []
+  groups: [],
+  drops: null,
+  stackable: true,
+  maxStack: 64,
+  isConsumable: true,
+  isTool: false,
+  inInventory: true
 };
 var items = [
-  {name: "default:air", visible: false, walkable: true, transparent: true, placeable: false},
+  {name: "default:air", visible: false, walkable: true, transparent: true, placeable: false, inInventory: false},
   {name: "default:dirt", textureOffsetAlt: {all: new THREE.Vector2(64, 112)}, icon: "textures/blocks/dirt.png", groups: ["dirt"]},
-  {name: "default:grass_block", textureOffsetAlt: {top: new THREE.Vector2(32, 112), bottom: new THREE.Vector2(64, 112), sides: new THREE.Vector2(48, 112)}, icon: "textures/misc/grass_side.png", groups: ["dirt"]},
-  {name: "default:stone", textureOffsetAlt: {all: new THREE.Vector2(16, 112)}, icon: "textures/blocks/stone.png", groups: ["stone"]},
+  {name: "default:grass_block", textureOffsetAlt: {top: new THREE.Vector2(32, 112), bottom: new THREE.Vector2(64, 112), sides: new THREE.Vector2(48, 112)}, icon: "textures/misc/grass_side.png", groups: ["dirt"], drops: new InvItem("default:dirt", 1)},
+  {name: "default:stone", textureOffsetAlt: {all: new THREE.Vector2(16, 112)}, icon: "textures/blocks/stone.png", groups: ["stone"], drops: new InvItem("default:cobblestone", 1)},
+  {name: "default:cobblestone", textureOffsetAlt: {all: new THREE.Vector2(64, 96)}, icon: "textures/blocks/cobblestone.png", groups: ["stone"]},
   {name: "default:torch", lightLevel: 10, transparent: true, walkable: true, icon: "textures/blocks/torch_on.png", customMesh: true,
     meshVertices: [
       //front
@@ -132,6 +139,9 @@ function initItemData() {
         tex = [texAlt.top, texAlt.bottom, texAlt.sides, texAlt.sides, texAlt.sides, texAlt.sides];
       }
       items[i].textureOffset = tex;
+    }
+    if(!("drops" in items[i])) {
+      items[i].drops = new InvItem(getItemID(items[i].name), 1);
     }
   }
 }

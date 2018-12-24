@@ -3,10 +3,13 @@
 <head>
   <title>Page Title</title>
   
+  <!--<link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">-->
+  
   <script src="lib/three.js"></script>
   <script src="lib/PointerLockControls.js"></script>
   <script src="lib/perlin.js"></script>
   
+  <script src="inventory.js"></script>
   <script src="util.js"></script>
   <script src="init.js"></script>
   <script src="webgl-init.js"></script>
@@ -22,8 +25,11 @@
   <script src="maplight.js"></script>
   <script src="hud.js"></script>
   <script src="mods.js"></script>
+  <script src="gui.js"></script>
   
   <link rel="stylesheet" type="text/css" href="hud.css">
+  <link rel="stylesheet" type="text/css" href="inventory.css">
+  <link rel="stylesheet" type="text/css" href="gui.css">
   
   <style>
   body {
@@ -47,5 +53,6 @@
 <body>
 <div id="crosshair">+</div>
 <div id="hud"></div>
+<div id="popup"></div>
 </body>
 </html>

@@ -464,3 +464,26 @@ function reloadChunkMeshNear(pos) {
     }
   }
 }
+
+function intelligentReloadChunkMeshNear(pos) {
+  var chunkIn = vectorDivide(pos, CHUNK_SIZE);
+  var oldLightMaps = [];
+  for(var face = 0; face < 6; face++) {
+    var newPos = vectorAdd(chunkIn, faces[face]);
+    oldLightMaps.push(getLightMap(newPos));
+  }
+  reloadLightMapNear(pos);
+  
+  if(chunkMeshLoaded(chunkIn)) {
+    reloadChunkMesh(chunkIn);
+  }
+  for(var face = 0; face < 6; face++) {
+    var newPos = vectorAdd(chunkIn, faces[face]);
+    var adjChunk = vectorDivide(vectorAdd(pos, faces[face]), CHUNK_SIZE);
+    if(chunkMeshLoaded(newPos)) {
+      if(newPos.equals(adjChunk) || !arrayEquals(getLightMap(newPos), oldLightMaps[face])) {
+        reloadChunkMesh(newPos);
+      }
+    }
+  }
+}
