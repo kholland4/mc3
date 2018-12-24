@@ -45,7 +45,7 @@ function() {
   
   registerItem({
     name: "chest:chest",
-    icon: "textures/misc/icon_chest.png",
+    icon: "textures/icons/chest.png",
     groups: ["wood"],
     interact: openChest,
     customMesh: true,

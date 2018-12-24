@@ -1,7 +1,7 @@
 var HUD_ITEM_COUNT = 9;
 var HUD_KEYS = [K_HUD_1, K_HUD_2, K_HUD_3, K_HUD_4, K_HUD_5, K_HUD_6, K_HUD_7, K_HUD_8, K_HUD_9];
 var HUD_CELL_SIZE = 60; //pixels
-var HUD_ICON_SIZE = 50; //pixels
+var HUD_ICON_SIZE = 55; //pixels
 
 var HUD_SELECTOR_OFFSET = new THREE.Vector2(-4, -4);
 var HUD_SELECTOR_DELTA = new THREE.Vector2(HUD_CELL_SIZE + 4, 0);
