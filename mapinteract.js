@@ -33,7 +33,7 @@ function initMapInteract() {
         }
       } else if(e.which == MOUSE_RIGHT && itemToPlace != null) {
         var dProps = getItemProps(getBlock(selector.destroy));
-        if(dProps.interact != null) {
+        if(dProps.interact != null && !queryKey(K_SHIFT)) {
           dProps.interact(selector.destroy.clone());
           return;
         }
