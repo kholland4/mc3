@@ -126,3 +126,8 @@ function setBlock(pos, val) {
   chunkMap[index].dirty = true;
   chunkMap[index].empty = false;
 }
+
+function intelligentSetBlock(pos, val) {
+  setBlock(pos, val);
+  intelligentReloadChunkMeshNear(pos);
+}
