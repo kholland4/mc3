@@ -38,7 +38,7 @@ function initHUD() {
   hudSelectorDOM.id = "hudSelector";
   hud.appendChild(hudSelectorDOM);
   
-  hudItems[0] = getItemID("default:stone");
+  /*hudItems[0] = getItemID("default:stone");
   hudItems[1] = getItemID("default:dirt");
   hudItems[2] = getItemID("default:grass_block");
   hudItems[3] = getItemID("default:torch");
@@ -46,7 +46,7 @@ function initHUD() {
   hudItems[5] = getItemID("default:sand");
   hudItems[6] = getItemID("default:glass");
   hudItems[7] = getItemID("default:oak_log");
-  hudItems[8] = getItemID("default:leaves");
+  hudItems[8] = getItemID("default:leaves");*/
   
   updateHUD();
   updateHUDSelector();
@@ -67,23 +67,7 @@ function updateHUD() {
     var cell = hudCells[i];
     while(cell.firstChild) { cell.removeChild(cell.firstChild); }
     if(hudItems[i] != null) {
-      var item = hudItems[i];
-      var props = getItemProps(item);
-      var icon;
-      if(props.icon != null) {
-        icon = props.icon;
-      } else {
-        icon = "textures/blocks/stone.png";
-      }
-      
-      var img = document.createElement("img");
-      img.className = "hudIcon";
-      img.style.width = HUD_ICON_SIZE + "px";
-      img.style.height = HUD_ICON_SIZE + "px";
-      img.style.top = ((HUD_CELL_SIZE - HUD_ICON_SIZE) / 2) + "px";
-      img.style.left = ((HUD_CELL_SIZE - HUD_ICON_SIZE) / 2) + "px";
-      img.src = icon;
-      cell.appendChild(img);
+      cell.appendChild(hudItems[i].render(HUD_CELL_SIZE, HUD_ICON_SIZE));
     }
   }
 }
@@ -92,5 +76,44 @@ function updateHUDSelector() {
   hudSelectorDOM.style.left = HUD_SELECTOR_OFFSET.x + (HUD_SELECTOR_DELTA.x * hudSelector) + "px";
   hudSelectorDOM.style.top = HUD_SELECTOR_OFFSET.y + (HUD_SELECTOR_DELTA.y * hudSelector) + "px";
   
-  setItemToPlace(hudItems[hudSelector]);
+  if(hudItems[hudSelector] == null) {
+    setItemToPlace(null);
+  } else {
+    setItemToPlace(hudItems[hudSelector].id);
+  }
+}
+
+function getHUDItem(slot) {
+  if(slot < HUD_ITEM_COUNT) {
+    return hudItems[slot];
+  }
+  return null;
+}
+
+function setHUDItem(slot, item) {
+  if(slot < HUD_ITEM_COUNT) {
+    hudItems[slot] = item;
+    updateHUD();
+    updateHUDSelector();
+  }
+}
+
+function useHUDActiveItem() {
+  //active item has been placed/used
+  if(hudItems[hudSelector] == null) {
+    return;
+  }
+  if(CREATIVE_BLOCK_PLACE) {
+    return;
+  }
+  
+  if(hudItems[hudSelector].isConsumable) {
+    hudItems[hudSelector].qty--;
+    if(hudItems[hudSelector].qty <= 0) {
+      hudItems[hudSelector] = null;
+    }
+    setPlayerInventoryItem(hudSelector, hudItems[hudSelector]); //FIXME
+  } else if(hudItems[hudSelector].isTool) {
+    //TODO
+  }
 }
