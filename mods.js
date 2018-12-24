@@ -5,7 +5,8 @@ function initMods() {
   loadMod("mods/flight.js");
   loadMod("mods/fast.js");
   loadMod("mods/creative-inventory.js");
-  loadMod("mods/chest.js?r=" + Math.random());
+  loadMod("mods/chest.js");
+  loadMod("mods/door.js?r=" + Math.random());
 }
 
 function loadMod(url) {
