@@ -102,6 +102,7 @@ class InvItem {
 }
 
 var PLAYER_INVENTORY_SIZE = 36;
+var PLAYER_INVENTORY_GRID_SIZE = new THREE.Vector2(9, 4);
 var playerInventory = [];
 
 function initInventory() {

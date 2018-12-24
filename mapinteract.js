@@ -12,6 +12,11 @@ function initMapInteract() {
           setBlock(selector.destroy, getItemID("default:air"));
           
           var props = getItemProps(old);
+          
+          if(props.onDestroy != null) {
+            props.onDestroy(pos);
+          }
+          
           if(props.drops != null) {
             if(!CREATIVE_BLOCK_PLACE) {
               givePlayerInventoryItem(props.drops.clone());
@@ -20,11 +25,19 @@ function initMapInteract() {
             }
           }
           
+          clearBlockMeta(selector.destroy);
+          
           //reloadLightMapNear(selector.place);
           //reloadChunkMeshNear(selector.destroy);
           intelligentReloadChunkMeshNear(selector.destroy);
         }
       } else if(e.which == MOUSE_RIGHT && itemToPlace != null) {
+        var dProps = getItemProps(getBlock(selector.destroy));
+        if(dProps.interact != null) {
+          dProps.interact(selector.destroy.clone());
+          return;
+        }
+        
         var props = getItemProps(itemToPlace);
         if(props.placeable) {
           var old = getBlock(selector.place);

@@ -63,6 +63,13 @@ function initInput() {
       }
     }
   });
+  document.addEventListener("contextmenu", function(e) {
+    //if(document.pointerLockElement == renderer.domElement) {
+    //  e.stopImmediatePropagation();
+      e.preventDefault();
+    //  return false;
+    //}
+  });
   document.addEventListener("mousedown", function(e) {
     if(document.pointerLockElement == renderer.domElement) {
       e_mousedown(e);

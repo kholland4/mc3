@@ -19,7 +19,9 @@ var itemDefaults = {
   maxStack: 64,
   isConsumable: true,
   isTool: false,
-  inInventory: true
+  inInventory: true,
+  interact: null,
+  onDestroy: null
 };
 var items = [
   {name: "default:air", visible: false, walkable: true, transparent: true, placeable: false, inInventory: false},
@@ -73,44 +75,44 @@ var items = [
     ],
     meshUVs: [
       //front
-      7/128, 58/128,
-      9/128, 58/128,
-      9/128, 48/128,
-      7/128, 58/128,
-      7/128, 48/128,
-      9/128, 48/128,
+      71/128, 58/128,
+      73/128, 58/128,
+      73/128, 48/128,
+      71/128, 58/128,
+      71/128, 48/128,
+      73/128, 48/128,
       
       //back
-      9/128, 58/128,
-      7/128, 58/128,
-      7/128, 48/128,
-      9/128, 58/128,
-      9/128, 48/128,
-      7/128, 48/128,
+      73/128, 58/128,
+      71/128, 58/128,
+      71/128, 48/128,
+      73/128, 58/128,
+      73/128, 48/128,
+      71/128, 48/128,
       
       //left
-      7/128, 58/128,
-      9/128, 58/128,
-      9/128, 48/128,
-      7/128, 58/128,
-      7/128, 48/128,
-      9/128, 48/128,
+      71/128, 58/128,
+      73/128, 58/128,
+      73/128, 48/128,
+      71/128, 58/128,
+      71/128, 48/128,
+      73/128, 48/128,
       
       //right
-      9/128, 58/128,
-      7/128, 58/128,
-      7/128, 48/128,
-      9/128, 58/128,
-      9/128, 48/128,
-      7/128, 48/128,
+      73/128, 58/128,
+      71/128, 58/128,
+      71/128, 48/128,
+      73/128, 58/128,
+      73/128, 48/128,
+      71/128, 48/128,
       
       //top
-      7/128, 58/128,
-      9/128, 58/128,
-      9/128, 56/128,
-      7/128, 58/128,
-      7/128, 56/128,
-      9/128, 56/128
+      71/128, 58/128,
+      73/128, 58/128,
+      73/128, 56/128,
+      71/128, 58/128,
+      71/128, 56/128,
+      73/128, 56/128
     ],
     meshFaces: [
       {dir: new THREE.Vector3(0, 0, 1), length: 6}, //front
@@ -128,21 +130,25 @@ var items = [
   //{name: "default:glass", textureOffsetAlt: {all: new THREE.Vector2(0, 96)}, icon: "textures/blocks/glass.png"}
 ];
 
+function initItem(i) {
+  if("textureOffsetAlt" in items[i]) {
+    var texAlt = items[i].textureOffsetAlt;
+    var tex = [];
+    if("all" in texAlt) {
+      tex = [texAlt.all, texAlt.all, texAlt.all, texAlt.all, texAlt.all, texAlt.all];
+    } else if("top" in texAlt && "bottom" in texAlt && "sides" in texAlt) {
+      tex = [texAlt.top, texAlt.bottom, texAlt.sides, texAlt.sides, texAlt.sides, texAlt.sides];
+    }
+    items[i].textureOffset = tex;
+  }
+  if(!("drops" in items[i])) {
+    items[i].drops = new InvItem(getItemID(items[i].name), 1);
+  }
+}
+
 function initItemData() {
   for(var i = 0; i < items.length; i++) {
-    if("textureOffsetAlt" in items[i]) {
-      var texAlt = items[i].textureOffsetAlt;
-      var tex = [];
-      if("all" in texAlt) {
-        tex = [texAlt.all, texAlt.all, texAlt.all, texAlt.all, texAlt.all, texAlt.all];
-      } else if("top" in texAlt && "bottom" in texAlt && "sides" in texAlt) {
-        tex = [texAlt.top, texAlt.bottom, texAlt.sides, texAlt.sides, texAlt.sides, texAlt.sides];
-      }
-      items[i].textureOffset = tex;
-    }
-    if(!("drops" in items[i])) {
-      items[i].drops = new InvItem(getItemID(items[i].name), 1);
-    }
+    initItem(i);
   }
 }
 
@@ -201,4 +207,10 @@ function getItemProps(name) { //accepts name or ID
   }
   
   return props;
+}
+
+function registerItem(data) {
+  var index = items.length;
+  items.push(data);
+  initItem(index);
 }
