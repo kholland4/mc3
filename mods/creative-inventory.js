@@ -4,13 +4,6 @@ function() {
   
   CREATIVE_BLOCK_PLACE = true;
   
-  var creativeInventory = [];
-  for(var i = 0; i < items.length; i++) {
-    if(getItemProps(items[i].name).inInventory) {
-      creativeInventory.push(new InvItem(items[i].name, 1));
-    }
-  }
-  
   document.addEventListener("keydown", function(e) {
     if(document.pointerLockElement == renderer.domElement && !e.repeat) {
       if(e.keyCode == 69) { //e
@@ -24,6 +17,13 @@ function() {
         var popup = openPopup();
         var dialog = guiGenDialog();
         popup.appendChild(dialog);
+        
+        var creativeInventory = [];
+        for(var i = 0; i < items.length; i++) {
+          if(getItemProps(items[i].name).inInventory) {
+            creativeInventory.push(new InvItem(items[i].name, 1));
+          }
+        }
         
         var mCreativeInventory = [];
         for(var i = 0; i < creativeInventory.length; i++) {
@@ -42,7 +42,7 @@ function() {
         
         dialog.appendChild(guiGenSpacer(new THREE.Vector2(0, HUD_CELL_SIZE / 2)));
         
-        var invGrid = guiGenBlockGrid(new THREE.Vector2(9, 4), HUD_CELL_SIZE, "inv");
+        var invGrid = guiGenBlockGrid(PLAYER_INVENTORY_GRID_SIZE, HUD_CELL_SIZE, "inv");
         dialog.appendChild(invGrid);
         guiFillBlockGrid(invGrid, HUD_CELL_SIZE, HUD_ICON_SIZE, playerInventory);
         guiInteractiveGrid(invGrid, playerInventory, function() {
