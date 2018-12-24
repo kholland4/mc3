@@ -161,6 +161,9 @@ function genChunkMesh(chunkPos) {
             }
             if(props.lightLevel > 0) {
               lightLevel = Math.max(lightLevel, props.lightLevel);
+            } else if(props.transparent) {
+              var localLightLevel = getLightBlockCached(blockPos, lightMap);
+              lightLevel = Math.max(lightLevel, localLightLevel);
             }
             
             if(props.meshFaces[face].dir.y == 1) {

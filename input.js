@@ -11,6 +11,7 @@ var K_RIGHT = 68; //d
 var K_VUP = 32; //space
 var K_JUMP = K_VUP;
 var K_VDOWN = 16; //shift
+var K_SHIFT = 16; //shift
 
 var K_HUD_1 = 49; //1
 var K_HUD_2 = 50; //2

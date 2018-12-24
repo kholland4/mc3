@@ -61,40 +61,42 @@ function raycastBlock(controlObject) {
         var intruded = center.clone();
         
         var cFactor = 0.01;
+        var iFactor = 0.01; //was 0.5
+        var eFactor = 0.99; //was 0.5
         if(pointB.x - pointA.x == 0) {
           if(controls.getObject().position.x > pointA.x) {
             //positive extrusion
-            extruded.x = extruded.x + 0.5;
-            intruded.x = intruded.x - 0.5;
+            extruded.x = extruded.x + eFactor;
+            intruded.x = intruded.x - iFactor;
             center.x += cFactor;
           } else {
             //negative extrusion
-            extruded.x = extruded.x - 0.5;
-            intruded.x = intruded.x + 0.5;
+            extruded.x = extruded.x - eFactor;
+            intruded.x = intruded.x + iFactor;
             center.x -= cFactor;
           }
         } else if(pointB.y - pointA.y == 0) {
           if(controls.getObject().position.y > pointA.y) {
             //positive extrusion
-            extruded.y = extruded.y + 0.5;
-            intruded.y = intruded.y - 0.5;
+            extruded.y = extruded.y + eFactor;
+            intruded.y = intruded.y - iFactor;
             center.y += cFactor;
           } else {
             //negative extrusion
-            extruded.y = extruded.y - 0.5;
-            intruded.y = intruded.y + 0.5;
+            extruded.y = extruded.y - eFactor;
+            intruded.y = intruded.y + iFactor;
             center.y -= cFactor;
           }
         } else if(pointB.z - pointA.z == 0) {
           if(controls.getObject().position.z > pointA.z) {
             //positive extrusion
-            extruded.z = extruded.z + 0.5;
-            intruded.z = intruded.z - 0.5;
+            extruded.z = extruded.z + eFactor;
+            intruded.z = intruded.z - iFactor;
             center.z += cFactor;
           } else {
             //negative extrusion
-            extruded.z = extruded.z - 0.5;
-            intruded.z = intruded.z + 0.5;
+            extruded.z = extruded.z - eFactor;
+            intruded.z = intruded.z + iFactor;
             center.z -= cFactor;
           }
         }
