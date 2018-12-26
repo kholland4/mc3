@@ -50,12 +50,20 @@ function animate() {
   var oldRealMovement = realMovement.clone();
   if(!MOVEMENT_FLY) {
     movement.y = realMovement.y;
-    if(movement.y == 0 && queryKey(K_JUMP)) {
-      movement.y += 6;
-    } else if(canFloat && queryKey(K_VUP)) {
-      movement.y = MOVEMENT_SPEED;
+    if(!canFloat) {
+      if(movement.y == 0 && queryKey(K_JUMP)) {
+        movement.y += 6;
+      }
+      movement.y += -9.8 * timeScale;
+    } else {
+      if(queryKey(K_VUP)) {
+        movement.y = MOVEMENT_SPEED;
+      } else if(queryKey(K_VDOWN)) {
+        movement.y = -MOVEMENT_SPEED;
+      } else {
+        movement.y = -MOVEMENT_SPEED * 0.3;
+      }
     }
-    movement.y += -9.8 * timeScale;
     realMovement.y = movement.y;
   }
   
