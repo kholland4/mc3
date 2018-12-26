@@ -4,6 +4,28 @@ var SUNLIGHT_LEVEL = 15;
 var lightMapMap = []; //{pos: THREE.Vector3, index: int}
 var lightMapData = [];
 
+//FIXME efficiency of this function
+function calcSunlight(pos, propCache) {
+  var chunkIn = vectorMod(pos, CHUNK_SIZE);
+  if(getChunkMeta(chunkIn).empty) {
+    return true;
+  }
+  
+  var block = getBlock(pos);
+  var props;
+  if(block in propCache) {
+    props = propCache[block];
+  } else {
+    props = getItemProps(block);
+    propCache[block] = props;
+  }
+  if(props.transparent) {
+    return calcSunlight(vectorAdd(pos, new THREE.Vector3(0, 1, 0)));
+  } else {
+    return false;
+  }
+}
+
 function genLightMapRaw(chunkPos) {
   /*var chunks = [];
   for(var x = -1; x <= 1; x++) {
@@ -36,6 +58,9 @@ function genLightMapRaw(chunkPos) {
   for(var x = 0; x < CHUNK_SIZE.x; x++) {
     for(var z = 0; z < CHUNK_SIZE.z; z++) {
       var hasSun = sunlit;
+      if(!sunlit) {
+        hasSun = calcSunlight(localToGlobal(new THREE.Vector3(x, CHUNK_SIZE.y - 1, z), chunkPos), propCache);
+      }
       for(var y = CHUNK_SIZE.y - 1; y >= 0; y--) {
         var blockPos = new THREE.Vector3(x, y, z);
         var block = getBlockCached(blockPos, chunk);
