@@ -14,7 +14,10 @@ function init() {
   
   //setBlock(new THREE.Vector3(0, 45, 0), getItemID("default:torch"));
   
-  chunkMeshAutoload(new THREE.Vector3(0, 0, 0), new THREE.Vector3(1, 1, 1), Infinity);
+  var startY = mapHeight(new THREE.Vector2(0, 0)) + 5;
+  controls.getObject().position.set(0, startY, 0);
+  
+  chunkMeshAutoload(new THREE.Vector3(0, Math.floor(startY / CHUNK_SIZE.y), 0), new THREE.Vector3(1, 1, 1), Infinity);
   
   animate();
 }

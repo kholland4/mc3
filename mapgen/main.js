@@ -18,13 +18,10 @@ function noise3D(position, scale) {
   return n;
 }
 
-function mapHeightNoise(position) {
-  var scale = 50;
-  var n = noise.perlin2(position.x / scale, position.y / scale);
-  //convert to the 0 - 1 range and invert
-  n = (n + 1) / 2;
-  n = 1 - n;
-  return n;
+function mapHeight(position) {
+  var lf = range(noise2D(position, 500), 0, 1000);
+  var mf = range(noise2D(position, 50), 100, 400);
+  return Math.round((lf + mf) / 10);
 }
 
 function treeNoise(position) {
@@ -44,7 +41,7 @@ function genChunk(chunkPos) {
     for(var y = 0; y < CHUNK_SIZE.y; y++) {
       for(var z = 0; z < CHUNK_SIZE.z; z++) {
         var pos = localToGlobal(new THREE.Vector3(x, y, z), chunkPos);
-        var height = range(mapHeightNoise(new THREE.Vector2(pos.x, pos.z)), 10, 40);
+        var height = mapHeight(new THREE.Vector2(pos.x, pos.z));
         var thisEmpty = false;
         if(pos.y < height) {
           data.push(getItemID("default:stone"));
@@ -70,7 +67,7 @@ function genChunk(chunkPos) {
   for(var x = -MAX_TREE_RADIUS.x; x < CHUNK_SIZE.x + MAX_TREE_RADIUS.x; x++) {
     for(var z = -MAX_TREE_RADIUS.z; z < CHUNK_SIZE.z + MAX_TREE_RADIUS.z; z++) {
       var pos = localToGlobal(new THREE.Vector3(x, 0, z), chunkPos);
-      var height = range(mapHeightNoise(new THREE.Vector2(pos.x, pos.z)), 10, 40);
+      var height = mapHeight(new THREE.Vector2(pos.x, pos.z));
       pos.y = height + 1;
       
       if(pos.y > chunkPos.y * CHUNK_SIZE.y - MAX_TREE_RADIUS.y && pos.y < (chunkPos.y + 1) * CHUNK_SIZE.y + MAX_TREE_RADIUS.y && treeNoise(new THREE.Vector2(pos.x, pos.z)) > TREE_FREQ) {
