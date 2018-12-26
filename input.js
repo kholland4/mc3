@@ -40,16 +40,16 @@ var eventHandlers = {
 
 function initInput() {
   document.addEventListener("keydown", function(e) {
+    e_keydown(e);
     if(document.pointerLockElement == renderer.domElement && !e.repeat) {
-      e_keydown(e);
       for(var i = 0; i < eventHandlers.keydown.length; i++) {
         eventHandlers.keydown[i](e);
       }
     }
   });
   document.addEventListener("keyup", function(e) {
+    e_keyup(e);
     if(document.pointerLockElement == renderer.domElement) {
-      e_keyup(e);
       for(var i = 0; i < eventHandlers.keyup.length; i++) {
         eventHandlers.keyup[i](e);
       }
@@ -112,37 +112,39 @@ e_keyup = function(e) {
   updateMovement();
 };
 function updateMovement() {
-  movement.x = 0;
-  if(MOVEMENT_FLY) {
-    movement.y = 0;
-  }
-  movement.z = 0;
-  
-  for(var i = 0; i < keysPressed.length; i++) {
-    var keyCode = keysPressed[i];
-    switch(keyCode) {
-      case K_UP:
-        movement.z = -MOVEMENT_SPEED;
-        break;
-      case K_DOWN:
-        movement.z = MOVEMENT_SPEED;
-        break;
-      case K_LEFT:
-        movement.x = -MOVEMENT_SPEED;
-        break;
-      case K_RIGHT:
-        movement.x = MOVEMENT_SPEED;
-        break;
-      case K_VUP:
-        if(MOVEMENT_FLY) {
-          movement.y = MOVEMENT_SPEED;
-        }
-        break;
-      case K_VDOWN:
-        if(MOVEMENT_FLY) {
-          movement.y = -MOVEMENT_SPEED;
-        }
-        break;
+  if(controls.enabled) {
+    movement.x = 0;
+    if(MOVEMENT_FLY) {
+      movement.y = 0;
+    }
+    movement.z = 0;
+    
+    for(var i = 0; i < keysPressed.length; i++) {
+      var keyCode = keysPressed[i];
+      switch(keyCode) {
+        case K_UP:
+          movement.z = -MOVEMENT_SPEED;
+          break;
+        case K_DOWN:
+          movement.z = MOVEMENT_SPEED;
+          break;
+        case K_LEFT:
+          movement.x = -MOVEMENT_SPEED;
+          break;
+        case K_RIGHT:
+          movement.x = MOVEMENT_SPEED;
+          break;
+        case K_VUP:
+          if(MOVEMENT_FLY) {
+            movement.y = MOVEMENT_SPEED;
+          }
+          break;
+        case K_VDOWN:
+          if(MOVEMENT_FLY) {
+            movement.y = -MOVEMENT_SPEED;
+          }
+          break;
+      }
     }
   }
 }

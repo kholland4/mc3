@@ -1,4 +1,4 @@
-//Groups: dirt, wood, stone
+//Groups: dirt, wood, stone, ore
 
 var itemDefaults = {
   visible: true,

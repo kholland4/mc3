@@ -60,6 +60,16 @@ function guiGenDialog() {
   return dialog;
 }
 
+function guiSelectiveChildren(el) {
+  var res = [];
+  for(var i = 0; i < el.children.length; i++) {
+    if(el.children[i].className == "guiBlockCell") {
+      res.push(el.children[i]);
+    }
+  }
+  return res;
+}
+
 function guiGenBlockGrid(size, cellSize, idPrefix) {
   var container = document.createElement("div");
   container.className = "guiBlockGridContainer";
@@ -82,8 +92,9 @@ function guiGenBlockGrid(size, cellSize, idPrefix) {
 }
 
 function guiFillBlockGrid(grid, cellSize, iconSize, data) {
-  for(var i = 0; i < Math.min(data.length, grid.children.length); i++) {
-    var cell = grid.children[i];
+  var c = guiSelectiveChildren(grid);
+  for(var i = 0; i < Math.min(data.length, c.length); i++) {
+    var cell = c[i];
     while(cell.firstChild) { cell.removeChild(cell.firstChild); }
     if(data[i] != null) {
       cell.appendChild(data[i].render(cellSize, iconSize));
@@ -91,35 +102,51 @@ function guiFillBlockGrid(grid, cellSize, iconSize, data) {
   }
 }
 
-function guiInteractiveGrid(grid, data, callback) {
-  for(var i = 0; i < Math.min(grid.children.length, data.length); i++) {
-    var cell = grid.children[i];
+function guiInteractiveGrid(grid, data, callback, altData = null, altCallback = null) {
+  var c = guiSelectiveChildren(grid);
+  for(var i = 0; i < Math.min(c.length, data.length); i++) {
+    var cell = c[i];
     cell.dataset.index = i;
     cell.addEventListener("click", function(e) {
       var cellItem = data[this.dataset.index];
-      if(cellItem != null && guiHandItem == null) {
-        guiHandItem = data[this.dataset.index];
-        data[this.dataset.index] = null;
-        updateGUIHand();
-        callback();
-      } else if(cellItem == null && guiHandItem != null) {
-        data[this.dataset.index] = guiHandItem;
-        guiHandItem = null;
-        updateGUIHand();
-        callback();
-      } else if(cellItem != null && guiHandItem != null) {
-        var merged = mergeInventoryItems(cellItem, guiHandItem);
-        if(merged != null) {
-          data[this.dataset.index] = merged;
+      if(queryKey(K_SHIFT)) {
+        if(cellItem != null && altData != null) {
+          data[this.dataset.index] = null;
+          var res = giveInventoryItem(altData, cellItem);
+          if(!res) {
+            data[this.dataset.index] = cellItem;
+          } else {
+            callback();
+            if(altCallback != null) {
+              altCallback();
+            }
+          }
+        }
+      } else {
+        if(cellItem != null && guiHandItem == null) {
+          guiHandItem = data[this.dataset.index];
+          data[this.dataset.index] = null;
+          updateGUIHand();
+          callback();
+        } else if(cellItem == null && guiHandItem != null) {
+          data[this.dataset.index] = guiHandItem;
           guiHandItem = null;
           updateGUIHand();
           callback();
-        } else {
-          var temp = cellItem;
-          data[this.dataset.index] = guiHandItem;
-          guiHandItem = temp;
-          updateGUIHand();
-          callback();
+        } else if(cellItem != null && guiHandItem != null) {
+          var merged = mergeInventoryItems(cellItem, guiHandItem);
+          if(merged != null) {
+            data[this.dataset.index] = merged;
+            guiHandItem = null;
+            updateGUIHand();
+            callback();
+          } else {
+            var temp = cellItem;
+            data[this.dataset.index] = guiHandItem;
+            guiHandItem = temp;
+            updateGUIHand();
+            callback();
+          }
         }
       }
     });
