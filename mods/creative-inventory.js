@@ -24,12 +24,16 @@ function() {
             creativeInventory.push(new InvItem(items[i].name, 1));
           }
         }
+        /*creativeInventory.sort(function(a, b) {
+          return a.name > b.name;
+        });*/
         
         var mCreativeInventory = [];
         for(var i = 0; i < creativeInventory.length; i++) {
           mCreativeInventory.push(creativeInventory[i].clone());
         }
         
+        //TODO: shift-click picks up a whole stack
         var grid = guiGenBlockGrid(new THREE.Vector2(9, 4), HUD_CELL_SIZE, "creative");
         dialog.appendChild(grid);
         guiFillBlockGrid(grid, HUD_CELL_SIZE, HUD_ICON_SIZE, mCreativeInventory);
@@ -38,6 +42,9 @@ function() {
             mCreativeInventory[i] = creativeInventory[i].clone();
           }
           guiFillBlockGrid(grid, HUD_CELL_SIZE, HUD_ICON_SIZE, mCreativeInventory);
+        }, playerInventory, function() {
+          guiFillBlockGrid(invGrid, HUD_CELL_SIZE, HUD_ICON_SIZE, playerInventory);
+          updatePlayerInventory();
         });
         
         dialog.appendChild(guiGenSpacer(new THREE.Vector2(0, HUD_CELL_SIZE / 2)));
@@ -48,6 +55,11 @@ function() {
         guiInteractiveGrid(invGrid, playerInventory, function() {
           guiFillBlockGrid(invGrid, HUD_CELL_SIZE, HUD_ICON_SIZE, playerInventory);
           updatePlayerInventory();
+        }, mCreativeInventory, function() {
+          for(var i = 0; i < creativeInventory.length; i++) {
+            mCreativeInventory[i] = creativeInventory[i].clone();
+          }
+          guiFillBlockGrid(grid, HUD_CELL_SIZE, HUD_ICON_SIZE, mCreativeInventory);
         });
       }
     } else if(creativeInventoryOpen) {

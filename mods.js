@@ -6,7 +6,8 @@ function initMods() {
   loadMod("mods/fast.js");
   loadMod("mods/creative-inventory.js");
   loadMod("mods/chest.js");
-  loadMod("mods/door.js?r=" + Math.random());
+  loadMod("mods/door.js");
+  loadMod("mods/ores.js");
 }
 
 function loadMod(url) {

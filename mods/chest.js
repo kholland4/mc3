@@ -22,6 +22,9 @@ function() {
     guiInteractiveGrid(chestGrid, meta.chestContents, function() {
       guiFillBlockGrid(chestGrid, HUD_CELL_SIZE, HUD_ICON_SIZE, meta.chestContents);
       setBlockMeta(pos, meta);
+    }, playerInventory, function() {
+      guiFillBlockGrid(invGrid, HUD_CELL_SIZE, HUD_ICON_SIZE, playerInventory);
+      updatePlayerInventory();
     });
     
     dialog.appendChild(guiGenSpacer(new THREE.Vector2(0, HUD_CELL_SIZE / 2)));
@@ -32,6 +35,9 @@ function() {
     guiInteractiveGrid(invGrid, playerInventory, function() {
       guiFillBlockGrid(invGrid, HUD_CELL_SIZE, HUD_ICON_SIZE, playerInventory);
       updatePlayerInventory();
+    }, meta.chestContents, function() {
+      guiFillBlockGrid(chestGrid, HUD_CELL_SIZE, HUD_ICON_SIZE, meta.chestContents);
+      setBlockMeta(pos, meta);
     });
   }
   
