@@ -1,9 +1,18 @@
 function initMapgen() {
+  //var seed = Math.floor(Math.random() * 1000000);
+  var seed = 552063;
+  noise.seed(seed);
+  console.log(seed);
   initTrees();
 }
 
-function noise2D(position, scale) {
-  var n = noise.perlin2(position.x / scale, position.y / scale);
+function noise2D(position, scale, type = "perlin") {
+  var n = 0;
+  if(type == "perlin") {
+    n = noise.perlin2(position.x / scale, position.y / scale);
+  } else if(type == "simplex") {
+    n = noise.simplex2(position.x / scale, position.y / scale);
+  }
   //convert to the 0 - 1 range and invert
   n = (n + 1) / 2;
   n = 1 - n;
@@ -19,9 +28,16 @@ function noise3D(position, scale) {
 }
 
 function mapHeight(position) {
+  //very low frequency noise; on a continent scale
+  var xlf = range(noise2D(position, 5000), -3000, 2000);
+  
+  //low frequency noise - large mountains, hills, etc.
   var lf = range(noise2D(position, 500), 0, 1000);
+  
+  //medium frequency noise
   var mf = range(noise2D(position, 50), 100, 400);
-  return Math.round((lf + mf) / 10);
+  
+  return Math.round((xlf + lf + mf) / 10);
 }
 
 function treeNoise(position) {
@@ -43,13 +59,26 @@ function genChunk(chunkPos) {
         var pos = localToGlobal(new THREE.Vector3(x, y, z), chunkPos);
         var height = mapHeight(new THREE.Vector2(pos.x, pos.z));
         var thisEmpty = false;
-        if(pos.y < height) {
-          data.push(getItemID("default:stone"));
-        } else if(pos.y == height) {
-          data.push(getItemID("default:grass_block"));
+        if(height >= 0) {
+          if(pos.y < height) {
+            data.push(getItemID("default:stone"));
+          } else if(pos.y == height) {
+            data.push(getItemID("default:grass_block"));
+          } else {
+            data.push(getItemID("default:air"));
+            thisEmpty = true;
+          }
         } else {
-          data.push(getItemID("default:air"));
-          thisEmpty = true;
+          if(pos.y < height) {
+            data.push(getItemID("default:stone"));
+          } else if(pos.y == height) {
+            data.push(getItemID("default:sand"));
+          } else if(pos.y < -1) {
+            data.push(getItemID("default:water_source"));
+          } else {
+            data.push(getItemID("default:air"));
+            thisEmpty = true;
+          }
         }
         if(!thisEmpty) {
           empty = false;
@@ -69,6 +98,10 @@ function genChunk(chunkPos) {
       var pos = localToGlobal(new THREE.Vector3(x, 0, z), chunkPos);
       var height = mapHeight(new THREE.Vector2(pos.x, pos.z));
       pos.y = height + 1;
+      
+      if(height < 0) {
+        continue;
+      }
       
       if(pos.y > chunkPos.y * CHUNK_SIZE.y - MAX_TREE_RADIUS.y && pos.y < (chunkPos.y + 1) * CHUNK_SIZE.y + MAX_TREE_RADIUS.y && treeNoise(new THREE.Vector2(pos.x, pos.z)) > TREE_FREQ) {
         trees.push(pos);

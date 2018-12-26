@@ -39,12 +39,21 @@
     margin: 0px;
     overflow: hidden;
   }
-  #crosshair {
+  #tint {
     z-index: 1;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: none;
+    pointer-events: none;
+  }
+  #crosshair {
+    z-index: 2;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    pointer-events: none;
     
     color: white;
     font-family: sans-serif;
@@ -54,6 +63,7 @@
   </style>
 </head>
 <body>
+<div id="tint"></div>
 <div id="crosshair">+</div>
 <div id="hud"></div>
 <div id="popup"></div>

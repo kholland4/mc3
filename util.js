@@ -15,6 +15,10 @@ function vectorMod(vecA, vecB) {
   return new THREE.Vector3(((vecA.x % vecB.x) + vecB.x) % vecB.x, ((vecA.y % vecB.y) + vecB.y) % vecB.y, ((vecA.z % vecB.z) + vecB.z) % vecB.z);
 }
 
+function vectorRound(vecA) {
+  return new THREE.Vector3(Math.round(vecA.x), Math.round(vecA.y), Math.round(vecA.z));
+}
+
 function deepcopy(obj) {
   return JSON.parse(JSON.stringify(obj));
 }

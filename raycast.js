@@ -115,6 +115,12 @@ function raycastBlock(controlObject) {
         toDestroy = intruded.clone();
         toPlace = extruded.clone();
         
+        var block = getBlock(toDestroy);
+        var props = getItemProps(block);
+        if(!props.raycast) {
+          continue;
+        }
+        
         return {destroy: toDestroy, place: toPlace};
       }
     }

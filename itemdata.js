@@ -21,7 +21,11 @@ var itemDefaults = {
   isTool: false,
   inInventory: true,
   interact: null,
-  onDestroy: null
+  onDestroy: null,
+  noRenderAdjacent: false, //used for water and similar - even if the block is transparent, don't render its side face if the block on that side is the same as this block
+  raycast: true,
+  fluidPhysics: null,
+  tintColor: null
 };
 var items = [
   {name: "default:air", visible: false, walkable: true, transparent: true, placeable: false, inInventory: false},
@@ -126,7 +130,8 @@ var items = [
   {name: "default:sand", textureOffsetAlt: {all: new THREE.Vector2(96, 112)}, icon: "textures/icons/sand.png", groups: ["dirt"]},
   {name: "default:glass", textureOffsetAlt: {all: new THREE.Vector2(0, 96)}, icon: "textures/icons/glass.png", transparent: true},
   {name: "default:oak_log", textureOffsetAlt: {top: new THREE.Vector2(16, 96), bottom: new THREE.Vector2(16, 96), sides: new THREE.Vector2(32, 96)}, icon: "textures/icons/oak_log.png"},
-  {name: "default:leaves", textureOffsetAlt: {all: new THREE.Vector2(48, 96)}, icon: "textures/icons/leaves.png", transparent: true}
+  {name: "default:leaves", textureOffsetAlt: {all: new THREE.Vector2(48, 96)}, icon: "textures/icons/leaves.png", transparent: true},
+  {name: "default:water_source", textureOffsetAlt: {all: new THREE.Vector2(112, 112)}, icon: "textures/icons/water.png", transparent: true, walkable: true, noRenderAdjacent: true, raycast: false, fluidPhysics: 0.3, tintColor: "rgba(0, 0, 200, 0.2)"}
   //{name: "default:glass", textureOffsetAlt: {all: new THREE.Vector2(0, 96)}, icon: "textures/blocks/glass.png"}
 ];
 
