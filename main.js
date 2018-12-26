@@ -27,12 +27,33 @@ function animate() {
     }
   }
   
+  //---Fetch props---
+  var blockIn = getBlock(vectorRound(controls.getObject().position));
+  var props = getItemProps(blockIn);
+  
+  //---Tint---
+  if(props.tintColor != null) {
+    document.getElementById("tint").style.backgroundColor = props.tintColor;
+  } else {
+    document.getElementById("tint").style.backgroundColor = "rgba(0, 0, 0, 0.0)";
+  }
+  
+  //---Fluid physics---
+  var moveScale = 1;
+  var canFloat = false;
+  if(props.fluidPhysics != null) {
+    moveScale *= props.fluidPhysics;
+    canFloat = true;
+  }
+  
   //---Gravity/jump---
   var oldRealMovement = realMovement.clone();
   if(!MOVEMENT_FLY) {
     movement.y = realMovement.y;
     if(movement.y == 0 && queryKey(K_JUMP)) {
       movement.y += 6;
+    } else if(canFloat && queryKey(K_VUP)) {
+      movement.y = MOVEMENT_SPEED;
     }
     movement.y += -9.8 * timeScale;
     realMovement.y = movement.y;
@@ -68,7 +89,7 @@ function animate() {
   
   //---Movement---
   var oldPos = controls.getObject().position.clone();
-  controls.getObject().translateOnAxis(realMovement, timeScale);
+  controls.getObject().translateOnAxis(realMovement, timeScale * moveScale);
   var newPos = controls.getObject().position.clone();
   controls.getObject().position.copy(oldPos);
   [0, 1, 2].forEach(function(index) {

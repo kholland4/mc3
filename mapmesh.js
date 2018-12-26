@@ -209,6 +209,9 @@ function genChunkMesh(chunkPos) {
             //opaque block adjacent
             continue;
           }
+          if(props.noRenderAdjacent && nearbyBlock == block) {
+            continue;
+          }
           
           //---Vertices---
           
