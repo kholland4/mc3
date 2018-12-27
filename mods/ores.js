@@ -108,4 +108,36 @@ function() {
     placeable: false,
     icon: "textures/items/"
   });*/
+  
+  //---Quartz ore---
+  registerItem({
+    name: "ores:quartz_ore",
+    drops: new InvItem("ores:quartz", 1),
+    textureOffsetAlt: {all: new THREE.Vector2(224, 64)},
+    icon: "textures/icons/quartz_ore.png",
+    groups: ["stone", "ore"]
+  });
+  registerItem({
+    name: "ores:quartz",
+    placeable: false,
+    icon: "textures/items/quartz.png"
+  });
+  registerItem({
+    name: "ores:quartz_block",
+    textureOffsetAlt: {top: new THREE.Vector2(208, 80), bottom: new THREE.Vector2(240, 96), sides: new THREE.Vector2(192, 80)},
+    icon: "textures/icons/quartz_block.png",
+    groups: ["stone", "ore_block"]
+  });
+  registerItem({
+    name: "ores:quartz_block_chiseled",
+    textureOffsetAlt: {top: new THREE.Vector2(240, 80), bottom: new THREE.Vector2(240, 80), sides: new THREE.Vector2(224, 80)},
+    icon: "textures/icons/quartz_block_chiseled.png",
+    groups: ["stone", "ore_block"]
+  });
+  registerItem({
+    name: "ores:quartz_pillar",
+    textureOffsetAlt: {top: new THREE.Vector2(208, 64), bottom: new THREE.Vector2(208, 64), sides: new THREE.Vector2(192, 64)},
+    icon: "textures/icons/quartz_pillar.png",
+    groups: ["stone", "ore_block"]
+  });
 }

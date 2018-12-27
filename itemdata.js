@@ -1,4 +1,4 @@
-//Groups: dirt, wood, stone, ore, glass, leaves
+//Groups: dirt, wood, stone, ore, glass, leaves, ore_block
 
 var itemDefaults = {
   visible: true,
@@ -154,14 +154,19 @@ var items = [
   {name: "default:bedrock", textureOffsetAlt: {all: new THREE.Vector2(128, 112)}, icon: "textures/icons/bedrock.png"},
   {name: "default:bookshelf", textureOffsetAlt: {top: new THREE.Vector2(80, 112), bottom: new THREE.Vector2(80, 112), sides: new THREE.Vector2(144, 112)}, icon: "textures/icons/bookshelf.png", groups: ["wood"]},
   {name: "default:brick_block", textureOffsetAlt: {all: new THREE.Vector2(160, 112)}, icon: "textures/icons/brick_block.png", groups: ["stone"]},
-  //cactus, cake, crafting table, dispenser, dropper, various doors, plants, farmland, flowerpot, furnace, colored glass, glass pane, snowy grass, hardened clay, trapdoor, ladder, pistons
+  //cactus, cake, crafting table, dispenser, dropper, various doors, plants, farmland, flowerpot, furnace, colored glass, glass pane, snowy grass, hardened clay, trapdoor, ladder, pistons, redstone lamp
   {name: "default:clay_block", textureOffsetAlt: {all: new THREE.Vector2(176, 112)}, icon: "textures/icons/clay_block.png", groups: ["dirt"]},
   {name: "default:ice", textureOffsetAlt: {all: new THREE.Vector2(208, 112)}, icon: "textures/icons/ice.png", transparent: true, noRenderAdjacent: true, groups: ["glass"]}, //TODO: slippery ice
   {name: "default:obsidian", textureOffsetAlt: {all: new THREE.Vector2(224, 112)}, icon: "textures/icons/obsidian.png"},
   {name: "default:pumpkin", textureOffsetAlt: {top: new THREE.Vector2(240, 112), bottom: new THREE.Vector2(240, 112), sides: new THREE.Vector2(192, 96)}, icon: "textures/icons/pumpkin.png"},
   {name: "default:pumpkin_off", textureOffsetAlt: {top: new THREE.Vector2(240, 112), bottom: new THREE.Vector2(240, 112), sides: new THREE.Vector2(192, 96), front: new THREE.Vector2(208, 96)}, icon: "textures/icons/carved_pumpkin.png"},
-  {name: "default:pumpkin_on", drops: new InvItem("default:pumpkin_off", 1), inInventory: false, textureOffsetAlt: {top: new THREE.Vector2(240, 112), bottom: new THREE.Vector2(240, 112), sides: new THREE.Vector2(192, 96), front: new THREE.Vector2(224, 96)}, icon: "textures/icons/carved_pumpkin.png", lightLevel: 10}
+  {name: "default:pumpkin_on", drops: new InvItem("default:pumpkin_off", 1), inInventory: false, textureOffsetAlt: {top: new THREE.Vector2(240, 112), bottom: new THREE.Vector2(240, 112), sides: new THREE.Vector2(192, 96), front: new THREE.Vector2(224, 96)}, icon: "textures/icons/carved_pumpkin.png", lightLevel: 10},
+  
+  {name: "default:sandstone", textureOffsetAlt: {top: new THREE.Vector2(240, 64), bottom: new THREE.Vector2(192, 48), sides: new THREE.Vector2(208, 48)}, icon: "textures/icons/sandstone.png"},
+  {name: "default:sandstone_carved", textureOffsetAlt: {top: new THREE.Vector2(240, 64), bottom: new THREE.Vector2(192, 48), sides: new THREE.Vector2(224, 48)}, icon: "textures/icons/sandstone_carved.png"},
+  {name: "default:sandstone_smooth", textureOffsetAlt: {top: new THREE.Vector2(240, 64), bottom: new THREE.Vector2(192, 48), sides: new THREE.Vector2(240, 48)}, icon: "textures/icons/sandstone_smooth.png"}
   /*{name: "default:brick_block", textureOffsetAlt: {all: new THREE.Vector2(240, 112)}, icon: "textures/icons/", groups: []},
+  {name: "default:brick_block", textureOffsetAlt: {all: new THREE.Vector2(240, 112)}, icon: "textures/icons/", groups: []},
   {name: "default:brick_block", textureOffsetAlt: {all: new THREE.Vector2(240, 112)}, icon: "textures/icons/", groups: []},
   {name: "default:brick_block", textureOffsetAlt: {all: new THREE.Vector2(256, 112)}, icon: "textures/icons/", groups: []}*/
   //{name: "default:glass", textureOffsetAlt: {all: new THREE.Vector2(0, 96)}, icon: "textures/blocks/glass.png"}
