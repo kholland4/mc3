@@ -1,5 +1,5 @@
 function initMapgen() {
-  //var seed = Math.floor(Math.random() * 1000000);
+  //var seed = Math.floor(Math.random() * 65535);
   var seed = 552063;
   noise.seed(seed);
   console.log(seed);
@@ -135,7 +135,18 @@ function genChunk(chunkPos) {
   }
   
   var index = chunkData.length;
+  for(var i = 0; i < chunkData.length; i++) {
+    if(chunkData[i] == null) {
+      index = i;
+      break;
+    }
+  }
   chunkMap.push({pos: chunkPos, index: index, dirty: false, empty: empty});
-  chunkData.push(data);
+  if(index == chunkData.length) {
+    chunkData.push(data);
+  } else {
+    chunkData[index] = data;
+  }
+  
   return data;
 }

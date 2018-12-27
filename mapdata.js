@@ -49,7 +49,12 @@ function getChunkMeta(chunkPos) {
 }
 
 function unloadChunkIfClean(chunkPos) {
-  //TODO
+  var meta = getChunkMeta(chunkPos);
+  if(!meta.dirty) {
+    var index = getChunkMapIndex(chunkPos);
+    chunkMap.splice(index, 1);
+    chunkData[meta.index] = null;
+  }
 }
 
 function getBlockCached(localPos, chunk) {

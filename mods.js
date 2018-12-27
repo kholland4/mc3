@@ -8,6 +8,7 @@ function initMods() {
   loadMod("mods/chest.js");
   loadMod("mods/door.js");
   loadMod("mods/ores.js");
+  //loadMod("mods/debug.js");
 }
 
 function loadMod(url) {

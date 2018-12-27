@@ -5,25 +5,30 @@ var lightMapMap = []; //{pos: THREE.Vector3, index: int}
 var lightMapData = [];
 
 //FIXME efficiency of this function
+//note: it used to be recursive but a loop is now used in hope of more speed
 function calcSunlight(pos, propCache) {
-  var chunkIn = vectorMod(pos, CHUNK_SIZE);
-  if(getChunkMeta(chunkIn).empty) {
-    return true;
+  for(var y = 0; y < 128; y++) {
+    var lPos = vectorAdd(pos, new THREE.Vector3(0, y, 0));
+    //if(lPos.y % CHUNK_SIZE.y == 0) {
+      var chunkIn = vectorDivide(lPos, CHUNK_SIZE);
+      if(getChunkMeta(chunkIn).empty) {
+        return true;
+      }
+    //}
+    
+    var block = getBlock(lPos);
+    var props;
+    if(block in propCache) {
+      props = propCache[block];
+    } else {
+      props = getItemProps(block);
+      propCache[block] = props;
+    }
+    if(!props.transparent) {
+      return false;
+    }
   }
-  
-  var block = getBlock(pos);
-  var props;
-  if(block in propCache) {
-    props = propCache[block];
-  } else {
-    props = getItemProps(block);
-    propCache[block] = props;
-  }
-  if(props.transparent) {
-    return calcSunlight(vectorAdd(pos, new THREE.Vector3(0, 1, 0)));
-  } else {
-    return false;
-  }
+  return false;
 }
 
 function genLightMapRaw(chunkPos) {
