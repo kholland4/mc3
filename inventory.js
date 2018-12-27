@@ -66,6 +66,8 @@ class InvItem {
       icon = "textures/blocks/beacon.png"; //TODO: question mark?
     }
     
+    container.title = props.displayName;
+    
     var img = document.createElement("img");
     img.className = "invItemIcon";
     img.style.width = iconSize + "px";
