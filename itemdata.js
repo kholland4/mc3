@@ -1,4 +1,4 @@
-//Groups: dirt, wood, stone, ore, glass, leaves, ore_block
+//Groups: dirt, wood, stone, ore, glass, leaves, ore_block, wool
 
 var itemDefaults = {
   visible: true,
@@ -154,7 +154,7 @@ var items = [
   {name: "default:bedrock", textureOffsetAlt: {all: new THREE.Vector2(128, 112)}, icon: "textures/icons/bedrock.png"},
   {name: "default:bookshelf", textureOffsetAlt: {top: new THREE.Vector2(80, 112), bottom: new THREE.Vector2(80, 112), sides: new THREE.Vector2(144, 112)}, icon: "textures/icons/bookshelf.png", groups: ["wood"]},
   {name: "default:brick_block", textureOffsetAlt: {all: new THREE.Vector2(160, 112)}, icon: "textures/icons/brick_block.png", groups: ["stone"]},
-  //cactus, cake, crafting table, dispenser, dropper, various doors, plants, farmland, flowerpot, furnace, colored glass, glass pane, snowy grass, hardened clay, trapdoor, ladder, pistons, redstone lamp
+  //cactus, cake, crafting table, dispenser, dropper, various doors, plants, farmland, flowerpot, furnace, colored glass, glass pane, snowy grass, hardened clay, trapdoor, ladder, pistons, redstone lamp, tnt, trapdoor
   {name: "default:clay_block", textureOffsetAlt: {all: new THREE.Vector2(176, 112)}, icon: "textures/icons/clay_block.png", groups: ["dirt"]},
   {name: "default:ice", textureOffsetAlt: {all: new THREE.Vector2(208, 112)}, icon: "textures/icons/ice.png", transparent: true, noRenderAdjacent: true, groups: ["glass"]}, //TODO: slippery ice
   {name: "default:obsidian", textureOffsetAlt: {all: new THREE.Vector2(224, 112)}, icon: "textures/icons/obsidian.png"},
@@ -164,7 +164,30 @@ var items = [
   
   {name: "default:sandstone", textureOffsetAlt: {top: new THREE.Vector2(240, 64), bottom: new THREE.Vector2(192, 48), sides: new THREE.Vector2(208, 48)}, icon: "textures/icons/sandstone.png"},
   {name: "default:sandstone_carved", textureOffsetAlt: {top: new THREE.Vector2(240, 64), bottom: new THREE.Vector2(192, 48), sides: new THREE.Vector2(224, 48)}, icon: "textures/icons/sandstone_carved.png"},
-  {name: "default:sandstone_smooth", textureOffsetAlt: {top: new THREE.Vector2(240, 64), bottom: new THREE.Vector2(192, 48), sides: new THREE.Vector2(240, 48)}, icon: "textures/icons/sandstone_smooth.png"}
+  {name: "default:sandstone_smooth", textureOffsetAlt: {top: new THREE.Vector2(240, 64), bottom: new THREE.Vector2(192, 48), sides: new THREE.Vector2(240, 48)}, icon: "textures/icons/sandstone_smooth.png"},
+  
+  {name: "default:stonebrick", textureOffsetAlt: {all: new THREE.Vector2(128, 32)}, icon: "textures/icons/stonebrick.png", groups: ["stone"]},
+  {name: "default:stonebrick_carved", textureOffsetAlt: {all: new THREE.Vector2(144, 32)}, icon: "textures/icons/stonebrick_carved.png", groups: ["stone"]},
+  {name: "default:stonebrick_cracked", textureOffsetAlt: {all: new THREE.Vector2(160, 32)}, icon: "textures/icons/stonebrick_cracked.png", groups: ["stone"]},
+  {name: "default:stonebrick_mossy", textureOffsetAlt: {all: new THREE.Vector2(176, 32)}, icon: "textures/icons/stonebrick_mossy.png", groups: ["stone"]},
+  
+  {name: "default:wool_black", textureOffsetAlt: {all: new THREE.Vector2(192, 32)}, icon: "textures/icons/wool_black.png", groups: ["wool"]},
+  {name: "default:wool_blue", textureOffsetAlt: {all: new THREE.Vector2(208, 32)}, icon: "textures/icons/wool_blue.png", groups: ["wool"]},
+  {name: "default:wool_brown", textureOffsetAlt: {all: new THREE.Vector2(224, 32)}, icon: "textures/icons/wool_brown.png", groups: ["wool"]},
+  {name: "default:wool_cyan", textureOffsetAlt: {all: new THREE.Vector2(240, 32)}, icon: "textures/icons/wool_cyan.png", groups: ["wool"]},
+  {name: "default:wool_gray", textureOffsetAlt: {all: new THREE.Vector2(128, 16)}, icon: "textures/icons/wool_gray.png", groups: ["wool"]},
+  {name: "default:wool_green", textureOffsetAlt: {all: new THREE.Vector2(144, 16)}, icon: "textures/icons/wool_green.png", groups: ["wool"]},
+  {name: "default:wool_light_blue", textureOffsetAlt: {all: new THREE.Vector2(160, 16)}, icon: "textures/icons/wool_light_blue.png", groups: ["wool"]},
+  {name: "default:wool_lime", textureOffsetAlt: {all: new THREE.Vector2(176, 16)}, icon: "textures/icons/wool_lime.png", groups: ["wool"]},
+  {name: "default:wool_magenta", textureOffsetAlt: {all: new THREE.Vector2(192, 16)}, icon: "textures/icons/wool_magenta.png", groups: ["wool"]},
+  {name: "default:wool_orange", textureOffsetAlt: {all: new THREE.Vector2(208, 16)}, icon: "textures/icons/wool_orange.png", groups: ["wool"]},
+  {name: "default:wool_pink", textureOffsetAlt: {all: new THREE.Vector2(224, 16)}, icon: "textures/icons/wool_pink.png", groups: ["wool"]},
+  {name: "default:wool_purple", textureOffsetAlt: {all: new THREE.Vector2(240, 16)}, icon: "textures/icons/wool_purple.png", groups: ["wool"]},
+  {name: "default:wool_red", textureOffsetAlt: {all: new THREE.Vector2(128, 0)}, icon: "textures/icons/wool_red.png", groups: ["wool"]},
+  {name: "default:wool_silver", textureOffsetAlt: {all: new THREE.Vector2(144, 0)}, icon: "textures/icons/wool_silver.png", groups: ["wool"]},
+  {name: "default:wool_white", textureOffsetAlt: {all: new THREE.Vector2(160, 0)}, icon: "textures/icons/wool_white.png", groups: ["wool"]},
+  {name: "default:wool_yellow", textureOffsetAlt: {all: new THREE.Vector2(176, 0)}, icon: "textures/icons/wool_yellow.png", groups: ["wool"]},
+  
   /*{name: "default:brick_block", textureOffsetAlt: {all: new THREE.Vector2(240, 112)}, icon: "textures/icons/", groups: []},
   {name: "default:brick_block", textureOffsetAlt: {all: new THREE.Vector2(240, 112)}, icon: "textures/icons/", groups: []},
   {name: "default:brick_block", textureOffsetAlt: {all: new THREE.Vector2(240, 112)}, icon: "textures/icons/", groups: []},
