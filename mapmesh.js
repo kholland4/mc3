@@ -66,16 +66,17 @@ var blockMeshFaceSquares = [ //FIXME to match UVs
 //
 //
 //36     5
+var uvSize = 1 / 32;
 var blockMeshFaceUVs = [
-  0.0, 0.125,
-  0.125, 0.125,
+  0.0, uvSize,
+  uvSize, uvSize,
   0.0, 0.0,
   
-  0.125, 0.125,
-  0.125, 0.0,
+  uvSize, uvSize,
+  uvSize, 0.0,
   0.0, 0.0
 ];
-var textureMapIndexScale = 1 / 128;
+var textureMapIndexScale = 1 / 512;
 
 function genChunkMesh(chunkPos) {
   var chunk = getChunk(chunkPos);

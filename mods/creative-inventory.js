@@ -34,7 +34,7 @@ function() {
         }
         
         //TODO: shift-click picks up a whole stack
-        var grid = guiGenBlockGrid(new THREE.Vector2(9, 4), HUD_CELL_SIZE, "creative");
+        var grid = guiGenBlockGrid(new THREE.Vector2(9, Math.ceil(creativeInventory.length / 9)), HUD_CELL_SIZE, "creative");
         dialog.appendChild(grid);
         guiFillBlockGrid(grid, HUD_CELL_SIZE, HUD_ICON_SIZE, mCreativeInventory);
         guiInteractiveGrid(grid, mCreativeInventory, function() {
