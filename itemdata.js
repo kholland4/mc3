@@ -194,6 +194,10 @@ var items = [
   {name: "default:wool_yellow", displayName: "Yellow Wool", textureOffsetAlt: {all: new THREE.Vector2(176, 0)}, icon: "textures/icons/wool_yellow.png", groups: ["wool"]},
   //{name: "default:glass", textureOffsetAlt: {all: new THREE.Vector2(0, 96)}, icon: "textures/blocks/glass.png"}
   
+  //TODO placeable plants
+  {name: "default:mushroom_brown", displayName: "Brown Mushroom", placeable: false, icon: "textures/blocks/mushroom_brown.png"},  
+  {name: "default:mushroom_red", displayName: "Red Mushroom", placeable: false, icon: "textures/blocks/mushroom_red.png"},  
+  
   //TODO food data
   {name: "default:apple", displayName: "Apple", placeable: false, icon: "textures/items/apple.png"},
   {name: "default:apple_golden", displayName: "Golden Apple", placeable: false, icon: "textures/items/apple_golden.png"},
@@ -204,13 +208,15 @@ var items = [
   {name: "default:carrot_golden", displayName: "Golden Carrot", placeable: false, icon: "textures/items/carrot_golden.png"},
   {name: "default:chicken_cooked", displayName: "Cooked Chicken", placeable: false, icon: "textures/items/chicken_cooked.png"},
   {name: "default:chicken_raw", displayName: "Raw Chicken", placeable: false, icon: "textures/items/chicken_raw.png"},
+  {name: "default:cocoa_beans", displayName: "Cocoa Beans", placeable: false, icon: "textures/misc/cocoa_beans.png"},
   {name: "default:cookie", displayName: "Cookie", placeable: false, icon: "textures/items/cookie.png"},
+  {name: "default:egg", displayName: "Egg", placeable: false, icon: "textures/items/egg.png", maxStack: 16},
   {name: "default:fish_cod_cooked", displayName: "Cooked Cod", placeable: false, icon: "textures/items/fish_cod_cooked.png"},
   {name: "default:fish_cod_raw", displayName: "Raw Cod", placeable: false, icon: "textures/items/fish_cod_raw.png"},
   {name: "default:fish_salmon_cooked", displayName: "Cooked Salmon", placeable: false, icon: "textures/items/fish_salmon_cooked.png"},
   {name: "default:fish_salmon_raw", displayName: "Raw Salmon", placeable: false, icon: "textures/items/fish_salmon_raw.png"},
   {name: "default:melon_slice", displayName: "Melon Slice", placeable: false, icon: "textures/items/melon.png"},
-  {name: "default:mushroom_stew", displayName: "Mushroom Stew", placeable: false, icon: "textures/items/mushroom_stew.png"},
+  {name: "default:mushroom_stew", displayName: "Mushroom Stew", placeable: false, icon: "textures/items/mushroom_stew.png"},  
   {name: "default:porkchop_cooked", displayName: "Cooked Porkchop", placeable: false, icon: "textures/items/porkchop_cooked.png"},
   {name: "default:porkchop_raw", displayName: "Raw Porkchop", placeable: false, icon: "textures/items/porkchop_raw.png"},
   {name: "default:potato", displayName: "Potato", placeable: false, icon: "textures/items/potato.png"},
@@ -290,6 +296,8 @@ function initItem(i) {
       tex = [texAlt.top, texAlt.bottom, texAlt.sides, texAlt.front, texAlt.sides, texAlt.sides];
     } else if("top" in texAlt && "bottom" in texAlt && "sides" in texAlt) {
       tex = [texAlt.top, texAlt.bottom, texAlt.sides, texAlt.sides, texAlt.sides, texAlt.sides];
+    } else if("top" in texAlt && "bottom" in texAlt && "front" in texAlt && "back" in texAlt && "left" in texAlt && "right" in texAlt) {
+      tex = [texAlt.top, texAlt.bottom, texAlt.left, texAlt.right, texAlt.front, texAlt.back];
     }
     items[i].textureOffset = tex;
   }

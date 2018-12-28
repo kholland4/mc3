@@ -18,6 +18,7 @@ function() {
     {size: new THREE.Vector2(2, 2), shapeless: false, in: ["default:stone", "default:stone", "default:stone", "default:stone"], out: new InvItem("default:stone_bricks", 4)},
     //TODO melon (9x default:melon_slice)
     
+    //Logs to planks
     {size: new THREE.Vector2(1, 1), shapeless: false, in: ["default:oak_log"], out: new InvItem("default:oak_planks", 4)},
     {size: new THREE.Vector2(1, 1), shapeless: false, in: ["default:acacia_log"], out: new InvItem("default:acacia_planks", 4)},
     {size: new THREE.Vector2(1, 1), shapeless: false, in: ["default:birch_log"], out: new InvItem("default:birch_planks", 4)},
@@ -25,8 +26,62 @@ function() {
     {size: new THREE.Vector2(1, 1), shapeless: false, in: ["default:spruce_log"], out: new InvItem("default:spruce_planks", 4)},
     
     {size: new THREE.Vector2(1, 2), shapeless: false, in: ["default:coal", "default:stick"], out: new InvItem("default:torch", 4)},
-    {size: new THREE.Vector2(1, 2), shapeless: false, in: ["default:charcoal", "default:stick"], out: new InvItem("default:torch", 4)}
+    {size: new THREE.Vector2(1, 2), shapeless: false, in: ["default:charcoal", "default:stick"], out: new InvItem("default:torch", 4)},
+    
+    //Food
+    {size: new THREE.Vector2(3, 1), shapeless: false, in: ["default:wheat", "default:wheat", "default:wheat"], out: new InvItem("default:bread", 1)},
+    {size: new THREE.Vector2(2, 2), shapeless: true, in: ["default:mushroom_red", "default:mushroom_brown", null, "default:bowl"], out: new InvItem("default:mushroom_stew", 1)},
+    {size: new THREE.Vector2(2, 2), shapeless: true, in: ["default:pumpkin", "default:sugar", null, "default:egg"], out: new InvItem("default:pumpkin_pie", 1)},
+    {size: new THREE.Vector2(3, 3), shapeless: false, in: ["ores:gold_ingot", "ores:gold_ingot", "ores:gold_ingot", "ores:gold_ingot", "default:apple", "ores:gold_ingot", "ores:gold_ingot", "ores:gold_ingot", "ores:gold_ingot"], out: new InvItem("default:apple_golden", 1)},
+    {size: new THREE.Vector2(3, 1), shapeless: false, in: ["default:wheat", "default:cocoa_beans", "default:wheat"], out: new InvItem("default:cookie", 8)},
+    {size: new THREE.Vector2(2, 1), shapeless: true, in: ["default:carrot", "ores:gold_ingot"], out: new InvItem("default:carrot_golden", 1)},
+    
+    //Diamond tools
+    {size: new THREE.Vector2(2, 3), shapeless: false, in: ["ores:diamond", "ores:diamond", "ores:diamond", "default:stick", null, "default:stick"], out: new InvItem("default:diamond_axe", 1)},
+    {size: new THREE.Vector2(2, 3), shapeless: false, in: ["ores:diamond", "ores:diamond", null, "default:stick", null, "default:stick"], out: new InvItem("default:diamond_hoe", 1)},
+    {size: new THREE.Vector2(3, 3), shapeless: false, in: ["ores:diamond", "ores:diamond", "ores:diamond", null, "default:stick", null, null, "default:stick", null], out: new InvItem("default:diamond_pickaxe", 1)},
+    {size: new THREE.Vector2(1, 3), shapeless: false, in: ["ores:diamond", "default:stick", "default:stick"], out: new InvItem("default:diamond_shovel", 1)},
+    {size: new THREE.Vector2(1, 3), shapeless: false, in: ["ores:diamond", "ores:diamond", "default:stick"], out: new InvItem("default:diamond_sword", 1)},
+    
+    //Gold tools
+    {size: new THREE.Vector2(2, 3), shapeless: false, in: ["ores:gold_ingot", "ores:gold_ingot", "ores:gold_ingot", "default:stick", null, "default:stick"], out: new InvItem("default:gold_axe", 1)},
+    {size: new THREE.Vector2(2, 3), shapeless: false, in: ["ores:gold_ingot", "ores:gold_ingot", null, "default:stick", null, "default:stick"], out: new InvItem("default:gold_hoe", 1)},
+    {size: new THREE.Vector2(3, 3), shapeless: false, in: ["ores:gold_ingot", "ores:gold_ingot", "ores:gold_ingot", null, "default:stick", null, null, "default:stick", null], out: new InvItem("default:gold_pickaxe", 1)},
+    {size: new THREE.Vector2(1, 3), shapeless: false, in: ["ores:gold_ingot", "default:stick", "default:stick"], out: new InvItem("default:gold_shovel", 1)},
+    {size: new THREE.Vector2(1, 3), shapeless: false, in: ["ores:gold_ingot", "ores:gold_ingot", "default:stick"], out: new InvItem("default:gold_sword", 1)},
+    
+    //Iron tools
+    {size: new THREE.Vector2(2, 3), shapeless: false, in: ["ores:iron_ingot", "ores:iron_ingot", "ores:iron_ingot", "default:stick", null, "default:stick"], out: new InvItem("default:iron_axe", 1)},
+    {size: new THREE.Vector2(2, 3), shapeless: false, in: ["ores:iron_ingot", "ores:iron_ingot", null, "default:stick", null, "default:stick"], out: new InvItem("default:iron_hoe", 1)},
+    {size: new THREE.Vector2(3, 3), shapeless: false, in: ["ores:iron_ingot", "ores:iron_ingot", "ores:iron_ingot", null, "default:stick", null, null, "default:stick", null], out: new InvItem("default:iron_pickaxe", 1)},
+    {size: new THREE.Vector2(1, 3), shapeless: false, in: ["ores:iron_ingot", "default:stick", "default:stick"], out: new InvItem("default:iron_shovel", 1)},
+    {size: new THREE.Vector2(1, 3), shapeless: false, in: ["ores:iron_ingot", "ores:iron_ingot", "default:stick"], out: new InvItem("default:iron_sword", 1)},
+    
+    //Stone tools
+    {size: new THREE.Vector2(2, 3), shapeless: false, in: ["default:stone", "default:stone", "default:stone", "default:stick", null, "default:stick"], out: new InvItem("default:stone_axe", 1)},
+    {size: new THREE.Vector2(2, 3), shapeless: false, in: ["default:stone", "default:stone", null, "default:stick", null, "default:stick"], out: new InvItem("default:stone_hoe", 1)},
+    {size: new THREE.Vector2(3, 3), shapeless: false, in: ["default:stone", "default:stone", "default:stone", null, "default:stick", null, null, "default:stick", null], out: new InvItem("default:stone_pickaxe", 1)},
+    {size: new THREE.Vector2(1, 3), shapeless: false, in: ["default:stone", "default:stick", "default:stick"], out: new InvItem("default:stone_shovel", 1)},
+    {size: new THREE.Vector2(1, 3), shapeless: false, in: ["default:stone", "default:stone", "default:stick"], out: new InvItem("default:stone_sword", 1)},
+    {size: new THREE.Vector2(2, 3), shapeless: false, in: ["default:cobblestone", "default:cobblestone", "default:cobblestone", "default:stick", null, "default:stick"], out: new InvItem("default:stone_axe", 1)},
+    {size: new THREE.Vector2(2, 3), shapeless: false, in: ["default:cobblestone", "default:cobblestone", null, "default:stick", null, "default:stick"], out: new InvItem("default:stone_hoe", 1)},
+    {size: new THREE.Vector2(3, 3), shapeless: false, in: ["default:cobblestone", "default:cobblestone", "default:cobblestone", null, "default:stick", null, null, "default:stick", null], out: new InvItem("default:stone_pickaxe", 1)},
+    {size: new THREE.Vector2(1, 3), shapeless: false, in: ["default:cobblestone", "default:stick", "default:stick"], out: new InvItem("default:stone_shovel", 1)},
+    {size: new THREE.Vector2(1, 3), shapeless: false, in: ["default:cobblestone", "default:cobblestone", "default:stick"], out: new InvItem("default:stone_sword", 1)},
+    
+    //Wood tools
+    {size: new THREE.Vector2(2, 3), shapeless: false, in: ["group:planks", "group:planks", "group:planks", "default:stick", null, "default:stick"], out: new InvItem("default:wood_axe", 1)},
+    {size: new THREE.Vector2(2, 3), shapeless: false, in: ["group:planks", "group:planks", null, "default:stick", null, "default:stick"], out: new InvItem("default:wood_hoe", 1)},
+    {size: new THREE.Vector2(3, 3), shapeless: false, in: ["group:planks", "group:planks", "group:planks", null, "default:stick", null, null, "default:stick", null], out: new InvItem("default:wood_pickaxe", 1)},
+    {size: new THREE.Vector2(1, 3), shapeless: false, in: ["group:planks", "default:stick", "default:stick"], out: new InvItem("default:wood_shovel", 1)},
+    {size: new THREE.Vector2(1, 3), shapeless: false, in: ["group:planks", "group:planks", "default:stick"], out: new InvItem("default:wood_sword", 1)}
+    
+    
     /*{size: new THREE.Vector2(3, 3), shapeless: false, in: [], out: new InvItem("default:", 1)},
+    {size: new THREE.Vector2(3, 3), shapeless: false, in: [], out: new InvItem("default:", 1)},
+    {size: new THREE.Vector2(3, 3), shapeless: false, in: [], out: new InvItem("default:", 1)},
+    {size: new THREE.Vector2(3, 3), shapeless: false, in: [], out: new InvItem("default:", 1)},
+    {size: new THREE.Vector2(3, 3), shapeless: false, in: [], out: new InvItem("default:", 1)},
     {size: new THREE.Vector2(3, 3), shapeless: false, in: [], out: new InvItem("default:", 1)},
     {size: new THREE.Vector2(3, 3), shapeless: false, in: [], out: new InvItem("default:", 1)},
     {size: new THREE.Vector2(3, 3), shapeless: false, in: [], out: new InvItem("default:", 1)},
@@ -106,11 +161,13 @@ function() {
             continue;
           }
           if(rec.in[n] != swCraftInv[n].name) {
-            if(rec.in[n].startsWith("group:")) {
-              var targetGroup = rec.in[n].substring(6);
-              var props = getItemProps(swCraftInv[n].id);
-              if(props.groups.includes(targetGroup)) {
-                continue;
+            if(rec.in[n] != null) {
+              if(rec.in[n].startsWith("group:")) {
+                var targetGroup = rec.in[n].substring(6);
+                var props = getItemProps(swCraftInv[n].id);
+                if(props.groups.includes(targetGroup)) {
+                  continue;
+                }
               }
             }
             ok = false;
@@ -148,62 +205,66 @@ function() {
     processCraft();
   }
   
+  function openCrafting() {
+    craftingOpen = true;
+    var popup = openPopup();
+    var dialog = guiGenDialog();
+    popup.appendChild(dialog);
+    
+    function updateCraftGrid() {
+      processCraft();
+      guiFillBlockGrid(craftGrid, HUD_CELL_SIZE, HUD_ICON_SIZE, craftInv);
+      guiFillBlockGrid(craftOutGrid, HUD_CELL_SIZE, HUD_ICON_SIZE, craftOut);
+    }
+    
+    function updatePIGrid() {
+      guiFillBlockGrid(invGrid, HUD_CELL_SIZE, HUD_ICON_SIZE, playerInventory);
+      updatePlayerInventory();
+    }
+    
+    //TODO: shift-click picks up a whole stack
+    var craftGrid = guiGenBlockGrid(CRAFT_GRID_SIZE, HUD_CELL_SIZE, "craft");
+    dialog.appendChild(craftGrid);
+    guiFillBlockGrid(craftGrid, HUD_CELL_SIZE, HUD_ICON_SIZE, craftInv);
+    guiInteractiveGrid(craftGrid, craftInv, updateCraftGrid, playerInventory, updatePIGrid);
+    
+    var craftOutGrid = guiGenBlockGrid(new THREE.Vector2(1, 1), HUD_CELL_SIZE, "craftOut");
+    
+    craftOutGrid.style.position = "absolute";
+    craftOutGrid.style.left = GUI_DIALOG_PADDING + craftGrid.clientWidth + "px";
+    craftOutGrid.style.top = GUI_DIALOG_PADDING + GUI_CELL_MARGIN * 2 + HUD_CELL_SIZE + "px";
+    
+    dialog.appendChild(craftOutGrid);
+    guiFillBlockGrid(craftOutGrid, HUD_CELL_SIZE, HUD_ICON_SIZE, craftOut);
+    guiInteractiveGrid(craftOutGrid, craftOut, function() {
+      if(craftOut[0] == null) {
+        useCraft();
+      } else {
+        if(guiHandItem == null) {
+          guiHandItem = craftOut[0];
+        } else {
+          guiHandItem = mergeInventoryItems(craftOut[0], guiHandItem)
+        }
+        craftOut[0] = null;
+        updateGUIHand();
+        useCraft();
+      }
+      guiFillBlockGrid(craftOutGrid, HUD_CELL_SIZE, HUD_ICON_SIZE, craftOut);
+      guiFillBlockGrid(craftGrid, HUD_CELL_SIZE, HUD_ICON_SIZE, craftInv);
+    }, playerInventory, updatePIGrid);
+    
+    dialog.appendChild(guiGenSpacer(new THREE.Vector2(0, HUD_CELL_SIZE / 2)));
+    
+    var invGrid = guiGenBlockGrid(PLAYER_INVENTORY_GRID_SIZE, HUD_CELL_SIZE, "inv");
+    dialog.appendChild(invGrid);
+    guiFillBlockGrid(invGrid, HUD_CELL_SIZE, HUD_ICON_SIZE, playerInventory);
+    guiInteractiveGrid(invGrid, playerInventory, updatePIGrid, craftInv, updateCraftGrid);
+  }
+  
   document.addEventListener("keydown", function(e) {
     if(document.pointerLockElement == renderer.domElement && !e.repeat) {
       if(e.keyCode == 69) { //e
-        craftingOpen = true;
-        var popup = openPopup();
-        var dialog = guiGenDialog();
-        popup.appendChild(dialog);
-        
-        function updateCraftGrid() {
-          processCraft();
-          guiFillBlockGrid(craftGrid, HUD_CELL_SIZE, HUD_ICON_SIZE, craftInv);
-          guiFillBlockGrid(craftOutGrid, HUD_CELL_SIZE, HUD_ICON_SIZE, craftOut);
-        }
-        
-        function updatePIGrid() {
-          guiFillBlockGrid(invGrid, HUD_CELL_SIZE, HUD_ICON_SIZE, playerInventory);
-          updatePlayerInventory();
-        }
-        
-        //TODO: shift-click picks up a whole stack
-        var craftGrid = guiGenBlockGrid(CRAFT_GRID_SIZE, HUD_CELL_SIZE, "craft");
-        dialog.appendChild(craftGrid);
-        guiFillBlockGrid(craftGrid, HUD_CELL_SIZE, HUD_ICON_SIZE, craftInv);
-        guiInteractiveGrid(craftGrid, craftInv, updateCraftGrid, playerInventory, updatePIGrid);
-        
-        var craftOutGrid = guiGenBlockGrid(new THREE.Vector2(1, 1), HUD_CELL_SIZE, "craftOut");
-        
-        craftOutGrid.style.position = "absolute";
-        craftOutGrid.style.left = GUI_DIALOG_PADDING + craftGrid.clientWidth + "px";
-        craftOutGrid.style.top = GUI_DIALOG_PADDING + GUI_CELL_MARGIN * 2 + HUD_CELL_SIZE + "px";
-        
-        dialog.appendChild(craftOutGrid);
-        guiFillBlockGrid(craftOutGrid, HUD_CELL_SIZE, HUD_ICON_SIZE, craftOut);
-        guiInteractiveGrid(craftOutGrid, craftOut, function() {
-          if(craftOut[0] == null) {
-            useCraft();
-          } else {
-            if(guiHandItem == null) {
-              guiHandItem = craftOut[0];
-            } else {
-              guiHandItem = mergeInventoryItems(craftOut[0], guiHandItem)
-            }
-            craftOut[0] = null;
-            updateGUIHand();
-            useCraft();
-          }
-          guiFillBlockGrid(craftOutGrid, HUD_CELL_SIZE, HUD_ICON_SIZE, craftOut);
-          guiFillBlockGrid(craftGrid, HUD_CELL_SIZE, HUD_ICON_SIZE, craftInv);
-        }, playerInventory, updatePIGrid);
-        
-        dialog.appendChild(guiGenSpacer(new THREE.Vector2(0, HUD_CELL_SIZE / 2)));
-        
-        var invGrid = guiGenBlockGrid(PLAYER_INVENTORY_GRID_SIZE, HUD_CELL_SIZE, "inv");
-        dialog.appendChild(invGrid);
-        guiFillBlockGrid(invGrid, HUD_CELL_SIZE, HUD_ICON_SIZE, playerInventory);
-        guiInteractiveGrid(invGrid, playerInventory, updatePIGrid, craftInv, updateCraftGrid);
+        openCrafting();
       }
     } else if(craftingOpen) {
       if(e.keyCode == 69) {
@@ -212,5 +273,22 @@ function() {
         return;
       }
     }
+  });
+  
+  //---Crafting table---
+  registerItem({
+    name: "crafting:crafting_table",
+    displayName: "Crafting Table",
+    textureOffsetAlt: {top: new THREE.Vector2(80, 96), bottom: new THREE.Vector2(80, 96), left: new THREE.Vector2(112, 96), right: new THREE.Vector2(112, 96), front: new THREE.Vector2(96, 96), back: new THREE.Vector2(96, 96)},
+    icon: "textures/icons/crafting_table.png",
+    groups: ["wood"],
+    hardness: 2.5,
+    interact: openCrafting
+  });
+  mods.registerCraft({
+    size: new THREE.Vector2(2, 2),
+    shapeless: false,
+    in: ["group:planks", "group:planks", "group:planks", "group:planks"],
+    out: new InvItem("crafting:crafting_table", 1)
   });
 }
