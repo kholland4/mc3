@@ -4,10 +4,11 @@
   
   CREATIVE_BLOCK_PLACE = true;
   CREATIVE_BLOCK_DESTROY = true;
+  mods.CREATIVE_MODE = true;
   
   document.addEventListener("keydown", function(e) {
     if(document.pointerLockElement == renderer.domElement && !e.repeat) {
-      if(e.keyCode == 69) { //e
+      if(e.keyCode == 69 && mods.CREATIVE_MODE) { //e
         /*if(creativeInventoryOpen) {
           creativeInventoryOpen = false;
           closePopup();

@@ -3,6 +3,7 @@
   
   CREATIVE_BLOCK_PLACE = false;
   CREATIVE_BLOCK_DESTROY = false;
+  mods.CREATIVE_MODE = false;
   
   var CRAFT_GRID_SIZE = new THREE.Vector2(3, 3);
   
@@ -275,7 +276,7 @@
   
   document.addEventListener("keydown", function(e) {
     if(document.pointerLockElement == renderer.domElement && !e.repeat) {
-      if(e.keyCode == 69) { //e
+      if(e.keyCode == 69 && mods.CREATIVE_MODE == false) { //e
         openCrafting();
       }
     } else if(craftingOpen) {
