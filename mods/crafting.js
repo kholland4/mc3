@@ -7,10 +7,33 @@ function() {
   var CRAFT_GRID_SIZE = new THREE.Vector2(3, 3);
   
   mods.craftRecipies = [
-    {size: new THREE.Vector2(1, 2), shapeless: false, in: ["default:oak_planks", "default:oak_planks"], out: new InvItem("default:stick", 4)}
+    {size: new THREE.Vector2(1, 2), shapeless: false, in: ["group:planks", "group:planks"], out: new InvItem("default:stick", 4)},
+    {size: new THREE.Vector2(2, 2), shapeless: false, in: ["default:brick", "default:brick", "default:brick", "default:brick"], out: new InvItem("default:brick_block", 1)},
+    {size: new THREE.Vector2(2, 2), shapeless: false, in: ["default:clay", "default:clay", "default:clay", "default:clay"], out: new InvItem("default:clay_block", 1)},
+    {size: new THREE.Vector2(2, 2), shapeless: false, in: ["default:sand", "default:sand", "default:sand", "default:sand"], out: new InvItem("default:sandstone", 1)},
+    {size: new THREE.Vector2(2, 2), shapeless: false, in: ["default:sandstone", "default:sandstone", "default:sandstone", "default:sandstone"], out: new InvItem("default:sandstone_smooth", 4)},
+    {size: new THREE.Vector2(3, 3), shapeless: false, in: ["group:planks", "group:planks", "group:planks", "default:book", "default:book", "default:book", "group:planks", "group:planks", "group:planks"], out: new InvItem("default:bookshelf", 1)},
+    {size: new THREE.Vector2(1, 2), shapeless: true, in: ["default:pumpkin_off", "default:torch"], out: new InvItem("default:pumpkin_on", 1)},
+    {size: new THREE.Vector2(2, 2), shapeless: false, in: ["default:string", "default:string", "default:string", "default:string"], out: new InvItem("default:wool_white", 1)},
+    {size: new THREE.Vector2(2, 2), shapeless: false, in: ["default:stone", "default:stone", "default:stone", "default:stone"], out: new InvItem("default:stone_bricks", 4)},
+    //TODO melon (9x default:melon_slice)
+    
+    {size: new THREE.Vector2(1, 1), shapeless: false, in: ["default:oak_log"], out: new InvItem("default:oak_planks", 4)},
+    {size: new THREE.Vector2(1, 1), shapeless: false, in: ["default:acacia_log"], out: new InvItem("default:acacia_planks", 4)},
+    {size: new THREE.Vector2(1, 1), shapeless: false, in: ["default:birch_log"], out: new InvItem("default:birch_planks", 4)},
+    {size: new THREE.Vector2(1, 1), shapeless: false, in: ["default:jungle_log"], out: new InvItem("default:jungle_planks", 4)},
+    {size: new THREE.Vector2(1, 1), shapeless: false, in: ["default:spruce_log"], out: new InvItem("default:spruce_planks", 4)},
+    
+    {size: new THREE.Vector2(1, 2), shapeless: false, in: ["default:coal", "default:stick"], out: new InvItem("default:torch", 4)},
+    {size: new THREE.Vector2(1, 2), shapeless: false, in: ["default:charcoal", "default:stick"], out: new InvItem("default:torch", 4)}
+    /*{size: new THREE.Vector2(3, 3), shapeless: false, in: [], out: new InvItem("default:", 1)},
+    {size: new THREE.Vector2(3, 3), shapeless: false, in: [], out: new InvItem("default:", 1)},
+    {size: new THREE.Vector2(3, 3), shapeless: false, in: [], out: new InvItem("default:", 1)},
+    {size: new THREE.Vector2(3, 3), shapeless: false, in: [], out: new InvItem("default:", 1)},
+    {size: new THREE.Vector2(3, 3), shapeless: false, in: [], out: new InvItem("default:", 1)}*/
   ];
   mods.registerCraft = function(craft) {
-    craftRecipies.push(craft);
+    mods.craftRecipies.push(craft);
   };
   
   var craftSwSize = CRAFT_GRID_SIZE.clone();
@@ -76,7 +99,20 @@ function() {
       if(rec.size.equals(swSize)) {
         var ok = true;
         for(var n = 0; n < swSize.x * swSize.y; n++) {
+          if(swCraftInv[n] == null) {
+            if(rec.in[n] != null) {
+              ok = false;
+            }
+            continue;
+          }
           if(rec.in[n] != swCraftInv[n].name) {
+            if(rec.in[n].startsWith("group:")) {
+              var targetGroup = rec.in[n].substring(6);
+              var props = getItemProps(swCraftInv[n].id);
+              if(props.groups.includes(targetGroup)) {
+                continue;
+              }
+            }
             ok = false;
           }
         }
@@ -101,9 +137,11 @@ function() {
     for(var x = 0; x < craftSwSize.x; x++) {
       for(var y = 0; y < craftSwSize.y; y++) {
         var index = (y + craftSwOffset.y) * CRAFT_GRID_SIZE.x + (x + craftSwOffset.x);
-        craftInv[index].qty--;
-        if(craftInv[index].qty <= 0) {
-          craftInv[index] = null;
+        if(craftInv[index] != null) {
+          craftInv[index].qty--;
+          if(craftInv[index].qty <= 0) {
+            craftInv[index] = null;
+          }
         }
       }
     }
@@ -147,9 +185,14 @@ function() {
           if(craftOut[0] == null) {
             useCraft();
           } else {
-            guiHandItem = craftOut[0];
+            if(guiHandItem == null) {
+              guiHandItem = craftOut[0];
+            } else {
+              guiHandItem = mergeInventoryItems(craftOut[0], guiHandItem)
+            }
             craftOut[0] = null;
             updateGUIHand();
+            useCraft();
           }
           guiFillBlockGrid(craftOutGrid, HUD_CELL_SIZE, HUD_ICON_SIZE, craftOut);
           guiFillBlockGrid(craftGrid, HUD_CELL_SIZE, HUD_ICON_SIZE, craftInv);

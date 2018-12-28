@@ -1,4 +1,4 @@
-//Groups: dirt, wood, stone, ore, glass, leaves, ore_block, wool
+//Groups: dirt, wood, stone, ore, glass, leaves, ore_block, wool, planks, log
 
 var itemDefaults = {
   visible: true,
@@ -135,24 +135,24 @@ var items = [
   {name: "default:sand", displayName: "Sand", textureOffsetAlt: {all: new THREE.Vector2(96, 112)}, icon: "textures/icons/sand.png", groups: ["dirt"], hardness: 0.5},
   {name: "default:glass", displayName: "Glass", textureOffsetAlt: {all: new THREE.Vector2(0, 96)}, icon: "textures/icons/glass.png", transparent: true, groups: ["glass"], hardness: 0.3},
   
-  {name: "default:oak_planks", displayName: "Oak Planks", textureOffsetAlt: {all: new THREE.Vector2(80, 112)}, icon: "textures/icons/oak_planks.png", groups: ["wood"]},
-  {name: "default:oak_log", displayName: "Oak Log", textureOffsetAlt: {top: new THREE.Vector2(16, 96), bottom: new THREE.Vector2(16, 96), sides: new THREE.Vector2(32, 96)}, icon: "textures/icons/oak_log.png", groups: ["wood"]},
+  {name: "default:oak_planks", displayName: "Oak Planks", textureOffsetAlt: {all: new THREE.Vector2(80, 112)}, icon: "textures/icons/oak_planks.png", groups: ["wood", "planks"]},
+  {name: "default:oak_log", displayName: "Oak Log", textureOffsetAlt: {top: new THREE.Vector2(16, 96), bottom: new THREE.Vector2(16, 96), sides: new THREE.Vector2(32, 96)}, icon: "textures/icons/oak_log.png", groups: ["wood", "log"]},
   {name: "default:leaves", displayName: "Oak Leaves", textureOffsetAlt: {all: new THREE.Vector2(48, 96)}, icon: "textures/icons/leaves.png", transparent: true, groups: ["leaves"]},
   
-  {name: "default:acacia_planks", displayName: "Acacia Planks", textureOffsetAlt: {all: new THREE.Vector2(128, 96)}, icon: "textures/icons/acacia_planks.png", groups: ["wood"]},
-  {name: "default:acacia_log", displayName: "Acacia Log", textureOffsetAlt: {top: new THREE.Vector2(144, 96), bottom: new THREE.Vector2(144, 96), sides: new THREE.Vector2(160, 96)}, icon: "textures/icons/acacia_log.png", groups: ["wood"]},
+  {name: "default:acacia_planks", displayName: "Acacia Planks", textureOffsetAlt: {all: new THREE.Vector2(128, 96)}, icon: "textures/icons/acacia_planks.png", groups: ["wood", "planks"]},
+  {name: "default:acacia_log", displayName: "Acacia Log", textureOffsetAlt: {top: new THREE.Vector2(144, 96), bottom: new THREE.Vector2(144, 96), sides: new THREE.Vector2(160, 96)}, icon: "textures/icons/acacia_log.png", groups: ["wood", "log"]},
   {name: "default:acacia_leaves", displayName: "Acacia Leaves", textureOffsetAlt: {all: new THREE.Vector2(176, 96)}, icon: "textures/icons/acacia_leaves.png", transparent: true, groups: ["leaves"]},
   
-  {name: "default:birch_planks", displayName: "Birch Planks", textureOffsetAlt: {all: new THREE.Vector2(128, 80)}, icon: "textures/icons/birch_planks.png", groups: ["wood"]},
-  {name: "default:birch_log", displayName: "Birch Log", textureOffsetAlt: {top: new THREE.Vector2(144, 80), bottom: new THREE.Vector2(144, 80), sides: new THREE.Vector2(160, 80)}, icon: "textures/icons/birch_log.png", groups: ["wood"]},
+  {name: "default:birch_planks", displayName: "Birch Planks", textureOffsetAlt: {all: new THREE.Vector2(128, 80)}, icon: "textures/icons/birch_planks.png", groups: ["wood", "planks"]},
+  {name: "default:birch_log", displayName: "Birch Log", textureOffsetAlt: {top: new THREE.Vector2(144, 80), bottom: new THREE.Vector2(144, 80), sides: new THREE.Vector2(160, 80)}, icon: "textures/icons/birch_log.png", groups: ["wood", "log"]},
   {name: "default:birch_leaves", displayName: "Birch Leaves", textureOffsetAlt: {all: new THREE.Vector2(176, 80)}, icon: "textures/icons/birch_leaves.png", transparent: true, groups: ["leaves"]},
   
-  {name: "default:jungle_planks", displayName: "Jungle Planks", textureOffsetAlt: {all: new THREE.Vector2(128, 64)}, icon: "textures/icons/jungle_planks.png", groups: ["wood"]},
-  {name: "default:jungle_log", displayName: "Jungle Log", textureOffsetAlt: {top: new THREE.Vector2(144, 64), bottom: new THREE.Vector2(144, 64), sides: new THREE.Vector2(160, 64)}, icon: "textures/icons/jungle_log.png", groups: ["wood"]},
+  {name: "default:jungle_planks", displayName: "Jungle Planks", textureOffsetAlt: {all: new THREE.Vector2(128, 64)}, icon: "textures/icons/jungle_planks.png", groups: ["wood", "planks"]},
+  {name: "default:jungle_log", displayName: "Jungle Log", textureOffsetAlt: {top: new THREE.Vector2(144, 64), bottom: new THREE.Vector2(144, 64), sides: new THREE.Vector2(160, 64)}, icon: "textures/icons/jungle_log.png", groups: ["wood", "log"]},
   {name: "default:jungle_leaves", displayName: "Jungle Leaves", textureOffsetAlt: {all: new THREE.Vector2(176, 64)}, icon: "textures/icons/jungle_leaves.png", transparent: true, groups: ["leaves"]},
   
-  {name: "default:spruce_planks", displayName: "Spruce Planks", textureOffsetAlt: {all: new THREE.Vector2(128, 48)}, icon: "textures/icons/spruce_planks.png", groups: ["wood"]},
-  {name: "default:spruce_log", displayName: "Spruce Log", textureOffsetAlt: {top: new THREE.Vector2(144, 48), bottom: new THREE.Vector2(144, 48), sides: new THREE.Vector2(160, 48)}, icon: "textures/icons/spruce_log.png", groups: ["wood"]},
+  {name: "default:spruce_planks", displayName: "Spruce Planks", textureOffsetAlt: {all: new THREE.Vector2(128, 48)}, icon: "textures/icons/spruce_planks.png", groups: ["wood", "planks"]},
+  {name: "default:spruce_log", displayName: "Spruce Log", textureOffsetAlt: {top: new THREE.Vector2(144, 48), bottom: new THREE.Vector2(144, 48), sides: new THREE.Vector2(160, 48)}, icon: "textures/icons/spruce_log.png", groups: ["wood", "log"]},
   {name: "default:spruce_leaves", displayName: "Spruce Leaves", textureOffsetAlt: {all: new THREE.Vector2(176, 48)}, icon: "textures/icons/spruce_leaves.png", transparent: true, groups: ["leaves"]},
   
   {name: "default:water_source", displayName: "Water Source", textureOffsetAlt: {all: new THREE.Vector2(112, 112)}, icon: "textures/icons/water.png", transparent: true, walkable: true, noRenderAdjacent: true, raycast: false, fluidPhysics: 0.3, tintColor: "rgba(0, 0, 255, 0.3)"},
@@ -164,8 +164,8 @@ var items = [
   {name: "default:ice", displayName: "Ice", textureOffsetAlt: {all: new THREE.Vector2(208, 112)}, icon: "textures/icons/ice.png", transparent: true, noRenderAdjacent: true, groups: ["glass"]}, //TODO: slippery ice
   {name: "default:obsidian", displayName: "Obsidian", textureOffsetAlt: {all: new THREE.Vector2(224, 112)}, icon: "textures/icons/obsidian.png"},
   {name: "default:pumpkin", displayName: "Pumpkin", textureOffsetAlt: {top: new THREE.Vector2(240, 112), bottom: new THREE.Vector2(240, 112), sides: new THREE.Vector2(192, 96)}, icon: "textures/icons/pumpkin.png"},
-  {name: "default:pumpkin_off", displayName: "Jack-o-Lantern", textureOffsetAlt: {top: new THREE.Vector2(240, 112), bottom: new THREE.Vector2(240, 112), sides: new THREE.Vector2(192, 96), front: new THREE.Vector2(208, 96)}, icon: "textures/icons/carved_pumpkin.png"},
-  {name: "default:pumpkin_on", drops: new InvItem("default:pumpkin_off", 1), inInventory: false, textureOffsetAlt: {top: new THREE.Vector2(240, 112), bottom: new THREE.Vector2(240, 112), sides: new THREE.Vector2(192, 96), front: new THREE.Vector2(224, 96)}, icon: "textures/icons/carved_pumpkin.png", lightLevel: 10},
+  {name: "default:pumpkin_off", displayName: "Carved Pumpkin", textureOffsetAlt: {top: new THREE.Vector2(240, 112), bottom: new THREE.Vector2(240, 112), sides: new THREE.Vector2(192, 96), front: new THREE.Vector2(208, 96)}, icon: "textures/icons/carved_pumpkin.png"},
+  {name: "default:pumpkin_on", displayName: "Jack-o-Lantern", textureOffsetAlt: {top: new THREE.Vector2(240, 112), bottom: new THREE.Vector2(240, 112), sides: new THREE.Vector2(192, 96), front: new THREE.Vector2(224, 96)}, icon: "textures/icons/carved_pumpkin_on.png", lightLevel: 10},
   
   {name: "default:sandstone", displayName: "Sandstone", textureOffsetAlt: {top: new THREE.Vector2(240, 64), bottom: new THREE.Vector2(192, 48), sides: new THREE.Vector2(208, 48)}, icon: "textures/icons/sandstone.png"},
   {name: "default:sandstone_carved", displayName: "Carved Sandstone", textureOffsetAlt: {top: new THREE.Vector2(240, 64), bottom: new THREE.Vector2(192, 48), sides: new THREE.Vector2(224, 48)}, icon: "textures/icons/sandstone_carved.png"},

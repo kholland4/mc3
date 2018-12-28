@@ -2,3 +2,6 @@
 -Flowing water
 -Crafting
 -Save/load mod
+-Stairs mod
+-Slab mod
+-Mineral blocks
