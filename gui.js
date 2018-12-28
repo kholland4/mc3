@@ -1,3 +1,6 @@
+var GUI_DIALOG_PADDING = 20;
+var GUI_CELL_MARGIN = 7;
+
 var popupOpen = false;
 
 var guiHand;
