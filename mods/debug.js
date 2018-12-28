@@ -1,4 +1,4 @@
-function() {
+(function() {
   var container = document.createElement("div");
   container.style.position = "fixed";
   container.style.zIndex = 3;
@@ -24,4 +24,4 @@ function() {
   addOnFrame(updateDebug);
   
   (function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='https://mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);})()
-}
+})();

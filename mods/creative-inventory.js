@@ -1,4 +1,4 @@
-function() {
+(function() {
   var creativeInventoryOpen = false;
   //registerInputHandler("keydown", function(e) {});
   
@@ -75,4 +75,4 @@ function() {
       }
     }
   });
-}
+})();

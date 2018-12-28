@@ -1,4 +1,4 @@
-function() {
+(function() {
   var sunDelta = -1;
   setInterval(function() {
     var radius = VIEW_RANGE;
@@ -54,4 +54,4 @@ function() {
     //reloadChunks();
     addOnFrame(reloadChunks);
   }, 30000);
-}
+})();

@@ -1,4 +1,4 @@
-function() {
+(function() {
   var defaultMovementSpeed = MOVEMENT_SPEED;
   var fastMovementSpeed = MOVEMENT_SPEED * 3;
   registerInputHandler("keydown", function(e) {
@@ -10,4 +10,4 @@ function() {
       }
     }
   });
-}
+})();

@@ -1,4 +1,4 @@
-function() {
+(function() {
   var craftingOpen = false;
   
   CREATIVE_BLOCK_PLACE = false;
@@ -15,6 +15,7 @@ function() {
     {size: new THREE.Vector2(3, 3), shapeless: false, in: ["group:planks", "group:planks", "group:planks", "default:book", "default:book", "default:book", "group:planks", "group:planks", "group:planks"], out: new InvItem("default:bookshelf", 1)},
     {size: new THREE.Vector2(1, 2), shapeless: true, in: ["default:pumpkin_off", "default:torch"], out: new InvItem("default:pumpkin_on", 1)},
     {size: new THREE.Vector2(2, 2), shapeless: false, in: ["default:string", "default:string", "default:string", "default:string"], out: new InvItem("default:wool_white", 1)},
+    {size: new THREE.Vector2(1, 1), shapeless: false, in: ["default:wool_white"], out: new InvItem("default:string", 4)},
     {size: new THREE.Vector2(2, 2), shapeless: false, in: ["default:stone", "default:stone", "default:stone", "default:stone"], out: new InvItem("default:stone_bricks", 4)},
     //TODO melon (9x default:melon_slice)
     
@@ -74,8 +75,19 @@ function() {
     {size: new THREE.Vector2(2, 3), shapeless: false, in: ["group:planks", "group:planks", null, "default:stick", null, "default:stick"], out: new InvItem("default:wood_hoe", 1)},
     {size: new THREE.Vector2(3, 3), shapeless: false, in: ["group:planks", "group:planks", "group:planks", null, "default:stick", null, null, "default:stick", null], out: new InvItem("default:wood_pickaxe", 1)},
     {size: new THREE.Vector2(1, 3), shapeless: false, in: ["group:planks", "default:stick", "default:stick"], out: new InvItem("default:wood_shovel", 1)},
-    {size: new THREE.Vector2(1, 3), shapeless: false, in: ["group:planks", "group:planks", "default:stick"], out: new InvItem("default:wood_sword", 1)}
+    {size: new THREE.Vector2(1, 3), shapeless: false, in: ["group:planks", "group:planks", "default:stick"], out: new InvItem("default:wood_sword", 1)},
     
+    //Shears
+    {size: new THREE.Vector2(2, 2), shapeless: false, in: [null, "ores:iron_ingot", "ores:iron_ingot", null], out: new InvItem("default:shears", 1)},
+    
+    {size: new THREE.Vector2(3, 3), shapeless: false, in: [null, "default:stick", "default:string", "default:stick", null, "default:string", null, "default:stick", "default:string"], out: new InvItem("default:bow", 1)},
+    {size: new THREE.Vector2(1, 3), shapeless: false, in: ["default:flint", "default:stick", "default:feather"], out: new InvItem("default:arrow", 4)},
+    {size: new THREE.Vector2(3, 2), shapeless: false, in: ["group:planks", null, "group:planks", null, "group:planks", null], out: new InvItem("default:bowl", 4)},
+    {size: new THREE.Vector2(1, 1), shapeless: false, in: ["default:sugarcane"], out: new InvItem("default:sugar", 1)},
+    {size: new THREE.Vector2(3, 2), shapeless: false, in: ["ores:iron_ingot", null, "ores:iron_ingot", null, "ores:iron_ingot", null], out: new InvItem("default:bucket", 1)},
+    {size: new THREE.Vector2(2, 2), shapeless: true, in: ["default:paper", "default:paper", "default:paper", "default:leather"], out: new InvItem("default:book", 1)},
+    //TODO book and quill
+    {size: new THREE.Vector2(3, 1), shapeless: false, in: ["default:sugarcane", "default:sugarcane", "default:sugarcane"], out: new InvItem("default:paper", 3)}
     
     /*{size: new THREE.Vector2(3, 3), shapeless: false, in: [], out: new InvItem("default:", 1)},
     {size: new THREE.Vector2(3, 3), shapeless: false, in: [], out: new InvItem("default:", 1)},
@@ -291,4 +303,4 @@ function() {
     in: ["group:planks", "group:planks", "group:planks", "group:planks"],
     out: new InvItem("crafting:crafting_table", 1)
   });
-}
+})();

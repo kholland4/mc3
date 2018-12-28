@@ -1,4 +1,4 @@
-function() {
+(function() {
   var chestOpen = false;
   
   function openChest(pos) {
@@ -323,4 +323,4 @@ function() {
     in: ["group:planks", "group:planks", "group:planks", "group:planks", null, "group:planks", "group:planks", "group:planks", "group:planks"],
     out: new InvItem("chest:chest", 1)
   });
-}
+})();
