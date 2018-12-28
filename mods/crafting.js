@@ -136,6 +136,11 @@ function() {
         guiInteractiveGrid(craftGrid, craftInv, updateCraftGrid, playerInventory, updatePIGrid);
         
         var craftOutGrid = guiGenBlockGrid(new THREE.Vector2(1, 1), HUD_CELL_SIZE, "craftOut");
+        
+        craftOutGrid.style.position = "absolute";
+        craftOutGrid.style.left = GUI_DIALOG_PADDING + craftGrid.clientWidth + "px";
+        craftOutGrid.style.top = GUI_DIALOG_PADDING + GUI_CELL_MARGIN * 2 + HUD_CELL_SIZE + "px";
+        
         dialog.appendChild(craftOutGrid);
         guiFillBlockGrid(craftOutGrid, HUD_CELL_SIZE, HUD_ICON_SIZE, craftOut);
         guiInteractiveGrid(craftOutGrid, craftOut, function() {
