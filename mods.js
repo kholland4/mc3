@@ -1,14 +1,16 @@
 var modsRunOnFrame = [];
+var mods = {};
 
 function initMods() {
   //loadMod("mods/daynight.js?r=" + Math.random());
   loadMod("mods/flight.js");
   loadMod("mods/fast.js");
-  loadMod("mods/creative-inventory.js");
+  //loadMod("mods/creative-inventory.js");
   loadMod("mods/chest.js");
   loadMod("mods/door.js");
   loadMod("mods/ores.js");
   //loadMod("mods/debug.js");
+  loadMod("mods/crafting.js");
 }
 
 function loadMod(url) {
