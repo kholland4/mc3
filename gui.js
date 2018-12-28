@@ -150,7 +150,36 @@ function guiInteractiveGrid(grid, data, callback, altData = null, altCallback = 
         }
       }
     });
-    //TODO: right-click set down 1
+    
+    cell.addEventListener("contextmenu", function(e) {
+      e.preventDefault();
+      var cellItem = data[this.dataset.index];
+      if(cellItem == null && guiHandItem != null) {
+        if(guiHandItem.qty == 1) {
+          data[this.dataset.index] = guiHandItem;
+          guiHandItem = null;
+          updateGUIHand();
+          callback();
+        } else if(guiHandItem.qty > 1) {
+          data[this.dataset.index] = new InvItem(guiHandItem.id, 1);
+          guiHandItem.qty--;
+          updateGUIHand();
+          callback();
+        }
+      } else if(cellItem != null && guiHandItem != null) {
+        var newItem = new InvItem(guiHandItem.id, 1);
+        var merged = mergeInventoryItems(cellItem, newItem);
+        if(merged != null) {
+          data[this.dataset.index] = merged;
+          guiHandItem.qty--;
+          if(guiHandItem.qty <= 0) {
+            guiHandItem = null;
+          }
+          updateGUIHand();
+          callback();
+        }
+      }
+    });
   }
 }
 
