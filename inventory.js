@@ -101,7 +101,16 @@ class InvItem {
     }
     
     if(this.isTool) {
-      //TODO
+      if(this.toolLife < props.toolLife) {
+        var amt = this.toolLife / props.toolLife;
+        
+        var bar = document.createElement("div");
+        bar.className = "invItemBar";
+        bar.style.bottom = ((cellSize - iconSize) / 2) + "px";
+        bar.style.left = ((cellSize - iconSize) / 2) + "px";
+        bar.style.width = (amt * iconSize) + "px";
+        container.appendChild(bar);
+      }
     }
     
     return container;

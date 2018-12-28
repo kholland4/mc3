@@ -74,6 +74,7 @@ function initMapInteract() {
   //geometry.computeVertexNormals();
   breakOverlay = new THREE.Mesh(geometry, breakOverlayMaterials[0]);
   //breakOverlay.material.side = THREE.DoubleSide;
+  breakOverlay.renderOrder = 5;
   scene.add(breakOverlay);
   breakOverlay.visible = false;
 }

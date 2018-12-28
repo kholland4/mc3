@@ -20,3 +20,12 @@
   font-weight: bold;
   color: white;
 }
+
+.invItemBar {
+  display: inline-block;
+  position: absolute;
+  
+  height: 5px;
+  
+  background-color: #3f3;
+}
