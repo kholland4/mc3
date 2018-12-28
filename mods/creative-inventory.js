@@ -3,6 +3,7 @@ function() {
   //registerInputHandler("keydown", function(e) {});
   
   CREATIVE_BLOCK_PLACE = true;
+  CREATIVE_BLOCK_DESTROY = true;
   
   document.addEventListener("keydown", function(e) {
     if(document.pointerLockElement == renderer.domElement && !e.repeat) {

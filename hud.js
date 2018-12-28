@@ -114,6 +114,10 @@ function useHUDActiveItem() {
     }
     setPlayerInventoryItem(hudSelector, hudItems[hudSelector]); //FIXME
   } else if(hudItems[hudSelector].isTool) {
-    //TODO
+    hudItems[hudSelector].toolLife--;
+    if(hudItems[hudSelector].toolLife <= 0) {
+      hudItems[hudSelector] = null;
+    }
+    setPlayerInventoryItem(hudSelector, hudItems[hudSelector]); //FIXME
   }
 }

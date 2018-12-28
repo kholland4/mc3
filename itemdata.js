@@ -4,7 +4,6 @@ var itemDefaults = {
   visible: true,
   transparent: false,
   walkable: false,
-  hardness: 1,
   textureOffset: [new THREE.Vector2(16, 112), new THREE.Vector2(16, 112), new THREE.Vector2(16, 112), new THREE.Vector2(16, 112), new THREE.Vector2(16, 112), new THREE.Vector2(16, 112)],
   lightLevel: 0,
   customMesh: false,
@@ -18,7 +17,6 @@ var itemDefaults = {
   stackable: true,
   maxStack: 64,
   isConsumable: true,
-  isTool: false,
   inInventory: true,
   interact: null,
   onDestroy: null,
@@ -26,15 +24,20 @@ var itemDefaults = {
   raycast: true,
   fluidPhysics: null,
   tintColor: null,
-  displayName: ""
+  displayName: "",
+  isTool: false,
+  toolLife: 0,
+  toolGroups: [],
+  toolSpeedMul: 1,
+  hardness: 1
 };
 var items = [
   {name: "default:air", visible: false, walkable: true, transparent: true, placeable: false, inInventory: false},
-  {name: "default:dirt", displayName: "Dirt", textureOffsetAlt: {all: new THREE.Vector2(64, 112)}, icon: "textures/icons/dirt.png", groups: ["dirt"]},
-  {name: "default:grass_block", displayName: "Grass Block", textureOffsetAlt: {top: new THREE.Vector2(32, 112), bottom: new THREE.Vector2(64, 112), sides: new THREE.Vector2(48, 112)}, icon: "textures/icons/grass_block.png", groups: ["dirt"], drops: new InvItem("default:dirt", 1)},
-  {name: "default:stone", displayName: "Stone", textureOffsetAlt: {all: new THREE.Vector2(16, 112)}, icon: "textures/icons/stone.png", groups: ["stone"], drops: new InvItem("default:cobblestone", 1)},
-  {name: "default:cobblestone", displayName: "Cobblestone", textureOffsetAlt: {all: new THREE.Vector2(64, 96)}, icon: "textures/icons/cobblestone.png", groups: ["stone"]},
-  {name: "default:mossy_cobblestone", displayName: "Mossy Cobblestone", textureOffsetAlt: {all: new THREE.Vector2(192, 112)}, icon: "textures/icons/mossy_cobblestone.png", groups: ["stone"]},
+  {name: "default:dirt", displayName: "Dirt", textureOffsetAlt: {all: new THREE.Vector2(64, 112)}, icon: "textures/icons/dirt.png", groups: ["dirt"], hardness: 0.5},
+  {name: "default:grass_block", displayName: "Grass Block", textureOffsetAlt: {top: new THREE.Vector2(32, 112), bottom: new THREE.Vector2(64, 112), sides: new THREE.Vector2(48, 112)}, icon: "textures/icons/grass_block.png", groups: ["dirt"], drops: new InvItem("default:dirt", 1), hardness: 0.6},
+  {name: "default:stone", displayName: "Stone", textureOffsetAlt: {all: new THREE.Vector2(16, 112)}, icon: "textures/icons/stone.png", groups: ["stone"], drops: new InvItem("default:cobblestone", 1), hardness: 1.5},
+  {name: "default:cobblestone", displayName: "Cobblestone", textureOffsetAlt: {all: new THREE.Vector2(64, 96)}, icon: "textures/icons/cobblestone.png", groups: ["stone"], hardness: 2},
+  {name: "default:mossy_cobblestone", displayName: "Mossy Cobblestone", textureOffsetAlt: {all: new THREE.Vector2(192, 112)}, icon: "textures/icons/mossy_cobblestone.png", groups: ["stone"], hardness: 2},
   {name: "default:torch", displayName: "Torch", lightLevel: 10, transparent: true, walkable: true, icon: "textures/blocks/torch_on.png", customMesh: true,
     meshVertices: [
       //front
@@ -126,10 +129,11 @@ var items = [
       {dir: new THREE.Vector3(-1, 0, 0), length: 6}, //left
       {dir: new THREE.Vector3(1, 0, 0), length: 6}, //right
       {dir: new THREE.Vector3(0, 1, 0), length: 6} //top
-    ]
+    ],
+    hardness: 0
   },
-  {name: "default:sand", displayName: "Sand", textureOffsetAlt: {all: new THREE.Vector2(96, 112)}, icon: "textures/icons/sand.png", groups: ["dirt"]},
-  {name: "default:glass", displayName: "Glass", textureOffsetAlt: {all: new THREE.Vector2(0, 96)}, icon: "textures/icons/glass.png", transparent: true, groups: ["glass"]},
+  {name: "default:sand", displayName: "Sand", textureOffsetAlt: {all: new THREE.Vector2(96, 112)}, icon: "textures/icons/sand.png", groups: ["dirt"], hardness: 0.5},
+  {name: "default:glass", displayName: "Glass", textureOffsetAlt: {all: new THREE.Vector2(0, 96)}, icon: "textures/icons/glass.png", transparent: true, groups: ["glass"], hardness: 0.3},
   
   {name: "default:oak_planks", displayName: "Oak Planks", textureOffsetAlt: {all: new THREE.Vector2(80, 112)}, icon: "textures/icons/oak_planks.png", groups: ["wood"]},
   {name: "default:oak_log", displayName: "Oak Log", textureOffsetAlt: {top: new THREE.Vector2(16, 96), bottom: new THREE.Vector2(16, 96), sides: new THREE.Vector2(32, 96)}, icon: "textures/icons/oak_log.png", groups: ["wood"]},
@@ -234,33 +238,32 @@ var items = [
   {name: "default:stick", displayName: "Stick", placeable: false, icon: "textures/items/stick.png"},
   {name: "default:string", displayName: "String", placeable: false, icon: "textures/items/string.png"},
   
-  //TODO tool data
-  {name: "default:diamond_axe", displayName: "Diamond Axe", placeable: false, icon: "textures/items/diamond_axe.png", stackable: false, maxStack: 1},
-  {name: "default:diamond_hoe", displayName: "Diamond Hoe", placeable: false, icon: "textures/items/diamond_hoe.png", stackable: false, maxStack: 1},
-  {name: "default:diamond_pickaxe", displayName: "Diamond Pickaxe", placeable: false, icon: "textures/items/diamond_pickaxe.png", stackable: false, maxStack: 1},
-  {name: "default:diamond_shovel", displayName: "Diamond Shovel", placeable: false, icon: "textures/items/diamond_shovel.png", stackable: false, maxStack: 1},
-  {name: "default:diamond_sword", displayName: "Diamond Sword", placeable: false, icon: "textures/items/diamond_sword.png", stackable: false, maxStack: 1},
-  {name: "default:gold_axe", displayName: "Gold Axe", placeable: false, icon: "textures/items/gold_axe.png", stackable: false, maxStack: 1},
-  {name: "default:gold_hoe", displayName: "Gold Hoe", placeable: false, icon: "textures/items/gold_hoe.png", stackable: false, maxStack: 1},
-  {name: "default:gold_pickaxe", displayName: "Gold Pickaxe", placeable: false, icon: "textures/items/gold_pickaxe.png", stackable: false, maxStack: 1},
-  {name: "default:gold_shovel", displayName: "Gold Shovel", placeable: false, icon: "textures/items/gold_shovel.png", stackable: false, maxStack: 1},
-  {name: "default:gold_sword", displayName: "Gold Sword", placeable: false, icon: "textures/items/gold_sword.png", stackable: false, maxStack: 1},
-  {name: "default:iron_axe", displayName: "Iron Axe", placeable: false, icon: "textures/items/iron_axe.png", stackable: false, maxStack: 1},
-  {name: "default:iron_hoe", displayName: "Iron Hoe", placeable: false, icon: "textures/items/iron_hoe.png", stackable: false, maxStack: 1},
-  {name: "default:iron_pickaxe", displayName: "Iron Pickaxe", placeable: false, icon: "textures/items/iron_pickaxe.png", stackable: false, maxStack: 1},
-  {name: "default:iron_shovel", displayName: "Iron Shovel", placeable: false, icon: "textures/items/iron_shovel.png", stackable: false, maxStack: 1},
-  {name: "default:iron_sword", displayName: "Iron Sword", placeable: false, icon: "textures/items/iron_sword.png", stackable: false, maxStack: 1},
-  {name: "default:stone_axe", displayName: "Stone Axe", placeable: false, icon: "textures/items/stone_axe.png", stackable: false, maxStack: 1},
-  {name: "default:stone_hoe", displayName: "Stone Hoe", placeable: false, icon: "textures/items/stone_hoe.png", stackable: false, maxStack: 1},
-  {name: "default:stone_pickaxe", displayName: "Stone Pickaxe", placeable: false, icon: "textures/items/stone_pickaxe.png", stackable: false, maxStack: 1},
-  {name: "default:stone_shovel", displayName: "Stone Shovel", placeable: false, icon: "textures/items/stone_shovel.png", stackable: false, maxStack: 1},
-  {name: "default:stone_sword", displayName: "Stone Sword", placeable: false, icon: "textures/items/stone_sword.png", stackable: false, maxStack: 1},
-  {name: "default:wood_axe", displayName: "Wood Axe", placeable: false, icon: "textures/items/wood_axe.png", stackable: false, maxStack: 1},
-  {name: "default:wood_hoe", displayName: "Wood Hoe", placeable: false, icon: "textures/items/wood_hoe.png", stackable: false, maxStack: 1},
-  {name: "default:wood_pickaxe", displayName: "Wood Pickaxe", placeable: false, icon: "textures/items/wood_pickaxe.png", stackable: false, maxStack: 1},
-  {name: "default:wood_shovel", displayName: "Wood Shovel", placeable: false, icon: "textures/items/wood_shovel.png", stackable: false, maxStack: 1},
-  {name: "default:wood_sword", displayName: "Wood Sword", placeable: false, icon: "textures/items/wood_sword.png", stackable: false, maxStack: 1},
-  {name: "default:shears", displayName: "Shears", placeable: false, icon: "textures/items/shears.png", stackable: false, maxStack: 1}
+  {name: "default:diamond_axe", displayName: "Diamond Axe", placeable: false, icon: "textures/items/diamond_axe.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 1562, toolGroups: ["wood"], toolSpeedMul: 8},
+  {name: "default:diamond_hoe", displayName: "Diamond Hoe", placeable: false, icon: "textures/items/diamond_hoe.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 1562, toolGroups: [], toolSpeedMul: 8},
+  {name: "default:diamond_pickaxe", displayName: "Diamond Pickaxe", placeable: false, icon: "textures/items/diamond_pickaxe.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 1562, toolGroups: ["stone", "ore_block"], toolSpeedMul: 8},
+  {name: "default:diamond_shovel", displayName: "Diamond Shovel", placeable: false, icon: "textures/items/diamond_shovel.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 1562, toolGroups: ["dirt"], toolSpeedMul: 8},
+  {name: "default:diamond_sword", displayName: "Diamond Sword", placeable: false, icon: "textures/items/diamond_sword.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 1562, toolGroups: ["leaves", "wool"], toolSpeedMul: 8},
+  {name: "default:gold_axe", displayName: "Gold Axe", placeable: false, icon: "textures/items/gold_axe.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 33, toolGroups: ["wood"], toolSpeedMul: 12},
+  {name: "default:gold_hoe", displayName: "Gold Hoe", placeable: false, icon: "textures/items/gold_hoe.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 33, toolGroups: [], toolSpeedMul: 12},
+  {name: "default:gold_pickaxe", displayName: "Gold Pickaxe", placeable: false, icon: "textures/items/gold_pickaxe.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 33, toolGroups: ["stone", "ore_block"], toolSpeedMul: 12},
+  {name: "default:gold_shovel", displayName: "Gold Shovel", placeable: false, icon: "textures/items/gold_shovel.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 33, toolGroups: ["dirt"], toolSpeedMul: 12},
+  {name: "default:gold_sword", displayName: "Gold Sword", placeable: false, icon: "textures/items/gold_sword.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 33, toolGroups: ["leaves", "wool"], toolSpeedMul: 12},
+  {name: "default:iron_axe", displayName: "Iron Axe", placeable: false, icon: "textures/items/iron_axe.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 251, toolGroups: ["wood"], toolSpeedMul: 6},
+  {name: "default:iron_hoe", displayName: "Iron Hoe", placeable: false, icon: "textures/items/iron_hoe.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 251, toolGroups: [], toolSpeedMul: 6},
+  {name: "default:iron_pickaxe", displayName: "Iron Pickaxe", placeable: false, icon: "textures/items/iron_pickaxe.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 251, toolGroups: ["stone", "ore_block"], toolSpeedMul: 6},
+  {name: "default:iron_shovel", displayName: "Iron Shovel", placeable: false, icon: "textures/items/iron_shovel.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 251, toolGroups: ["dirt"], toolSpeedMul: 6},
+  {name: "default:iron_sword", displayName: "Iron Sword", placeable: false, icon: "textures/items/iron_sword.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 251, toolGroups: ["leaves", "wool"], toolSpeedMul: 6},
+  {name: "default:stone_axe", displayName: "Stone Axe", placeable: false, icon: "textures/items/stone_axe.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 132, toolGroups: ["wood"], toolSpeedMul: 4},
+  {name: "default:stone_hoe", displayName: "Stone Hoe", placeable: false, icon: "textures/items/stone_hoe.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 132, toolGroups: [], toolSpeedMul: 4},
+  {name: "default:stone_pickaxe", displayName: "Stone Pickaxe", placeable: false, icon: "textures/items/stone_pickaxe.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 132, toolGroups: ["stone", "ore_block"], toolSpeedMul: 4},
+  {name: "default:stone_shovel", displayName: "Stone Shovel", placeable: false, icon: "textures/items/stone_shovel.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 132, toolGroups: ["dirt"], toolSpeedMul: 4},
+  {name: "default:stone_sword", displayName: "Stone Sword", placeable: false, icon: "textures/items/stone_sword.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 132, toolGroups: ["leaves", "wool"], toolSpeedMul: 4},
+  {name: "default:wood_axe", displayName: "Wood Axe", placeable: false, icon: "textures/items/wood_axe.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 60, toolGroups: ["wood"], toolSpeedMul: 2},
+  {name: "default:wood_hoe", displayName: "Wood Hoe", placeable: false, icon: "textures/items/wood_hoe.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 60, toolGroups: [], toolSpeedMul: 2},
+  {name: "default:wood_pickaxe", displayName: "Wood Pickaxe", placeable: false, icon: "textures/items/wood_pickaxe.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 60, toolGroups: ["stone", "ore_block"], toolSpeedMul: 2},
+  {name: "default:wood_shovel", displayName: "Wood Shovel", placeable: false, icon: "textures/items/wood_shovel.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 60, toolGroups: ["dirt"], toolSpeedMul: 2},
+  {name: "default:wood_sword", displayName: "Wood Sword", placeable: false, icon: "textures/items/wood_sword.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 60, toolGroups: ["leaves", "wool"], toolSpeedMul: 2},
+  {name: "default:shears", displayName: "Shears", placeable: false, icon: "textures/items/shears.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 238, toolGroups: ["leaves", "wool"], toolSpeedMul: 5}
   
   //TODO buckets
   //TODO bottles
@@ -362,4 +365,15 @@ function registerItem(data) {
   var index = items.length;
   items.push(data);
   initItem(index);
+}
+
+function groupMatch(groupsA, groupsB) {
+  for(var i = 0; i < groupsA.length; i++) {
+    for(var n = 0; n < groupsB.length; n++) {
+      if(groupsA[i] == groupsB[n]) {
+        return true;
+      }
+    }
+  }
+  return false;
 }

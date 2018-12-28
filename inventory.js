@@ -14,6 +14,8 @@ class InvItem {
     //this.type = "";
     this._isConsumable = null;
     this._isTool = null;
+    
+    this._toolLife = null;
   }
   
   get id() {
@@ -51,6 +53,17 @@ class InvItem {
     return this._isTool;
   }
   
+  get toolLife() {
+    if(this._toolLife == null) {
+      this._toolLife = getItemProps(this.id).toolLife;
+    }
+    return this._toolLife;
+  }
+  
+  set toolLife(val) {
+    this._toolLife = val;
+  }
+  
   render(cellSize, iconSize) {
     var container = document.createElement("div");
     container.className = "invItemContainer";
@@ -85,6 +98,10 @@ class InvItem {
       badge.style.right = ((cellSize - iconSize) / 4) + "px";
       badge.innerText = this.qty.toString();
       container.appendChild(badge);
+    }
+    
+    if(this.isTool) {
+      //TODO
     }
     
     return container;

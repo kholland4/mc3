@@ -24,9 +24,13 @@ function modsOnFrame(timeScale) {
   }
 }
 
-function addOnFrame(callback) {
+function registerOnFrame(callback) {
   removeOnFrame(callback);
   modsRunOnFrame.push(callback);
+}
+
+function addOnFrame(callback) {
+  registerOnFrame(callback);
 }
 
 function removeOnFrame(callback) {
