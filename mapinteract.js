@@ -62,7 +62,7 @@ function initMapInteract() {
   });
   
   for(var i = 0; i < BREAK_NUM_STAGES; i++) {
-    var tex = THREE.ImageUtils.loadTexture("textures/blocks/destroy_stage_" + i + ".png");
+    var tex = THREE.ImageUtils.loadTexture("textures/misc/destroy_stage_" + i + ".png");
     tex.minFilter = THREE.NearestFilter;
     tex.magFilter = THREE.NearestFilter;
     
