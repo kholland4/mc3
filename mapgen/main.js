@@ -2,7 +2,6 @@ function initMapgen() {
   //var seed = Math.floor(Math.random() * 65535);
   var seed = 552063;
   noise.seed(seed);
-  console.log(seed);
   initTrees();
 }
 

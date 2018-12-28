@@ -223,13 +223,14 @@ var items = [
   {name: "default:potato_baked", displayName: "Baked Potato", placeable: false, icon: "textures/items/potato_baked.png"},
   {name: "default:pumpkin_pie", displayName: "Pumpkin Pie", placeable: false, icon: "textures/items/pumpkin_pie.png"},
   {name: "default:sugar", displayName: "Sugar", placeable: false, icon: "textures/items/sugar.png"},
+  {name: "default:sugarcane", displayName: "Sugarcane", placeable: false, icon: "textures/items/reeds.png"},
   {name: "default:wheat", displayName: "Wheat", placeable: false, icon: "textures/items/wheat.png"},
   
   {name: "default:arrow", displayName: "Arrow", placeable: false, icon: "textures/items/arrow.png"},
   {name: "default:bone", displayName: "Bone", placeable: false, icon: "textures/items/bone.png"},
-  {name: "default:book", displayName: "Book", placeable: false, icon: "textures/items/book_normal.png", stackable: false, maxStack: 1},
-  {name: "default:book_writable", displayName: "Empty Book", placeable: false, icon: "textures/items/book_writable.png", stackable: false, maxStack: 1},
-  {name: "default:book_written", displayName: "Written Book", placeable: false, icon: "textures/items/book_written.png", stackable: false, maxStack: 1},
+  {name: "default:book", displayName: "Book", placeable: false, icon: "textures/items/book_normal.png"},
+  {name: "default:book_writable", displayName: "Book and Quill", placeable: false, icon: "textures/items/book_writable.png", stackable: false, maxStack: 1}, //TODO
+  {name: "default:book_written", displayName: "Written Book", placeable: false, icon: "textures/items/book_written.png", stackable: false, maxStack: 1}, //TODO
   {name: "default:bowl", displayName: "Bowl", placeable: false, icon: "textures/items/bowl.png"},
   {name: "default:bow", displayName: "Bow", placeable: false, icon: "textures/items/bow_standby.png", stackable: false, maxStack: 1}, //TODO
   {name: "default:brick", displayName: "Brick", placeable: false, icon: "textures/items/brick.png"},
@@ -237,6 +238,7 @@ var items = [
   {name: "default:clay", displayName: "Clay", placeable: false, icon: "textures/items/clay_ball.png"},
   {name: "default:feather", displayName: "Feather", placeable: false, icon: "textures/items/feather.png"},
   {name: "default:fishing_rod", displayName: "Fishing Rod", placeable: false, icon: "textures/items/fishing_rod_uncast.png"}, //TODO
+  {name: "default:flint", displayName: "Flint", placeable: false, icon: "textures/items/flint.png"},
   {name: "default:gunpowder", displayName: "Gunpowder", placeable: false, icon: "textures/items/gunpowder.png"},
   {name: "default:boat", displayName: "Boat", placeable: false, icon: "textures/items/oak_boat.png"}, //TODO
   {name: "default:leather", displayName: "Leather", placeable: false, icon: "textures/items/leather.png"},
@@ -269,9 +271,14 @@ var items = [
   {name: "default:wood_pickaxe", displayName: "Wood Pickaxe", placeable: false, icon: "textures/items/wood_pickaxe.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 60, toolGroups: ["stone", "ore_block"], toolSpeedMul: 2},
   {name: "default:wood_shovel", displayName: "Wood Shovel", placeable: false, icon: "textures/items/wood_shovel.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 60, toolGroups: ["dirt"], toolSpeedMul: 2},
   {name: "default:wood_sword", displayName: "Wood Sword", placeable: false, icon: "textures/items/wood_sword.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 60, toolGroups: ["leaves", "wool"], toolSpeedMul: 2},
-  {name: "default:shears", displayName: "Shears", placeable: false, icon: "textures/items/shears.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 238, toolGroups: ["leaves", "wool"], toolSpeedMul: 5}
+  {name: "default:shears", displayName: "Shears", placeable: false, icon: "textures/items/shears.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 238, toolGroups: ["leaves", "wool"], toolSpeedMul: 5},
   
-  //TODO buckets
+  //TODO: working buckets
+  {name: "default:bucket", displayName: "Bucket", placeable: false, icon: "textures/items/bucket_empty.png", maxStack: 16},
+  {name: "default:bucket_water", displayName: "Water Bucket", placeable: false, icon: "textures/items/bucket_water.png", stackable: false, maxStack: 1},
+  {name: "default:bucket_lava", displayName: "Lava Bucket", placeable: false, icon: "textures/items/bucket_lava.png", stackable: false, maxStack: 1}
+  //TODO milk bucket
+  
   //TODO bottles
   //TODO cake
   //TODO armor
@@ -279,6 +286,7 @@ var items = [
   //TODO maps
   //TODO minecart
   //TODO sign
+  //TODO bonemeal
   
   //TODO plants
     //sugarcane (textures/items/reeds.png)

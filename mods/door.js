@@ -1,4 +1,4 @@
-function() {
+(function() {
   function swapDoor(pos) {
     var block = getBlock(pos);
     var props = getItemProps(block);
@@ -265,4 +265,4 @@ function() {
     transparent: true,
     walkable: true
   });
-}
+})();

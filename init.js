@@ -19,6 +19,13 @@ function init() {
   
   controls.getObject().position.copy(startPos);
   
+  givePlayerInventoryItem(new InvItem("ores:diamond_block", 9));
+  givePlayerInventoryItem(new InvItem("ores:emerald_block", 9));
+  givePlayerInventoryItem(new InvItem("ores:gold_block", 9));
+  givePlayerInventoryItem(new InvItem("ores:iron_block", 9));
+  givePlayerInventoryItem(new InvItem("ores:lapis_block", 9));
+  givePlayerInventoryItem(new InvItem("ores:redstone_block", 9));
+  
   chunkMeshAutoload(vectorDivide(startPos, CHUNK_SIZE), new THREE.Vector3(1, 1, 1), Infinity);
   
   animate();

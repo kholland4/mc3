@@ -1,3 +1,7 @@
+-Better inventory interaction
+  -Crafting - picking up when max stack exceeded
+  -Partial merges
+  -Picking up all of crafted or full stack in creative inventory
 -Directional block placement
 -Flowing water
 *-Crafting
@@ -11,6 +15,9 @@
 -Glass panes, iron bars, etc.
 -Beds mod
 -Farming mod
+  -Seeds
 -Minecart mod
 -Cake
 -Flint and steel
+-Armor mod
+-Flowers and dyes
