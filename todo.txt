@@ -1,7 +1,16 @@
 -Directional block placement
 -Flowing water
--Crafting
+*-Crafting
 -Save/load mod
 -Stairs mod
 -Slab mod
 -Mineral blocks
+-Fence mod
+-Furnace mod
+-Signs mod
+-Glass panes, iron bars, etc.
+-Beds mod
+-Farming mod
+-Minecart mod
+-Cake
+-Flint and steel
