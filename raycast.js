@@ -18,6 +18,7 @@ function initRaycast() {
   var material = new THREE.MeshBasicMaterial({color: 0xffffff, transparent: true, wireframe: true});
   raycastSelector = new THREE.Mesh(geometry, material);
   //selector.material.side = THREE.DoubleSide;
+  raycastSelector.renderOrder = 6;
   scene.add(raycastSelector);
   raycastSelector.visible = false;
   
