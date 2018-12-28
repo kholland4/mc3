@@ -316,4 +316,11 @@ function() {
     ],
     transparent: true
   });
+  
+  mods.registerCraft({
+    size: new THREE.Vector2(3, 3),
+    shapeless: false,
+    in: ["group:planks", "group:planks", "group:planks", "group:planks", null, "group:planks", "group:planks", "group:planks", "group:planks"],
+    out: new InvItem("chest:chest", 1)
+  });
 }

@@ -2,6 +2,7 @@ var modsRunOnFrame = [];
 var mods = {};
 
 function initMods() {
+  loadMod("mods/crafting.js");
   //loadMod("mods/daynight.js?r=" + Math.random());
   loadMod("mods/flight.js");
   loadMod("mods/fast.js");
@@ -10,7 +11,6 @@ function initMods() {
   loadMod("mods/door.js");
   loadMod("mods/ores.js");
   //loadMod("mods/debug.js");
-  loadMod("mods/crafting.js");
 }
 
 function loadMod(url) {

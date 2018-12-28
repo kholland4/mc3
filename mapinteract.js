@@ -17,7 +17,7 @@ function initMapInteract() {
     if(selector != null) {
       if(e.which == MOUSE_LEFT) {
         interactStartBreaking();
-      } else if(e.which == MOUSE_RIGHT && itemToPlace != null) {
+      } else if(e.which == MOUSE_RIGHT) {
         interactPlaceBlock();
       }
     }
@@ -148,16 +148,18 @@ function interactPlaceBlock() {
     return;
   }
   
-  var props = getItemProps(itemToPlace);
-  if(props.placeable) {
-    var old = getBlock(selector.place);
-    //TODO: don't allow placing if there's already a block there? but depends on what block
-    setBlock(selector.place, itemToPlace);
-    if(collide(controls.getObject().position)) {
-      setBlock(selector.place, old);
-    } else {
-      useHUDActiveItem();
-      intelligentReloadChunkMeshNear(selector.place);
+  if(itemToPlace != null) {
+    var props = getItemProps(itemToPlace);
+    if(props.placeable) {
+      var old = getBlock(selector.place);
+      //TODO: don't allow placing if there's already a block there? but depends on what block
+      setBlock(selector.place, itemToPlace);
+      if(collide(controls.getObject().position)) {
+        setBlock(selector.place, old);
+      } else {
+        useHUDActiveItem();
+        intelligentReloadChunkMeshNear(selector.place);
+      }
     }
   }
 }
