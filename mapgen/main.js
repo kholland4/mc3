@@ -48,6 +48,13 @@ function treeNoise(position) {
   return n;
 }
 
+function oreNoise(position) {
+  var scale = 4;
+  var thresh = 0.75;
+  
+  return noise3D(position, scale) > thresh;
+}
+
 function genChunk(chunkPos) {
   var data = [];
   var trees = [];
@@ -58,19 +65,21 @@ function genChunk(chunkPos) {
         var pos = localToGlobal(new THREE.Vector3(x, y, z), chunkPos);
         var height = mapHeight(new THREE.Vector2(pos.x, pos.z));
         var thisEmpty = false;
-        if(height >= 0) {
-          if(pos.y < height) {
-            data.push(getItemID("default:stone"));
-          } else if(pos.y == height) {
-            data.push(getItemID("default:grass_block"));
+        if(pos.y < height) {
+          if(oreNoise(pos)) {
+            data.push(getItemID("ores:coal_ore"));
+          } else {
+            data.push(getItemID("default:stone")); //stone
+          }
+        } else if(height >= 0) {
+          if(pos.y == height) {
+            data.push(getItemID("default:grass_block")); //grass_block
           } else {
             data.push(getItemID("default:air"));
             thisEmpty = true;
           }
         } else {
-          if(pos.y < height) {
-            data.push(getItemID("default:stone"));
-          } else if(pos.y == height) {
+          if(pos.y == height) {
             data.push(getItemID("default:sand"));
           } else if(pos.y < -1) {
             data.push(getItemID("default:water_source"));
