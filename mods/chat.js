@@ -20,12 +20,14 @@
     args.push(str);
     str = "";
     
-    console.log(args);
     if(args.length < 1) {
       return;
     }
     if(args[0] in mods.chatCommands) {
-      mods.chatCommands[args[0]](args[1]);
+      var ret = mods.chatCommands[args[0]](args[1]);
+      if(ret != undefined) {
+        chatLog += ret;
+      }
     }
   }
   
@@ -60,6 +62,10 @@
     if(keyCode == 10 || keyCode == 13) { //enter
       runChatCommand(chatInput);
       chatInput = "";
+    } else if(keyCode == 8) { //backspace
+      if(chatInput.length > 0) {
+        chatInput = chatInput.substring(0, chatInput.length - 1);
+      }
     } else {
       //TODO check for printable chat
       chatInput += str;
@@ -88,6 +94,8 @@
     } else if(chatOpen) {
       if(e.keyCode == 27) { //esc
         closeChat();
+      } else if(e.keyCode == 8) { //backspace
+        updateChat("", e.keyCode);
       }
     }
   });

@@ -2,10 +2,10 @@
   var container = document.createElement("div");
   container.style.position = "fixed";
   container.style.zIndex = 3;
-  container.style.left = "0";
+  container.style.right = "0";
   container.style.top = "0";
   container.style.padding = "5px";
-  container.style.paddingLeft = "85px";
+  container.style.paddingRight = "85px";
   container.style.fontFamily = "sans-serif";
   container.style.fontSize = "16px";
   container.style.color = "white";
@@ -23,5 +23,17 @@
   
   addOnFrame(updateDebug);
   
-  (function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='https://mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);})()
+  var script = document.createElement("script");
+  script.onload = function() {
+    var stats = new Stats();
+    stats.dom.style.left = "initial";
+    stats.dom.style.right = "0";
+    document.body.appendChild(stats.dom);
+    requestAnimationFrame(function loop() {
+      stats.update();
+      requestAnimationFrame(loop);
+    });
+  };
+  script.src = "lib/stats.min.js";
+  document.head.appendChild(script);
 })();

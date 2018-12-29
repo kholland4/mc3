@@ -405,16 +405,18 @@ function chunkMeshLoaded(chunkPos) {
   return false;
 }
 
-function chunkMeshAutoload(chunkIn, radius, throttle) {
-  var unloadCount = 0;
-  for(var i = 0; i < chunkMeshMap.length; i++) {
-    var thisPos = chunkMeshMap[i].pos;
-    if(thisPos.x < chunkIn.x - radius.x || thisPos.x > chunkIn.x + radius.x || thisPos.y < chunkIn.y - radius.y || thisPos.y > chunkIn.y + radius.y || thisPos.z < chunkIn.z - radius.z || thisPos.z > chunkIn.z + radius.z) {
-      unloadChunkMesh(chunkMeshMap[i].pos);
-      i--;
-      unloadCount++;
-      if(unloadCount >= throttle) {
-        break;
+function chunkMeshAutoload(chunkIn, radius, throttle, doUnload = true) {
+  if(doUnload) {
+    var unloadCount = 0;
+    for(var i = 0; i < chunkMeshMap.length; i++) {
+      var thisPos = chunkMeshMap[i].pos;
+      if(thisPos.x < chunkIn.x - radius.x || thisPos.x > chunkIn.x + radius.x || thisPos.y < chunkIn.y - radius.y || thisPos.y > chunkIn.y + radius.y || thisPos.z < chunkIn.z - radius.z || thisPos.z > chunkIn.z + radius.z) {
+        unloadChunkMesh(chunkMeshMap[i].pos);
+        i--;
+        unloadCount++;
+        if(unloadCount >= throttle) {
+          break;
+        }
       }
     }
   }
