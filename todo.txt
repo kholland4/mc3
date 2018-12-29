@@ -24,3 +24,4 @@
 -Flowers and dyes
 -Fix multi-furnace support
 -E/n/t/i/t/i/e/s
+-Fix backwards UV mapping
