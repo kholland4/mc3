@@ -48,13 +48,6 @@ function treeNoise(position) {
   return n;
 }
 
-function oreNoise(position) {
-  var scale = 4;
-  var thresh = 0.75;
-  
-  return noise3D(position, scale) > thresh;
-}
-
 function genChunk(chunkPos) {
   var data = [];
   var trees = [];
@@ -66,14 +59,20 @@ function genChunk(chunkPos) {
         var height = mapHeight(new THREE.Vector2(pos.x, pos.z));
         var thisEmpty = false;
         if(pos.y < height) {
-          if(oreNoise(pos)) {
+          if(coalOreNoise(pos)) {
             data.push(getItemID("ores:coal_ore"));
+          } else if(ironOreNoise(pos)) {
+            data.push(getItemID("ores:iron_ore"));
+          } else if(goldOreNoise(pos)) {
+            data.push(getItemID("ores:gold_ore"));
+          } else if(diamondOreNoise(pos)) {
+            data.push(getItemID("ores:diamond_ore"));
           } else {
-            data.push(getItemID("default:stone")); //stone
+            data.push(getItemID("default:stone"));
           }
         } else if(height >= 0) {
           if(pos.y == height) {
-            data.push(getItemID("default:grass_block")); //grass_block
+            data.push(getItemID("default:grass_block"));
           } else {
             data.push(getItemID("default:air"));
             thisEmpty = true;
