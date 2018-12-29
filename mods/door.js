@@ -267,4 +267,11 @@
     transparent: true,
     walkable: true
   });
+  
+  mods.registerCraft({
+    size: new THREE.Vector2(2, 3),
+    shapeless: false,
+    in: ["group:planks", "group:planks", "group:planks", "group:planks", "group:planks", "group:planks"],
+    out: new InvItem("door:door_closed", 1)
+  });
 })();

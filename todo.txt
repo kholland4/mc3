@@ -4,6 +4,8 @@
   -Partial merges
   -Picking up all of crafted or full stack in creative inventory
 -Directional block placement
+-More types of trees
+  -Biomes?
 -Flowing water
 *-Crafting
 -Save/load mod
@@ -25,3 +27,4 @@
 -Fix multi-furnace support
 -E/n/t/i/t/i/e/s
 -Fix backwards UV mapping
+-Naturally occuring clay

@@ -2,7 +2,7 @@ var modsRunOnFrame = [];
 var mods = {};
 
 function initMods() {
-  var r = 4; //Useful to force reload mod files
+  var r = 5; //Useful to force reload mod files
   //loadMod("mods/crafting.js"); //crafting is now included in index.html
   //loadMod("mods/daynight.js?r=" + Math.random());
   loadMod("mods/flight.js?r=" + r);
