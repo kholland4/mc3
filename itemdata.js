@@ -38,7 +38,8 @@ var itemDefaults = {
   toolSpeedMul: 1,
   toolLevel: TOOL_LEVEL_NONE,
   hardness: 1,
-  reqToolLevel: TOOL_LEVEL_NONE
+  reqToolLevel: TOOL_LEVEL_NONE,
+  furnaceFuel: null
 };
 var items = [
   {name: "default:air", visible: false, walkable: true, transparent: true, placeable: false, inInventory: false},
@@ -144,29 +145,29 @@ var items = [
   {name: "default:sand", displayName: "Sand", textureOffsetAlt: {all: new THREE.Vector2(96, 112)}, icon: "textures/icons/sand.png", groups: ["dirt"], hardness: 0.5},
   {name: "default:glass", displayName: "Glass", textureOffsetAlt: {all: new THREE.Vector2(0, 96)}, icon: "textures/icons/glass.png", transparent: true, groups: ["glass"], hardness: 0.3},
   
-  {name: "default:oak_planks", displayName: "Oak Planks", textureOffsetAlt: {all: new THREE.Vector2(80, 112)}, icon: "textures/icons/oak_planks.png", groups: ["wood", "planks"], hardness: 2},
-  {name: "default:oak_log", displayName: "Oak Log", textureOffsetAlt: {top: new THREE.Vector2(16, 96), bottom: new THREE.Vector2(16, 96), sides: new THREE.Vector2(32, 96)}, icon: "textures/icons/oak_log.png", groups: ["wood", "log"], hardness: 2},
+  {name: "default:oak_planks", displayName: "Oak Planks", textureOffsetAlt: {all: new THREE.Vector2(80, 112)}, icon: "textures/icons/oak_planks.png", groups: ["wood", "planks"], hardness: 2, furnaceFuel: 15},
+  {name: "default:oak_log", displayName: "Oak Log", textureOffsetAlt: {top: new THREE.Vector2(16, 96), bottom: new THREE.Vector2(16, 96), sides: new THREE.Vector2(32, 96)}, icon: "textures/icons/oak_log.png", groups: ["wood", "log"], hardness: 2, furnaceFuel: 15},
   {name: "default:leaves", displayName: "Oak Leaves", textureOffsetAlt: {all: new THREE.Vector2(48, 96)}, icon: "textures/icons/leaves.png", transparent: true, groups: ["leaves"], hardness: 0.2},
   
-  {name: "default:acacia_planks", displayName: "Acacia Planks", textureOffsetAlt: {all: new THREE.Vector2(128, 96)}, icon: "textures/icons/acacia_planks.png", groups: ["wood", "planks"], hardness: 2},
-  {name: "default:acacia_log", displayName: "Acacia Log", textureOffsetAlt: {top: new THREE.Vector2(144, 96), bottom: new THREE.Vector2(144, 96), sides: new THREE.Vector2(160, 96)}, icon: "textures/icons/acacia_log.png", groups: ["wood", "log"], hardness: 2},
+  {name: "default:acacia_planks", displayName: "Acacia Planks", textureOffsetAlt: {all: new THREE.Vector2(128, 96)}, icon: "textures/icons/acacia_planks.png", groups: ["wood", "planks"], hardness: 2, furnaceFuel: 15},
+  {name: "default:acacia_log", displayName: "Acacia Log", textureOffsetAlt: {top: new THREE.Vector2(144, 96), bottom: new THREE.Vector2(144, 96), sides: new THREE.Vector2(160, 96)}, icon: "textures/icons/acacia_log.png", groups: ["wood", "log"], hardness: 2, furnaceFuel: 15},
   {name: "default:acacia_leaves", displayName: "Acacia Leaves", textureOffsetAlt: {all: new THREE.Vector2(176, 96)}, icon: "textures/icons/acacia_leaves.png", transparent: true, groups: ["leaves"], hardness: 0.2},
   
-  {name: "default:birch_planks", displayName: "Birch Planks", textureOffsetAlt: {all: new THREE.Vector2(128, 80)}, icon: "textures/icons/birch_planks.png", groups: ["wood", "planks"], hardness: 2},
-  {name: "default:birch_log", displayName: "Birch Log", textureOffsetAlt: {top: new THREE.Vector2(144, 80), bottom: new THREE.Vector2(144, 80), sides: new THREE.Vector2(160, 80)}, icon: "textures/icons/birch_log.png", groups: ["wood", "log"], hardness: 2},
+  {name: "default:birch_planks", displayName: "Birch Planks", textureOffsetAlt: {all: new THREE.Vector2(128, 80)}, icon: "textures/icons/birch_planks.png", groups: ["wood", "planks"], hardness: 2, furnaceFuel: 15},
+  {name: "default:birch_log", displayName: "Birch Log", textureOffsetAlt: {top: new THREE.Vector2(144, 80), bottom: new THREE.Vector2(144, 80), sides: new THREE.Vector2(160, 80)}, icon: "textures/icons/birch_log.png", groups: ["wood", "log"], hardness: 2, furnaceFuel: 15},
   {name: "default:birch_leaves", displayName: "Birch Leaves", textureOffsetAlt: {all: new THREE.Vector2(176, 80)}, icon: "textures/icons/birch_leaves.png", transparent: true, groups: ["leaves"], hardness: 0.2},
   
-  {name: "default:jungle_planks", displayName: "Jungle Planks", textureOffsetAlt: {all: new THREE.Vector2(128, 64)}, icon: "textures/icons/jungle_planks.png", groups: ["wood", "planks"], hardness: 2},
-  {name: "default:jungle_log", displayName: "Jungle Log", textureOffsetAlt: {top: new THREE.Vector2(144, 64), bottom: new THREE.Vector2(144, 64), sides: new THREE.Vector2(160, 64)}, icon: "textures/icons/jungle_log.png", groups: ["wood", "log"], hardness: 2},
+  {name: "default:jungle_planks", displayName: "Jungle Planks", textureOffsetAlt: {all: new THREE.Vector2(128, 64)}, icon: "textures/icons/jungle_planks.png", groups: ["wood", "planks"], hardness: 2, furnaceFuel: 15},
+  {name: "default:jungle_log", displayName: "Jungle Log", textureOffsetAlt: {top: new THREE.Vector2(144, 64), bottom: new THREE.Vector2(144, 64), sides: new THREE.Vector2(160, 64)}, icon: "textures/icons/jungle_log.png", groups: ["wood", "log"], hardness: 2, furnaceFuel: 15},
   {name: "default:jungle_leaves", displayName: "Jungle Leaves", textureOffsetAlt: {all: new THREE.Vector2(176, 64)}, icon: "textures/icons/jungle_leaves.png", transparent: true, groups: ["leaves"], hardness: 0.2},
   
-  {name: "default:spruce_planks", displayName: "Spruce Planks", textureOffsetAlt: {all: new THREE.Vector2(128, 48)}, icon: "textures/icons/spruce_planks.png", groups: ["wood", "planks"], hardness: 2},
-  {name: "default:spruce_log", displayName: "Spruce Log", textureOffsetAlt: {top: new THREE.Vector2(144, 48), bottom: new THREE.Vector2(144, 48), sides: new THREE.Vector2(160, 48)}, icon: "textures/icons/spruce_log.png", groups: ["wood", "log"], hardness: 2},
+  {name: "default:spruce_planks", displayName: "Spruce Planks", textureOffsetAlt: {all: new THREE.Vector2(128, 48)}, icon: "textures/icons/spruce_planks.png", groups: ["wood", "planks"], hardness: 2, furnaceFuel: 15},
+  {name: "default:spruce_log", displayName: "Spruce Log", textureOffsetAlt: {top: new THREE.Vector2(144, 48), bottom: new THREE.Vector2(144, 48), sides: new THREE.Vector2(160, 48)}, icon: "textures/icons/spruce_log.png", groups: ["wood", "log"], hardness: 2, furnaceFuel: 15},
   {name: "default:spruce_leaves", displayName: "Spruce Leaves", textureOffsetAlt: {all: new THREE.Vector2(176, 48)}, icon: "textures/icons/spruce_leaves.png", transparent: true, groups: ["leaves"], hardness: 0.2},
   
   {name: "default:water_source", displayName: "Water Source", textureOffsetAlt: {all: new THREE.Vector2(112, 112)}, icon: "textures/icons/water.png", transparent: true, walkable: true, noRenderAdjacent: true, raycast: false, fluidPhysics: 0.3, tintColor: "rgba(0, 0, 255, 0.3)"},
   {name: "default:bedrock", displayName: "Bedrock", textureOffsetAlt: {all: new THREE.Vector2(128, 112)}, icon: "textures/icons/bedrock.png", hardness: 1000000},
-  {name: "default:bookshelf", displayName: "Bookshelf", textureOffsetAlt: {top: new THREE.Vector2(80, 112), bottom: new THREE.Vector2(80, 112), sides: new THREE.Vector2(144, 112)}, icon: "textures/icons/bookshelf.png", groups: ["wood"], hardness: 1.5},
+  {name: "default:bookshelf", displayName: "Bookshelf", textureOffsetAlt: {top: new THREE.Vector2(80, 112), bottom: new THREE.Vector2(80, 112), sides: new THREE.Vector2(144, 112)}, icon: "textures/icons/bookshelf.png", groups: ["wood"], hardness: 1.5, furnaceFuel: 15},
   {name: "default:brick_block", displayName: "Brick Block", textureOffsetAlt: {all: new THREE.Vector2(160, 112)}, icon: "textures/icons/brick_block.png", groups: ["stone"], hardness: 2, reqToolLevel: TOOL_LEVEL_WOOD},
   //cactus, cake, crafting table, dispenser, dropper, various doors, plants, farmland, flowerpot, furnace, colored glass, glass pane, snowy grass, hardened clay, trapdoor, ladder, pistons, redstone lamp, tnt, trapdoor
   {name: "default:clay_block", displayName: "Clay Block", textureOffsetAlt: {all: new THREE.Vector2(176, 112)}, icon: "textures/icons/clay_block.png", groups: ["dirt"], hardness: 0.6},
@@ -185,22 +186,22 @@ var items = [
   {name: "default:stonebrick_cracked", displayName: "Cracked Stone Brick", textureOffsetAlt: {all: new THREE.Vector2(160, 32)}, icon: "textures/icons/stonebrick_cracked.png", groups: ["stone"], hardness: 1.5},
   {name: "default:stonebrick_mossy", displayName: "Mossy Stone Brick", textureOffsetAlt: {all: new THREE.Vector2(176, 32)}, icon: "textures/icons/stonebrick_mossy.png", groups: ["stone"], hardness: 1.5},
   
-  {name: "default:wool_black", displayName: "Black Wool", textureOffsetAlt: {all: new THREE.Vector2(192, 32)}, icon: "textures/icons/wool_black.png", groups: ["wool"], hardness: 0.8},
-  {name: "default:wool_blue", displayName: "Blue Wool", textureOffsetAlt: {all: new THREE.Vector2(208, 32)}, icon: "textures/icons/wool_blue.png", groups: ["wool"], hardness: 0.8},
-  {name: "default:wool_brown", displayName: "Brown Wool", textureOffsetAlt: {all: new THREE.Vector2(224, 32)}, icon: "textures/icons/wool_brown.png", groups: ["wool"], hardness: 0.8},
-  {name: "default:wool_cyan", displayName: "Cyan Wool", textureOffsetAlt: {all: new THREE.Vector2(240, 32)}, icon: "textures/icons/wool_cyan.png", groups: ["wool"], hardness: 0.8},
-  {name: "default:wool_gray", displayName: "Gray Wool", textureOffsetAlt: {all: new THREE.Vector2(128, 16)}, icon: "textures/icons/wool_gray.png", groups: ["wool"], hardness: 0.8},
-  {name: "default:wool_green", displayName: "Green Wool", textureOffsetAlt: {all: new THREE.Vector2(144, 16)}, icon: "textures/icons/wool_green.png", groups: ["wool"], hardness: 0.8},
-  {name: "default:wool_light_blue", displayName: "Light Blue Wool", textureOffsetAlt: {all: new THREE.Vector2(160, 16)}, icon: "textures/icons/wool_light_blue.png", groups: ["wool"], hardness: 0.8},
-  {name: "default:wool_lime", displayName: "Lime Wool", textureOffsetAlt: {all: new THREE.Vector2(176, 16)}, icon: "textures/icons/wool_lime.png", groups: ["wool"], hardness: 0.8},
-  {name: "default:wool_magenta", displayName: "Magenta Wool", textureOffsetAlt: {all: new THREE.Vector2(192, 16)}, icon: "textures/icons/wool_magenta.png", groups: ["wool"], hardness: 0.8},
-  {name: "default:wool_orange", displayName: "Orange Wool", textureOffsetAlt: {all: new THREE.Vector2(208, 16)}, icon: "textures/icons/wool_orange.png", groups: ["wool"], hardness: 0.8},
-  {name: "default:wool_pink", displayName: "Pink Wool", textureOffsetAlt: {all: new THREE.Vector2(224, 16)}, icon: "textures/icons/wool_pink.png", groups: ["wool"], hardness: 0.8},
-  {name: "default:wool_purple", displayName: "Purple Wool", textureOffsetAlt: {all: new THREE.Vector2(240, 16)}, icon: "textures/icons/wool_purple.png", groups: ["wool"], hardness: 0.8},
-  {name: "default:wool_red", displayName: "Red Wool", textureOffsetAlt: {all: new THREE.Vector2(128, 0)}, icon: "textures/icons/wool_red.png", groups: ["wool"], hardness: 0.8},
-  {name: "default:wool_silver", displayName: "Light Gray Wool", textureOffsetAlt: {all: new THREE.Vector2(144, 0)}, icon: "textures/icons/wool_silver.png", groups: ["wool"], hardness: 0.8},
-  {name: "default:wool_white", displayName: "White Wool", textureOffsetAlt: {all: new THREE.Vector2(160, 0)}, icon: "textures/icons/wool_white.png", groups: ["wool"], hardness: 0.8},
-  {name: "default:wool_yellow", displayName: "Yellow Wool", textureOffsetAlt: {all: new THREE.Vector2(176, 0)}, icon: "textures/icons/wool_yellow.png", groups: ["wool"], hardness: 0.8},
+  {name: "default:wool_black", displayName: "Black Wool", textureOffsetAlt: {all: new THREE.Vector2(192, 32)}, icon: "textures/icons/wool_black.png", groups: ["wool"], hardness: 0.8, furnaceFuel: 5},
+  {name: "default:wool_blue", displayName: "Blue Wool", textureOffsetAlt: {all: new THREE.Vector2(208, 32)}, icon: "textures/icons/wool_blue.png", groups: ["wool"], hardness: 0.8, furnaceFuel: 5},
+  {name: "default:wool_brown", displayName: "Brown Wool", textureOffsetAlt: {all: new THREE.Vector2(224, 32)}, icon: "textures/icons/wool_brown.png", groups: ["wool"], hardness: 0.8, furnaceFuel: 5},
+  {name: "default:wool_cyan", displayName: "Cyan Wool", textureOffsetAlt: {all: new THREE.Vector2(240, 32)}, icon: "textures/icons/wool_cyan.png", groups: ["wool"], hardness: 0.8, furnaceFuel: 5},
+  {name: "default:wool_gray", displayName: "Gray Wool", textureOffsetAlt: {all: new THREE.Vector2(128, 16)}, icon: "textures/icons/wool_gray.png", groups: ["wool"], hardness: 0.8, furnaceFuel: 5},
+  {name: "default:wool_green", displayName: "Green Wool", textureOffsetAlt: {all: new THREE.Vector2(144, 16)}, icon: "textures/icons/wool_green.png", groups: ["wool"], hardness: 0.8, furnaceFuel: 5},
+  {name: "default:wool_light_blue", displayName: "Light Blue Wool", textureOffsetAlt: {all: new THREE.Vector2(160, 16)}, icon: "textures/icons/wool_light_blue.png", groups: ["wool"], hardness: 0.8, furnaceFuel: 5},
+  {name: "default:wool_lime", displayName: "Lime Wool", textureOffsetAlt: {all: new THREE.Vector2(176, 16)}, icon: "textures/icons/wool_lime.png", groups: ["wool"], hardness: 0.8, furnaceFuel: 5},
+  {name: "default:wool_magenta", displayName: "Magenta Wool", textureOffsetAlt: {all: new THREE.Vector2(192, 16)}, icon: "textures/icons/wool_magenta.png", groups: ["wool"], hardness: 0.8, furnaceFuel: 5},
+  {name: "default:wool_orange", displayName: "Orange Wool", textureOffsetAlt: {all: new THREE.Vector2(208, 16)}, icon: "textures/icons/wool_orange.png", groups: ["wool"], hardness: 0.8, furnaceFuel: 5},
+  {name: "default:wool_pink", displayName: "Pink Wool", textureOffsetAlt: {all: new THREE.Vector2(224, 16)}, icon: "textures/icons/wool_pink.png", groups: ["wool"], hardness: 0.8, furnaceFuel: 5},
+  {name: "default:wool_purple", displayName: "Purple Wool", textureOffsetAlt: {all: new THREE.Vector2(240, 16)}, icon: "textures/icons/wool_purple.png", groups: ["wool"], hardness: 0.8, furnaceFuel: 5},
+  {name: "default:wool_red", displayName: "Red Wool", textureOffsetAlt: {all: new THREE.Vector2(128, 0)}, icon: "textures/icons/wool_red.png", groups: ["wool"], hardness: 0.8, furnaceFuel: 5},
+  {name: "default:wool_silver", displayName: "Light Gray Wool", textureOffsetAlt: {all: new THREE.Vector2(144, 0)}, icon: "textures/icons/wool_silver.png", groups: ["wool"], hardness: 0.8, furnaceFuel: 5},
+  {name: "default:wool_white", displayName: "White Wool", textureOffsetAlt: {all: new THREE.Vector2(160, 0)}, icon: "textures/icons/wool_white.png", groups: ["wool"], hardness: 0.8, furnaceFuel: 5},
+  {name: "default:wool_yellow", displayName: "Yellow Wool", textureOffsetAlt: {all: new THREE.Vector2(176, 0)}, icon: "textures/icons/wool_yellow.png", groups: ["wool"], hardness: 0.8, furnaceFuel: 5},
   //{name: "default:glass", textureOffsetAlt: {all: new THREE.Vector2(0, 96)}, icon: "textures/blocks/glass.png"}
   
   //TODO placeable plants
@@ -210,7 +211,7 @@ var items = [
   //TODO food data
   {name: "default:apple", displayName: "Apple", placeable: false, icon: "textures/items/apple.png"},
   {name: "default:apple_golden", displayName: "Golden Apple", placeable: false, icon: "textures/items/apple_golden.png"},
-  {name: "default:beef_cooked", displayName: "Cooked Beef", placeable: false, icon: "textures/items/beef_cooked.png"},
+  {name: "default:beef_cooked", displayName: "Steak", placeable: false, icon: "textures/items/beef_cooked.png"},
   {name: "default:beef_raw", displayName: "Raw Beef", placeable: false, icon: "textures/items/beef_raw.png"},
   {name: "default:bread", displayName: "Bread", placeable: false, icon: "textures/items/bread.png"},
   {name: "default:carrot", displayName: "Carrot", placeable: false, icon: "textures/items/carrot.png"},
@@ -243,7 +244,7 @@ var items = [
   {name: "default:bowl", displayName: "Bowl", placeable: false, icon: "textures/items/bowl.png"},
   {name: "default:bow", displayName: "Bow", placeable: false, icon: "textures/items/bow_standby.png", stackable: false, maxStack: 1}, //TODO
   {name: "default:brick", displayName: "Brick", placeable: false, icon: "textures/items/brick.png"},
-  {name: "default:charcoal", displayName: "Charcoal", placeable: false, icon: "textures/items/charcoal.png"},
+  {name: "default:charcoal", displayName: "Charcoal", placeable: false, icon: "textures/items/charcoal.png", furnaceFuel: 80},
   {name: "default:clay", displayName: "Clay", placeable: false, icon: "textures/items/clay_ball.png"},
   {name: "default:feather", displayName: "Feather", placeable: false, icon: "textures/items/feather.png"},
   {name: "default:fishing_rod", displayName: "Fishing Rod", placeable: false, icon: "textures/items/fishing_rod_uncast.png"}, //TODO
@@ -252,7 +253,7 @@ var items = [
   {name: "default:boat", displayName: "Boat", placeable: false, icon: "textures/items/oak_boat.png"}, //TODO
   {name: "default:leather", displayName: "Leather", placeable: false, icon: "textures/items/leather.png"},
   {name: "default:paper", displayName: "Paper", placeable: false, icon: "textures/items/paper.png"},
-  {name: "default:stick", displayName: "Stick", placeable: false, icon: "textures/items/stick.png"},
+  {name: "default:stick", displayName: "Stick", placeable: false, icon: "textures/items/stick.png", furnaceFuel: 5},
   {name: "default:string", displayName: "String", placeable: false, icon: "textures/items/string.png"},
   
   {name: "default:diamond_axe", displayName: "Diamond Axe", placeable: false, icon: "textures/items/diamond_axe.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 1562, toolGroups: ["wood", "axe"], toolSpeedMul: 8, toolLevel: TOOL_LEVEL_DIAMOND},
@@ -275,11 +276,11 @@ var items = [
   {name: "default:stone_pickaxe", displayName: "Stone Pickaxe", placeable: false, icon: "textures/items/stone_pickaxe.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 132, toolGroups: ["stone", "ore_block", "pickaxe"], toolSpeedMul: 4, toolLevel: TOOL_LEVEL_STONE},
   {name: "default:stone_shovel", displayName: "Stone Shovel", placeable: false, icon: "textures/items/stone_shovel.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 132, toolGroups: ["dirt"], toolSpeedMul: 4, toolLevel: TOOL_LEVEL_STONE},
   {name: "default:stone_sword", displayName: "Stone Sword", placeable: false, icon: "textures/items/stone_sword.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 132, toolGroups: ["leaves", "wool"], toolSpeedMul: 4, toolLevel: TOOL_LEVEL_STONE},
-  {name: "default:wood_axe", displayName: "Wood Axe", placeable: false, icon: "textures/items/wood_axe.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 60, toolGroups: ["wood", "axe"], toolSpeedMul: 2, toolLevel: TOOL_LEVEL_WOOD},
-  {name: "default:wood_hoe", displayName: "Wood Hoe", placeable: false, icon: "textures/items/wood_hoe.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 60, toolGroups: [], toolSpeedMul: 2, toolLevel: TOOL_LEVEL_WOOD},
-  {name: "default:wood_pickaxe", displayName: "Wood Pickaxe", placeable: false, icon: "textures/items/wood_pickaxe.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 60, toolGroups: ["stone", "ore_block", "pickaxe"], toolSpeedMul: 2, toolLevel: TOOL_LEVEL_WOOD},
-  {name: "default:wood_shovel", displayName: "Wood Shovel", placeable: false, icon: "textures/items/wood_shovel.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 60, toolGroups: ["dirt"], toolSpeedMul: 2, toolLevel: TOOL_LEVEL_WOOD},
-  {name: "default:wood_sword", displayName: "Wood Sword", placeable: false, icon: "textures/items/wood_sword.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 60, toolGroups: ["leaves", "wool"], toolSpeedMul: 2, toolLevel: TOOL_LEVEL_WOOD},
+  {name: "default:wood_axe", displayName: "Wood Axe", placeable: false, icon: "textures/items/wood_axe.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 60, toolGroups: ["wood", "axe"], toolSpeedMul: 2, toolLevel: TOOL_LEVEL_WOOD, furnaceFuel: 10},
+  {name: "default:wood_hoe", displayName: "Wood Hoe", placeable: false, icon: "textures/items/wood_hoe.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 60, toolGroups: [], toolSpeedMul: 2, toolLevel: TOOL_LEVEL_WOOD, furnaceFuel: 10},
+  {name: "default:wood_pickaxe", displayName: "Wood Pickaxe", placeable: false, icon: "textures/items/wood_pickaxe.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 60, toolGroups: ["stone", "ore_block", "pickaxe"], toolSpeedMul: 2, toolLevel: TOOL_LEVEL_WOOD, furnaceFuel: 10},
+  {name: "default:wood_shovel", displayName: "Wood Shovel", placeable: false, icon: "textures/items/wood_shovel.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 60, toolGroups: ["dirt"], toolSpeedMul: 2, toolLevel: TOOL_LEVEL_WOOD, furnaceFuel: 10},
+  {name: "default:wood_sword", displayName: "Wood Sword", placeable: false, icon: "textures/items/wood_sword.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 60, toolGroups: ["leaves", "wool"], toolSpeedMul: 2, toolLevel: TOOL_LEVEL_WOOD, furnaceFuel: 10},
   {name: "default:shears", displayName: "Shears", placeable: false, icon: "textures/items/shears.png", stackable: false, maxStack: 1, isConsumable: false, isTool: true, toolLife: 238, toolGroups: ["leaves", "wool"], toolSpeedMul: 5},
   
   //TODO: working buckets
@@ -384,6 +385,28 @@ function getItemProps(name) { //accepts name or ID
   }
   
   return props;
+}
+
+function setItemProp(name, prop, value) { //accepts name or ID
+  if(typeof name == "number") { //actually an ID
+    name = getItemName(name);
+  }
+  var index;
+  var itemExists = false;
+  for(var i = 0; i < items.length; i++) {
+    if(items[i].name == name) {
+      itemExists = true;
+      index = i;
+      break;
+    }
+  }
+  if(!itemExists) {
+    return false;
+  }
+  
+  index[prop] = value;
+  
+  return true;
 }
 
 function registerItem(data) {

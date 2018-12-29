@@ -1,6 +1,7 @@
 .invItemContainer {
   display: block;
   position: relative;
+  pointer-events: none;
 }
 
 .invItemIcon {
