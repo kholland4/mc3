@@ -12,5 +12,6 @@
       CREATIVE_BLOCK_PLACE = true;
       CREATIVE_BLOCK_DESTROY = true;
     }
-  }
+  };
+  mods.registerChatCommand("/gamemode", mods.setGameMode);
 })();

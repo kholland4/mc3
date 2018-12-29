@@ -12,6 +12,7 @@ function initMods() {
   loadMod("mods/door.js?r=" + r);
   //loadMod("mods/ores.js"); //ores is now included in index.html
   //loadMod("mods/debug.js");
+  //loadMod("mods/chat.js?r=" + r);
   loadMod("mods/gamemode.js?r=" + r);
 }
 

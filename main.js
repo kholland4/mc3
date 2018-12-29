@@ -51,7 +51,7 @@ function animate() {
   if(!MOVEMENT_FLY) {
     movement.y = realMovement.y;
     if(!canFloat) {
-      if(movement.y == 0 && queryKey(K_JUMP)) {
+      if(movement.y == 0 && queryKey(K_JUMP) && controls.enabled) {
         movement.y += 6;
       }
       movement.y += -9.8 * timeScale;
