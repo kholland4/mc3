@@ -54,7 +54,15 @@
       in: [blockNames[i]],
       out: new InvItem(itemNames[i], 9)
     });
+    
+    mods.registerFurnaceRecipie({
+      in: new InvItem(oreNames[i], 1),
+      out: new InvItem(itemNames[i], 1)
+    });
   }
+  
+  setItemProp("ores:coal", "furnaceFuel", 80);
+  setItemProp("ores:coal_block", "furnaceFuel", 800);
   
   //--- ore---
   /*registerItem({
@@ -114,4 +122,6 @@
     hardness: 0.8,
     reqToolLevel: TOOL_LEVEL_WOOD
   });
+  
+  mods.registerFurnaceRecipie({in: new InvItem("ores:quartz_ore", 1), out: new InvItem("ores:quartz", 1)});
 })();
