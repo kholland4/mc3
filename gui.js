@@ -111,7 +111,6 @@ function guiInteractiveGrid(grid, data, callback, altData = null, altCallback = 
     var cell = c[i];
     cell.dataset.index = i;
     cell.addEventListener("click", function(e) {
-      console.log(data);
       var cellItem = data[this.dataset.index];
       if(queryKey(K_SHIFT)) {
         if(cellItem != null && altData != null) {

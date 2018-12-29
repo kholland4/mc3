@@ -39,3 +39,9 @@
   
   background-color: rgba(0, 0, 0, 0.3);
 }
+
+.guiPixelArt {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
