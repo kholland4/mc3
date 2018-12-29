@@ -13,6 +13,7 @@
     name: "door:door_closed",
     icon: "textures/items/door_wood.png",
     groups: ["wood"],
+    hardness: 3,
     interact: swapDoor,
     customMesh: true,
     meshVertices: [
@@ -140,6 +141,7 @@
     name: "door:door_open",
     icon: "textures/items/door_wood.png",
     groups: ["wood"],
+    hardness: 3,
     inInventory: false,
     drops: new InvItem("door:door_closed", 1),
     interact: swapDoor,

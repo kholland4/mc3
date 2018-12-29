@@ -53,6 +53,7 @@
     name: "chest:chest",
     icon: "textures/icons/chest.png",
     groups: ["wood"],
+    hardness: 2.5,
     interact: openChest,
     customMesh: true,
     meshVertices: [
