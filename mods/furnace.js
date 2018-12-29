@@ -51,19 +51,27 @@
       furnaceOut = meta.furnaceOut;
     }
     
-    if(furnaceIn[0] == null || furnaceIn[1] == null) {
+    if(furnaceIn[0] == null) {
       meta.isSmelting = false;
       setBlockMeta(pos, meta);
       updateFurnace(pos);
       return;
     }
     
-    var fuelProps = getItemProps(furnaceIn[1].id);
-    if(fuelProps.furnaceFuel == null || fuelProps.furnaceFuel <= 0) {
-      meta.isSmelting = false;
-      setBlockMeta(pos, meta);
-      updateFurnace(pos);
-      return;
+    if(meta.fuelCountdown <= 0) {
+      if(furnaceIn[1] == null) {
+        meta.isSmelting = false;
+        setBlockMeta(pos, meta);
+        updateFurnace(pos);
+        return;
+      }
+      var fuelProps = getItemProps(furnaceIn[1].id);
+      if(fuelProps.furnaceFuel == null || fuelProps.furnaceFuel <= 0) {
+        meta.isSmelting = false;
+        setBlockMeta(pos, meta);
+        updateFurnace(pos);
+        return;
+      }
     }
     
     var recValid = false;
