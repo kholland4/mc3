@@ -86,18 +86,29 @@ function interactStartBreaking() {
   
   var props = getItemProps(getBlock(selector.destroy));
   var toolSpeedMul = 1;
+  var toolHelps = false;
   
   if(itemToPlace != null) {
     var toolProps = getItemProps(itemToPlace);
     if(toolProps.isTool && groupMatch(props.groups, toolProps.toolGroups)) {
       toolSpeedMul = toolProps.toolSpeedMul;
+      if(toolProps.toolLevel >= props.reqToolLevel) {
+        toolHelps = true;
+      }
     }
+  }
+  if(props.reqToolLevel <= 0) {
+    toolHelps = true;
   }
   
   if(props.visible) {
     isBreaking = true;
     if(!CREATIVE_BLOCK_DESTROY) {
-      breakCountdown = (props.hardness * 1.5) / toolSpeedMul;
+      if(toolHelps) {
+        breakCountdown = (props.hardness * 1.5) / toolSpeedMul;
+      } else {
+        breakCountdown = (props.hardness * 5) / toolSpeedMul;
+      }
     } else {
       breakCountdown = 0.05;
     }
@@ -128,7 +139,7 @@ function interactBreakBlock() {
     
     if(itemToPlace != null) {
       var toolProps = getItemProps(itemToPlace);
-      if(toolProps.isTool && groupMatch(props.groups, toolProps.toolGroups)) {
+      if(toolProps.isTool && groupMatch(props.groups, toolProps.toolGroups) && toolProps.toolLevel >= props.reqToolLevel) {
         useHUDActiveItem();
       }
     }

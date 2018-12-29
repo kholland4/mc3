@@ -10,6 +10,11 @@
   var itemDisplayNames = ["Coal", "Diamond", "Emerald", "Gold Ingot", "Iron Ingot", "Lapis Lazuli", "Redstone Dust"];
   var blockDisplayNames = ["Coal Block", "Diamond Block", "Emerald Block", "Gold Block", "Iron Block", "Lapis Lazuli Block", "Redstone Block"];
   
+  var oreHardness = [3, 3, 3, 3, 3, 3, 3];
+  var blockHardness = [5, 5, 5, 3, 5, 3, 5];
+  var oreReqToolLevel = [TOOL_LEVEL_WOOD, TOOL_LEVEL_IRON, TOOL_LEVEL_IRON, TOOL_LEVEL_IRON, TOOL_LEVEL_STONE, TOOL_LEVEL_STONE, TOOL_LEVEL_IRON];
+  var blockReqToolLevel = [TOOL_LEVEL_WOOD, TOOL_LEVEL_IRON, TOOL_LEVEL_IRON, TOOL_LEVEL_IRON, TOOL_LEVEL_STONE, TOOL_LEVEL_STONE, TOOL_LEVEL_WOOD];
+  
   for(var i = 0; i < oreNames.length; i++) {
     registerItem({
       name: oreNames[i],
@@ -17,7 +22,9 @@
       drops: new InvItem(drops[i], 1),
       textureOffsetAlt: {all: new THREE.Vector2(tex[i], 80)},
       icon: "textures/icons/" + oreNames[i].substring(5) + ".png",
-      groups: ["stone", "ore"]
+      groups: ["stone", "ore"],
+      hardness: oreHardness[i],
+      reqToolLevel: oreReqToolLevel[i]
     });
     registerItem({
       name: itemNames[i],
@@ -31,7 +38,9 @@
       displayName: blockDisplayNames[i],
       textureOffsetAlt: {all: new THREE.Vector2(tex[i], 128)},
       icon: "textures/icons/" + blockNames[i].substring(5) + ".png",
-      groups: ["stone", "ore_block"]
+      groups: ["stone", "ore_block"],
+      hardness: blockHardness[i],
+      reqToolLevel: blockReqToolLevel[i]
     });
     mods.registerCraft({
       size: new THREE.Vector2(3, 3),
@@ -68,7 +77,9 @@
     drops: new InvItem("ores:quartz", 1),
     textureOffsetAlt: {all: new THREE.Vector2(224, 64)},
     icon: "textures/icons/quartz_ore.png",
-    groups: ["stone", "ore"]
+    groups: ["stone", "ore"],
+    hardness: 3,
+    reqToolLevel: TOOL_LEVEL_WOOD
   });
   registerItem({
     name: "ores:quartz",
@@ -81,20 +92,26 @@
     displayName: "Quartz Block",
     textureOffsetAlt: {top: new THREE.Vector2(208, 80), bottom: new THREE.Vector2(240, 96), sides: new THREE.Vector2(192, 80)},
     icon: "textures/icons/quartz_block.png",
-    groups: ["stone", "ore_block"]
+    groups: ["stone", "ore_block"],
+    hardness: 0.8,
+    reqToolLevel: TOOL_LEVEL_WOOD
   });
   registerItem({
     name: "ores:quartz_block_chiseled",
     displayName: "Chuseled Quartz Block",
     textureOffsetAlt: {top: new THREE.Vector2(240, 80), bottom: new THREE.Vector2(240, 80), sides: new THREE.Vector2(224, 80)},
     icon: "textures/icons/quartz_block_chiseled.png",
-    groups: ["stone", "ore_block"]
+    groups: ["stone", "ore_block"],
+    hardness: 0.8,
+    reqToolLevel: TOOL_LEVEL_WOOD
   });
   registerItem({
     name: "ores:quartz_pillar",
     displayName: "Quartz Pillar",
     textureOffsetAlt: {top: new THREE.Vector2(208, 64), bottom: new THREE.Vector2(208, 64), sides: new THREE.Vector2(192, 64)},
     icon: "textures/icons/quartz_pillar.png",
-    groups: ["stone", "ore_block"]
+    groups: ["stone", "ore_block"],
+    hardness: 0.8,
+    reqToolLevel: TOOL_LEVEL_WOOD
   });
 })();
