@@ -24,7 +24,7 @@
 -Flint and steel
 -Armor mod
 -Flowers and dyes
--Fix multi-furnace support
+-*Fix multi-furnace support
 -E/n/t/i/t/i/e/s
 -Fix backwards UV mapping
 -Naturally occuring clay
