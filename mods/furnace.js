@@ -120,6 +120,8 @@
       setBlockMeta(pos, meta);
       updateFurnace(pos);
     }
+    
+    updateFurnace(pos);
   }
   
   function updateFurnace(pos) {
@@ -140,18 +142,24 @@
     }
   }
   
+  var accTimeScale = 0;
   registerOnFrame(function(timeScale) {
-    for(var i = 0; i < furnaces.length; i++) {
-      var pos = furnaces[i];
-      var meta = getBlockMeta(pos);
-      if(meta.fuelCountdown > 0) {
-        meta.fuelCountdown -= timeScale;
+    accTimeScale += timeScale;
+    if(frameCount % 5 == 0) {
+      timeScale = accTimeScale;
+      accTimeScale = 0;
+      for(var i = 0; i < furnaces.length; i++) {
+        var pos = furnaces[i];
+        var meta = getBlockMeta(pos);
+        if(meta.fuelCountdown > 0) {
+          meta.fuelCountdown -= timeScale;
+        }
+        if(meta.isSmelting) {
+          meta.itemCountdown -= timeScale;
+        }
+        setBlockMeta(pos, meta);
+        processFurnace(pos);
       }
-      if(meta.isSmelting) {
-        meta.itemCountdown -= timeScale;
-      }
-      setBlockMeta(pos, meta);
-      processFurnace(pos);
     }
   });
   
@@ -187,6 +195,22 @@
     updateFurnaceUI = function() {
       guiFillBlockGrid(furnaceInGrid, HUD_CELL_SIZE, HUD_ICON_SIZE, furnaceIn);
       guiFillBlockGrid(furnaceOutGrid, HUD_CELL_SIZE, HUD_ICON_SIZE, furnaceOut);
+      
+      var meta = getBlockMeta(activeFurnacePos);
+      
+      var arrowPos = 0;
+      if(meta.isSmelting) {
+        arrowPos = 1 - (meta.itemCountdown / meta.itemCountdownInitial);
+      }
+      arrow.src = "textures/misc/arrow_stage_" + range(arrowPos, 1, 23) + ".png";
+      
+      var firePos = 0;
+      if("fuelCountdown" in meta) {
+        if(meta.fuelCountdown > 0) {
+          firePos = meta.fuelCountdown / meta.fuelCountdownInitial;
+        }
+      }
+      fire.src = "textures/misc/fire_stage_" + range(firePos, 1, 13) + ".png";
     };
     
     function updatePIGrid() {
@@ -194,22 +218,58 @@
       updatePlayerInventory();
     }
     
+    var firePadding = HUD_CELL_SIZE / 2;
+    
     var furnaceInGrid = guiGenBlockGrid(new THREE.Vector2(1, 2), HUD_CELL_SIZE, "furnaceIn");
+    furnaceInGrid.style.position = "absolute";
+    furnaceInGrid.style.left = GUI_DIALOG_PADDING + (firePadding * 2) + 70 + "px";
+    furnaceInGrid.style.top = GUI_DIALOG_PADDING + "px";
     dialog.appendChild(furnaceInGrid);
     guiFillBlockGrid(furnaceInGrid, HUD_CELL_SIZE, HUD_ICON_SIZE, furnaceIn);
     guiInteractiveGrid(furnaceInGrid, furnaceIn, updateFurnaceGrid, playerInventory, updatePIGrid);
     
+    var firePos = 0;
+    if("fuelCountdown" in meta) {
+      if(meta.fuelCountdown > 0) {
+        firePos = meta.fuelCountdown / meta.fuelCountdownInitial;
+      }
+    }
+    var fire = document.createElement("img");
+    fire.src = "textures/misc/fire_stage_" + range(firePos, 1, 13) + ".png";
+    fire.style.display = "block";
+    fire.className = "guiPixelArt";
+    fire.style.width = "70px";
+    fire.style.height = "70px";
+    fire.style.position = "absolute";
+    fire.style.left = GUI_DIALOG_PADDING + firePadding + "px";
+    fire.style.top = GUI_DIALOG_PADDING + ((furnaceInGrid.clientHeight - 85) / 2) + "px";
+    dialog.appendChild(fire);
+    
+    var arrowPos = 0;
+    if(meta.isSmelting) {
+      arrowPos = 1 - (meta.itemCountdown / meta.itemCountdownInitial);
+    }
+    var arrowPadding = HUD_CELL_SIZE / 2;
+    var arrow = document.createElement("img");
+    arrow.src = "textures/misc/arrow_stage_" + range(arrowPos, 1, 23) + ".png";
+    arrow.style.display = "block";
+    arrow.className = "guiPixelArt";
+    arrow.style.width = "120px";
+    arrow.style.height = "85px";
+    arrow.style.position = "absolute";
+    arrow.style.left = GUI_DIALOG_PADDING + (firePadding * 2) + fire.clientWidth + furnaceInGrid.clientWidth + arrowPadding + "px";
+    arrow.style.top = GUI_DIALOG_PADDING + ((furnaceInGrid.clientHeight - 85) / 2) + "px";
+    dialog.appendChild(arrow);
+    
     var furnaceOutGrid = guiGenBlockGrid(new THREE.Vector2(1, 1), HUD_CELL_SIZE, "furnaceOut");
-    
     furnaceOutGrid.style.position = "absolute";
-    furnaceOutGrid.style.left = GUI_DIALOG_PADDING + furnaceInGrid.clientWidth + "px";
-    furnaceOutGrid.style.top = GUI_DIALOG_PADDING + "px";
-    
+    furnaceOutGrid.style.left = GUI_DIALOG_PADDING + (firePadding * 2) + fire.clientWidth + furnaceInGrid.clientWidth + arrow.clientWidth + (arrowPadding * 2) + "px";
+    furnaceOutGrid.style.top = GUI_DIALOG_PADDING + (furnaceInGrid.clientHeight / 4) + "px";
     dialog.appendChild(furnaceOutGrid);
     guiFillBlockGrid(furnaceOutGrid, HUD_CELL_SIZE, HUD_ICON_SIZE, furnaceOut);
     guiInteractiveGrid(furnaceOutGrid, furnaceOut, updateFurnaceGrid, playerInventory, updatePIGrid);
     
-    dialog.appendChild(guiGenSpacer(new THREE.Vector2(0, HUD_CELL_SIZE / 2)));
+    dialog.appendChild(guiGenSpacer(new THREE.Vector2(0, furnaceInGrid.clientHeight + (HUD_CELL_SIZE / 2))));
     
     var invGrid = guiGenBlockGrid(PLAYER_INVENTORY_GRID_SIZE, HUD_CELL_SIZE, "inv");
     dialog.appendChild(invGrid);
