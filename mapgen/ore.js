@@ -10,7 +10,7 @@ function coalOreNoise(position) {
 }
 
 function ironOreNoise(position) {
-  if(position.y > -64) {
+  if(position.y > -32) {
     return false;
   }
   
