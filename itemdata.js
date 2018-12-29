@@ -176,6 +176,7 @@ var items = [
   {name: "default:pumpkin", displayName: "Pumpkin", textureOffsetAlt: {top: new THREE.Vector2(240, 112), bottom: new THREE.Vector2(240, 112), sides: new THREE.Vector2(192, 96)}, icon: "textures/icons/pumpkin.png", hardness: 1, groups: ["axe"]},
   {name: "default:pumpkin_off", displayName: "Carved Pumpkin", textureOffsetAlt: {top: new THREE.Vector2(240, 112), bottom: new THREE.Vector2(240, 112), sides: new THREE.Vector2(192, 96), front: new THREE.Vector2(208, 96)}, icon: "textures/icons/carved_pumpkin.png", hardness: 1, groups: ["axe"]},
   {name: "default:pumpkin_on", displayName: "Jack-o-Lantern", textureOffsetAlt: {top: new THREE.Vector2(240, 112), bottom: new THREE.Vector2(240, 112), sides: new THREE.Vector2(192, 96), front: new THREE.Vector2(224, 96)}, icon: "textures/icons/carved_pumpkin_on.png", lightLevel: 10, hardness: 1, groups: ["axe"]},
+  {name: "default:melon", displayName: "Melon", drops: new InvItem("default:melon_slice", 5), textureOffsetAlt: {top: new THREE.Vector2(192, 0), bottom: new THREE.Vector2(192, 0), sides: new THREE.Vector2(208, 0)}, icon: "textures/icons/melon.png", hardness: 1, groups: ["axe"]},
   
   {name: "default:sandstone", displayName: "Sandstone", textureOffsetAlt: {top: new THREE.Vector2(240, 64), bottom: new THREE.Vector2(192, 48), sides: new THREE.Vector2(208, 48)}, icon: "textures/icons/sandstone.png", hardness: 0.8, groups: ["pickaxe"], reqToolLevel: TOOL_LEVEL_WOOD},
   {name: "default:sandstone_carved", displayName: "Carved Sandstone", textureOffsetAlt: {top: new THREE.Vector2(240, 64), bottom: new THREE.Vector2(192, 48), sides: new THREE.Vector2(224, 48)}, icon: "textures/icons/sandstone_carved.png", hardness: 0.8, groups: ["pickaxe"], reqToolLevel: TOOL_LEVEL_WOOD},
@@ -205,8 +206,12 @@ var items = [
   //{name: "default:glass", textureOffsetAlt: {all: new THREE.Vector2(0, 96)}, icon: "textures/blocks/glass.png"}
   
   //TODO placeable plants
-  {name: "default:mushroom_brown", displayName: "Brown Mushroom", placeable: false, icon: "textures/blocks/mushroom_brown.png"},  
-  {name: "default:mushroom_red", displayName: "Red Mushroom", placeable: false, icon: "textures/blocks/mushroom_red.png"},  
+  {name: "default:mushroom_brown", displayName: "Brown Mushroom", xmesh: true, textureOffsetAlt: {all: new THREE.Vector2(128, 128)}, transparent: true, walkable: true, icon: "textures/blocks/mushroom_brown.png"},
+  {name: "default:mushroom_red", displayName: "Red Mushroom", xmesh: true, textureOffsetAlt: {all: new THREE.Vector2(144, 128)}, transparent: true, walkable: true, icon: "textures/blocks/mushroom_red.png"},
+  {name: "default:flower_rose", displayName: "Rose", xmesh: true, textureOffsetAlt: {all: new THREE.Vector2(0, 80)}, transparent: true, walkable: true, icon: "textures/blocks/flower_rose.png"},
+  {name: "default:grass", displayName: "Grass", xmesh: true, textureOffsetAlt: {all: new THREE.Vector2(0, 64)}, transparent: true, walkable: true, icon: "textures/misc/double_plant_grass_top_color.png"},
+  {name: "default:sugarcane", displayName: "Sugarcane", xmesh: true, textureOffsetAlt: {all: new THREE.Vector2(96, 64)}, transparent: true, walkable: true, icon: "textures/items/reeds.png"},
+  {name: "default:deadbush", displayName: "Dead Bush", xmesh: true, textureOffsetAlt: {all: new THREE.Vector2(224, 0)}, transparent: true, walkable: true, icon: "textures/blocks/deadbush.png"},
   
   //TODO food data
   {name: "default:apple", displayName: "Apple", placeable: false, icon: "textures/items/apple.png"},
@@ -233,7 +238,7 @@ var items = [
   {name: "default:potato_baked", displayName: "Baked Potato", placeable: false, icon: "textures/items/potato_baked.png"},
   {name: "default:pumpkin_pie", displayName: "Pumpkin Pie", placeable: false, icon: "textures/items/pumpkin_pie.png"},
   {name: "default:sugar", displayName: "Sugar", placeable: false, icon: "textures/items/sugar.png"},
-  {name: "default:sugarcane", displayName: "Sugarcane", placeable: false, icon: "textures/items/reeds.png"},
+  //{name: "default:sugarcane", displayName: "Sugarcane", placeable: false, icon: "textures/items/reeds.png"},
   {name: "default:wheat", displayName: "Wheat", placeable: false, icon: "textures/items/wheat.png"},
   
   {name: "default:arrow", displayName: "Arrow", placeable: false, icon: "textures/items/arrow.png"},
@@ -299,8 +304,10 @@ var items = [
   //TODO bonemeal
   
   //TODO plants
-    //sugarcane (textures/items/reeds.png)
-    //seeds
+    //seeds and farming
+    //cocoa plant
+    //cactus
+    //saplings!!!
   //TODO flowerpot
 ];
 
@@ -321,6 +328,53 @@ function initItem(i) {
   }
   if(!("drops" in items[i])) {
     items[i].drops = new InvItem(getItemID(items[i].name), 1);
+  }
+  if("xmesh" in items[i] && "textureOffset" in items[i]) {
+    if(items[i].xmesh) {
+      items[i].customMesh = true;
+      items[i].meshVertices = [
+        //face 1
+        -0.5, 0.5, 0.5,
+        0.5, 0.5, -0.5,
+        -0.5, -0.5, 0.5,
+
+        0.5, 0.5, -0.5,
+        0.5, -0.5, -0.5,
+        -0.5, -0.5, 0.5,
+        
+        //face 2
+        -0.5, 0.5, -0.5,
+        0.5, 0.5, 0.5,
+        -0.5, -0.5, -0.5,
+
+        0.5, 0.5, 0.5,
+        0.5, -0.5, 0.5,
+        -0.5, -0.5, -0.5
+      ];
+      items[i].meshUVs = [
+        //face 1
+        0.0 + (items[i].textureOffset[0].x * textureMapIndexScale), uvSize + (items[i].textureOffset[0].y * textureMapIndexScale),
+        uvSize + (items[i].textureOffset[0].x * textureMapIndexScale), uvSize + (items[i].textureOffset[0].y * textureMapIndexScale),
+        0.0 + (items[i].textureOffset[0].x * textureMapIndexScale), 0.0 + (items[i].textureOffset[0].y * textureMapIndexScale),
+
+        uvSize + (items[i].textureOffset[0].x * textureMapIndexScale), uvSize + (items[i].textureOffset[0].y * textureMapIndexScale),
+        uvSize + (items[i].textureOffset[0].x * textureMapIndexScale), 0.0 + (items[i].textureOffset[0].y * textureMapIndexScale),
+        0.0 + (items[i].textureOffset[0].x * textureMapIndexScale), 0.0 + (items[i].textureOffset[0].y * textureMapIndexScale),
+        
+        //face 2
+        0.0 + (items[i].textureOffset[0].x * textureMapIndexScale), uvSize + (items[i].textureOffset[0].y * textureMapIndexScale),
+        uvSize + (items[i].textureOffset[0].x * textureMapIndexScale), uvSize + (items[i].textureOffset[0].y * textureMapIndexScale),
+        0.0 + (items[i].textureOffset[0].x * textureMapIndexScale), 0.0 + (items[i].textureOffset[0].y * textureMapIndexScale),
+
+        uvSize + (items[i].textureOffset[0].x * textureMapIndexScale), uvSize + (items[i].textureOffset[0].y * textureMapIndexScale),
+        uvSize + (items[i].textureOffset[0].x * textureMapIndexScale), 0.0 + (items[i].textureOffset[0].y * textureMapIndexScale),
+        0.0 + (items[i].textureOffset[0].x * textureMapIndexScale), 0.0 + (items[i].textureOffset[0].y * textureMapIndexScale)
+      ];
+      items[i].meshFaces = [
+        {dir: new THREE.Vector3(0, 1, 0), length: 6},
+        {dir: new THREE.Vector3(0, 1, 0), length: 6}
+      ];
+    }
   }
 }
 
