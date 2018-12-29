@@ -404,7 +404,7 @@ function setItemProp(name, prop, value) { //accepts name or ID
     return false;
   }
   
-  index[prop] = value;
+  items[index][prop] = value;
   
   return true;
 }

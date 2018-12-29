@@ -41,6 +41,11 @@
     if(!("isSmelting" in meta)) { meta.isSmelting = false; }
     if(!("recIndex" in meta)) { meta.recIndex = null; }
     
+    if(!("furnaceIn" in meta)) { meta.furnaceIn = [null, null]; }
+    if(!("furnaceOut" in meta)) { meta.furnaceOut = [null]; }
+    if(meta.furnaceIn == undefined) { meta.furnaceIn = [null, null]; }
+    if(meta.furnaceOut == undefined) { meta.furnaceOut = [null]; }
+    
     if(!furnaceOpen) {
       furnaceIn = meta.furnaceIn;
       furnaceOut = meta.furnaceOut;
@@ -105,22 +110,25 @@
       updateFurnace(pos);
     }
     
-    if((meta.isSmelting && meta.fuelCountdown <= 0) || !meta.isSmelting) {
+    if(!meta.isSmelting) {
+      meta.itemCountdown = meta.itemCountdownInitial;
+      meta.isSmelting = true;
+      //setBlockMeta(pos, meta);
+    }
+    
+    if(meta.isSmelting && meta.fuelCountdown <= 0) {
       furnaceIn[1].qty--;
       if(furnaceIn[1].qty <= 0) {
         furnaceIn[1] = null;
       }
       meta.fuelCountdown = fuelProps.furnaceFuel;
       meta.fuelCountdownInitial = meta.fuelCountdown;
-      if(!meta.isSmelting) {
-        meta.itemCountdown = meta.itemCountdownInitial;
-        meta.isSmelting = true;
-      }
       meta.furnaceIn = furnaceIn;
-      setBlockMeta(pos, meta);
-      updateFurnace(pos);
+      //setBlockMeta(pos, meta);
+      //updateFurnace(pos);
     }
     
+    setBlockMeta(pos, meta);
     updateFurnace(pos);
   }
   
@@ -164,7 +172,6 @@
   });
   
   function openFurnace(pos) {
-    furnaceOpen = true;
     activeFurnacePos = pos.clone();
     var popup = openPopup();
     var dialog = guiGenDialog();
@@ -183,6 +190,8 @@
     var meta = getBlockMeta(pos);
     if(!("furnaceIn" in meta)) { meta.furnaceIn = [null, null]; }
     if(!("furnaceOut" in meta)) { meta.furnaceOut = [null]; }
+    if(meta.furnaceIn == undefined) { meta.furnaceIn = [null, null]; }
+    if(meta.furnaceOut == undefined) { meta.furnaceOut = [null]; }
     furnaceIn = meta.furnaceIn;
     furnaceOut = meta.furnaceOut;
     
@@ -275,6 +284,8 @@
     dialog.appendChild(invGrid);
     guiFillBlockGrid(invGrid, HUD_CELL_SIZE, HUD_ICON_SIZE, playerInventory);
     guiInteractiveGrid(invGrid, playerInventory, updatePIGrid, furnaceIn, updateFurnaceGrid);
+    
+    furnaceOpen = true;
   }
   
   document.addEventListener("keydown", function(e) {
