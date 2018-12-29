@@ -46,10 +46,11 @@
     if(meta.furnaceIn == undefined) { meta.furnaceIn = [null, null]; }
     if(meta.furnaceOut == undefined) { meta.furnaceOut = [null]; }
     
-    if(!furnaceOpen) {
-      furnaceIn = meta.furnaceIn;
-      furnaceOut = meta.furnaceOut;
+    var code = "";
+    if(!furnaceOpen || !pos.equals(activeFurnacePos)) {
+      code = "var furnaceIn = meta.furnaceIn; var furnaceOut = meta.furnaceOut;";
     }
+    eval(code);
     
     if(furnaceIn[0] == null) {
       meta.isSmelting = false;
@@ -300,6 +301,7 @@
     if(furnaceOpen) {
       if(e.keyCode == 69) {
         furnaceOpen = false;
+        activeFurnacePos = null;
         closePopup();
         return;
       }

@@ -17,7 +17,7 @@
     {size: new THREE.Vector2(1, 2), shapeless: true, in: ["default:pumpkin_off", "default:torch"], out: new InvItem("default:pumpkin_on", 1)},
     {size: new THREE.Vector2(2, 2), shapeless: false, in: ["default:string", "default:string", "default:string", "default:string"], out: new InvItem("default:wool_white", 1)},
     {size: new THREE.Vector2(1, 1), shapeless: false, in: ["default:wool_white"], out: new InvItem("default:string", 4)},
-    {size: new THREE.Vector2(2, 2), shapeless: false, in: ["default:stone", "default:stone", "default:stone", "default:stone"], out: new InvItem("default:stone_bricks", 4)},
+    {size: new THREE.Vector2(2, 2), shapeless: false, in: ["default:stone", "default:stone", "default:stone", "default:stone"], out: new InvItem("default:stonebrick", 4)},
     //TODO melon (9x default:melon_slice)
     
     //Logs to planks
