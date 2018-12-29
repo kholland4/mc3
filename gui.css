@@ -5,6 +5,7 @@
   right: 0;
   top: 0;
   bottom: 0;
+  text-align: center;
   
   display: none;
 }
@@ -16,12 +17,17 @@
 }
 
 .guiDialog {
-  position: fixed;
+  /*position: fixed;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);*/
+  display: inline-block;
+  position: relative;
+  /*margin: auto;*/
+  top: 50%;
+  transform: perspective(1px) translateY(-50%);
   
-  background-color: #ddd;
+  background-color: #c6c6c6;
   color: white;
   padding: 20px;
   border-radius: 5px;
