@@ -27,7 +27,7 @@
     {size: new THREE.Vector2(1, 1), shapeless: false, in: ["default:jungle_log"], out: new InvItem("default:jungle_planks", 4)},
     {size: new THREE.Vector2(1, 1), shapeless: false, in: ["default:spruce_log"], out: new InvItem("default:spruce_planks", 4)},
     
-    {size: new THREE.Vector2(1, 2), shapeless: false, in: ["default:coal", "default:stick"], out: new InvItem("default:torch", 4)},
+    {size: new THREE.Vector2(1, 2), shapeless: false, in: ["ores:coal", "default:stick"], out: new InvItem("default:torch", 4)},
     {size: new THREE.Vector2(1, 2), shapeless: false, in: ["default:charcoal", "default:stick"], out: new InvItem("default:torch", 4)},
     
     //Food
