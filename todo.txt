@@ -22,3 +22,5 @@
 -Flint and steel
 -Armor mod
 -Flowers and dyes
+-Fix multi-furnace support
+-E/n/t/i/t/i/e/s
