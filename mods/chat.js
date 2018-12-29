@@ -39,7 +39,7 @@
       chat.style.right = "0";
       chat.style.top = "0";
       chat.style.maxHeight = "200px";
-      chat.style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+      chat.style.backgroundColor = "rgba(0, 0, 0, 0.3)";
       chat.style.color = "white";
       chat.style.fontSize = "14px";
       chat.style.fontFamily = "monospace";
