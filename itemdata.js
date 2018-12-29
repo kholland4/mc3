@@ -231,7 +231,7 @@ var items = [
   {name: "default:fish_salmon_cooked", displayName: "Cooked Salmon", placeable: false, icon: "textures/items/fish_salmon_cooked.png"},
   {name: "default:fish_salmon_raw", displayName: "Raw Salmon", placeable: false, icon: "textures/items/fish_salmon_raw.png"},
   {name: "default:melon_slice", displayName: "Melon Slice", placeable: false, icon: "textures/items/melon.png"},
-  {name: "default:mushroom_stew", displayName: "Mushroom Stew", placeable: false, icon: "textures/items/mushroom_stew.png"},  
+  {name: "default:mushroom_stew", displayName: "Mushroom Stew", placeable: false, icon: "textures/items/mushroom_stew.png", stackable: false, maxStack: 1},  
   {name: "default:porkchop_cooked", displayName: "Cooked Porkchop", placeable: false, icon: "textures/items/porkchop_cooked.png"},
   {name: "default:porkchop_raw", displayName: "Raw Porkchop", placeable: false, icon: "textures/items/porkchop_raw.png"},
   {name: "default:potato", displayName: "Potato", placeable: false, icon: "textures/items/potato.png"},
@@ -309,6 +309,7 @@ var items = [
     //cactus
     //saplings!!!
     //sugarcane growth
+    //proper plant breaking
   //TODO flowerpot
   
   //TODO: writeable books
