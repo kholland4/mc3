@@ -302,6 +302,7 @@ function genChunkMesh(chunkPos) {
   }
   if(tVertices.length > 0) {
     var material = new THREE.MeshLambertMaterial({map: textureMap, transparent: true});
+    material.alphaTest = 0.1;
     var geometry = new THREE.BufferGeometry();
     
     geometry.addAttribute("position", new THREE.BufferAttribute(new Float32Array(tVertices), 3));
