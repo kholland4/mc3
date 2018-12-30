@@ -71,14 +71,14 @@
     hardness: 0.6
   });
   
-  var names = ["wheat", "carrot"];
-  var seeds = ["farming:wheat_seeds", "default:carrot"];
-  var seedDisplayNames = ["Wheat Seeds", null];
-  var seedIcons = ["textures/items/seeds_wheat.png", null];
-  var stages = ["farming:wheat_stage_", "default:carrot_stage_"];
-  var numStages = [8, 4];
-  var stageIcons = ["textures/blocks/wheat_stage_", "textures/blocks/carrots_stage_"];
-  var texOffset = [new THREE.Vector2(256, 0), new THREE.Vector2(256, 16)];
+  var names = ["wheat", "carrot", "potato"];
+  var seeds = ["farming:wheat_seeds", "default:carrot", "default:potato"];
+  var seedDisplayNames = ["Wheat Seeds", null, null];
+  var seedIcons = ["textures/items/seeds_wheat.png", null, null];
+  var stages = ["farming:wheat_stage_", "default:carrot_stage_", "default:potato_stage_"];
+  var numStages = [8, 4, 4];
+  var stageIcons = ["textures/blocks/wheat_stage_", "textures/blocks/carrots_stage_", "textures/blocks/potatoes_stage_"];
+  var texOffset = [new THREE.Vector2(256, 0), new THREE.Vector2(256, 16), new THREE.Vector2(256, 32)];
   var drops = [
     function(pos) {
       intelligentSetBlock(pos, getItemID("default:air"));
@@ -89,6 +89,11 @@
     function(pos) {
       intelligentSetBlock(pos, getItemID("default:air"));
       givePlayerInventoryItem(new InvItem("default:carrot", randint(1, 3)));
+      return false;
+    },
+    function(pos) {
+      intelligentSetBlock(pos, getItemID("default:air"));
+      givePlayerInventoryItem(new InvItem("default:potato", randint(1, 4)));
       return false;
     }
   ];
@@ -155,9 +160,9 @@
   
   registerOnFrame(function() {
     var chunkIn = vectorDivide(controls.getObject().position, CHUNK_SIZE);
-    for(var chunkCount = 0; chunkCount < 10; chunkCount++) {
+    for(var chunkCount = 0; chunkCount < 8; chunkCount++) {
       var chunkPos = new THREE.Vector3(chunkIn.x + randint(-VIEW_RANGE.x, VIEW_RANGE.x), chunkIn.y + randint(-VIEW_RANGE.y, VIEW_RANGE.y), chunkIn.z + randint(-VIEW_RANGE.z, VIEW_RANGE.z));
-      for(var blockCount = 0; blockCount < 15; blockCount++) {
+      for(var blockCount = 0; blockCount < 8; blockCount++) {
         var localPos = new THREE.Vector3(randint(0, CHUNK_SIZE.x - 1), randint(0, CHUNK_SIZE.y - 1), randint(0, CHUNK_SIZE.z - 1));
         var pos = localToGlobal(localPos, chunkPos);
         var block = getBlock(pos);
