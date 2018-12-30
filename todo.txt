@@ -20,6 +20,8 @@
 -*Farming mod
   -*Seeds
   -Fix selector highlight for farming meshes
+  -Sunlight req
+  -Water req
 -Minecart mod
 -Cake
 -Flint and steel

@@ -148,7 +148,7 @@ var items = [
   
   {name: "default:oak_planks", displayName: "Oak Planks", textureOffsetAlt: {all: new THREE.Vector2(80, 112)}, icon: "textures/icons/oak_planks.png", groups: ["wood", "planks"], hardness: 2, furnaceFuel: 15},
   {name: "default:oak_log", displayName: "Oak Log", textureOffsetAlt: {top: new THREE.Vector2(16, 96), bottom: new THREE.Vector2(16, 96), sides: new THREE.Vector2(32, 96)}, icon: "textures/icons/oak_log.png", groups: ["wood", "log"], hardness: 2, furnaceFuel: 15},
-  {name: "default:leaves", displayName: "Oak Leaves", textureOffsetAlt: {all: new THREE.Vector2(48, 96)}, icon: "textures/icons/leaves.png", transparent: true, groups: ["leaves"], hardness: 0.2},
+  {name: "default:leaves", displayName: "Oak Leaves", onDestroy: function() { if(Math.random() < 0.08) { givePlayerInventoryItem(new InvItem("default:apple", 1)); } return true; }, textureOffsetAlt: {all: new THREE.Vector2(48, 96)}, icon: "textures/icons/leaves.png", transparent: true, groups: ["leaves"], hardness: 0.2},
   
   {name: "default:acacia_planks", displayName: "Acacia Planks", textureOffsetAlt: {all: new THREE.Vector2(128, 96)}, icon: "textures/icons/acacia_planks.png", groups: ["wood", "planks"], hardness: 2, furnaceFuel: 15},
   {name: "default:acacia_log", displayName: "Acacia Log", textureOffsetAlt: {top: new THREE.Vector2(144, 96), bottom: new THREE.Vector2(144, 96), sides: new THREE.Vector2(160, 96)}, icon: "textures/icons/acacia_log.png", groups: ["wood", "log"], hardness: 2, furnaceFuel: 15},

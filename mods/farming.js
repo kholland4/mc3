@@ -195,4 +195,6 @@
     setItemProp("default:" + toolType + "_hoe", "placeable", true);
     setItemProp("default:" + toolType + "_hoe", "onPlace", function(pos) {if("farmingTill" in mods) {var ret=mods.farmingTill(pos);if(ret) {useHUDActiveItem();}} return false;});
   });
+  
+  setItemProp("default:grass", "drops", new InvItem("farming:wheat_seeds", 1));
 })();
