@@ -71,27 +71,80 @@
     hardness: 0.6
   });
   
-  registerItem({
-    name: "farming:wheat_seeds",
-    displayName: "Wheat Seeds",
-    onPlace: function(pos) {
-      if(getItemName(getBlock(selector.destroy)) == "farming:farmland") {
-        intelligentSetBlock(pos, getItemID("farming:wheat_stage_0"));
-        useHUDActiveItem();
-      }
+  var names = ["wheat", "carrot"];
+  var seeds = ["farming:wheat_seeds", "default:carrot"];
+  var seedDisplayNames = ["Wheat Seeds", null];
+  var seedIcons = ["textures/items/seeds_wheat.png", null];
+  var stages = ["farming:wheat_stage_", "default:carrot_stage_"];
+  var numStages = [8, 4];
+  var stageIcons = ["textures/blocks/wheat_stage_", "textures/blocks/carrots_stage_"];
+  var texOffset = [new THREE.Vector2(256, 0), new THREE.Vector2(256, 16)];
+  var drops = [
+    function(pos) {
+      intelligentSetBlock(pos, getItemID("default:air"));
+      givePlayerInventoryItem(new InvItem("default:wheat", 1));
+      givePlayerInventoryItem(new InvItem("farming:wheat_seeds", randint(1, 3)));
       return false;
     },
-    icon: "textures/items/seeds_wheat.png"
-  });
-  for(var stage = 0; stage < 7; stage++) {
+    function(pos) {
+      intelligentSetBlock(pos, getItemID("default:air"));
+      givePlayerInventoryItem(new InvItem("default:carrot", randint(1, 3)));
+      return false;
+    }
+  ];
+  
+  for(var i = 0; i < names.length; i++) {
+    if(getItemID(seeds[i]) == null) {
+      registerItem({
+        name: seeds[i],
+        displayName: seedDisplayNames[i],
+        farmingStageName: stages[i],
+        onPlace: function(pos) {
+          var stage = getItemProps(itemToPlace).farmingStageName;
+          if(getItemName(getBlock(selector.destroy)) == "farming:farmland") {
+            intelligentSetBlock(pos, getItemID(stage + "0"));
+            useHUDActiveItem();
+          }
+          return false;
+        },
+        icon: seedIcons[i]
+      });
+    } else {
+      setItemProp(seeds[i], "placeable", true);
+      setItemProp(seeds[i], "farmingStageName", stages[i]);
+      setItemProp(seeds[i], "onPlace", function(pos, itemToPlace) {
+        var stage = getItemProps(itemToPlace).farmingStageName;
+        if(getItemName(getBlock(selector.destroy)) == "farming:farmland") {
+          intelligentSetBlock(pos, getItemID(stage + "0"));
+          useHUDActiveItem();
+        }
+        return false;
+      });
+    }
+    for(var stage = 0; stage < numStages[i] - 1; stage++) {
+      registerItem({
+        name: stages[i] + stage.toString(),
+        icon: stageIcons[i] + stage.toString() + ".png",
+        drops: new InvItem(seeds[i], 1),
+        inInventory: false,
+        customMesh: true,
+        meshVertices: plantMeshVertices,
+        meshUVs: getPlantMeshUVs(new THREE.Vector2(texOffset[i].x + (stage * 16), texOffset[i].y)),
+        meshFaces: plantMeshFaces,
+        transparent: true,
+        walkable: true,
+        groups: ["farming_plant"],
+        hardness: 0.1 //FIXME
+      });
+    }
     registerItem({
-      name: "farming:wheat_stage_" + stage,
-      icon: "textures/blocks/wheat_stage_" + stage + ".png",
-      drops: new InvItem("farming:wheat_seeds", 1),
+      name: stages[i] + (numStages[i] - 1).toString(),
+      icon: stageIcons[i] + (numStages[i] - 1).toString() + ".png",
+      onDestroy: drops[i],
       inInventory: false,
       customMesh: true,
       meshVertices: plantMeshVertices,
-      meshUVs: getPlantMeshUVs(new THREE.Vector2(256 + (stage * 16), 0)),
+      meshUVs: getPlantMeshUVs(new THREE.Vector2(texOffset[i].x + ((numStages[i] - 1) * 16), texOffset[i].y)),
       meshFaces: plantMeshFaces,
       transparent: true,
       walkable: true,
@@ -99,25 +152,6 @@
       hardness: 0.1 //FIXME
     });
   }
-  registerItem({
-    name: "farming:wheat_stage_7",
-    icon: "textures/blocks/wheat_stage_7.png",
-    onDestroy: function(pos) {
-      intelligentSetBlock(pos, getItemID("default:air"));
-      givePlayerInventoryItem(new InvItem("default:wheat", 1));
-      givePlayerInventoryItem(new InvItem("farming:wheat_seeds", randint(1, 3)));
-      return false;
-    },
-    inInventory: false,
-    customMesh: true,
-    meshVertices: plantMeshVertices,
-    meshUVs: getPlantMeshUVs(new THREE.Vector2(256 + (7 * 16), 0)),
-    meshFaces: plantMeshFaces,
-    transparent: true,
-    walkable: true,
-    groups: ["farming_plant"],
-    hardness: 0.1 //FIXME
-  });
   
   registerOnFrame(function() {
     var chunkIn = vectorDivide(controls.getObject().position, CHUNK_SIZE);
@@ -129,12 +163,14 @@
         var block = getBlock(pos);
         var name = getItemName(block);
         
-        var prefix = "farming:wheat_stage_";
-        if(name.startsWith(prefix)) {
-          var n = parseInt(name.substring(prefix.length));
-          if(n < 7) {
-            n++;
-            intelligentSetBlock(pos, getItemID(prefix + n.toString()));
+        for(var i = 0; i < stages.length; i++) {
+          var prefix = stages[i];
+          if(name.startsWith(prefix)) {
+            var n = parseInt(name.substring(prefix.length));
+            if(n < 7) {
+              n++;
+              intelligentSetBlock(pos, getItemID(prefix + n.toString()));
+            }
           }
         }
         

@@ -166,7 +166,7 @@ function interactPlaceBlock() {
     var props = getItemProps(itemToPlace);
     if(props.placeable) {
       if(props.onPlace != null) {
-        var ret = props.onPlace(selector.place.clone());
+        var ret = props.onPlace(selector.place.clone(), itemToPlace);
         if(ret === false) {
           return;
         }
