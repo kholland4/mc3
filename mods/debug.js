@@ -36,4 +36,39 @@
   };
   script.src = "lib/stats.min.js";
   document.head.appendChild(script);
+  
+  mods.registerChatCommand("/noclip", function(arg) {
+    if(arg == "on") {
+      NOCLIP = true;
+      return "noclip is now on\n";
+    } else if(arg == "off") {
+      NOCLIP = false;
+      return "noclip is now off\n";
+    } else {
+      if(NOCLIP) {
+        return "noclip is on\n";
+      } else {
+        return "noclip is off\n";
+      }
+    }
+  });
+  
+  mods.registerChatCommand("/js", function(arg) {
+    if(arg != undefined) {
+      eval(arg);
+    }
+  });
+  
+  registerItem({
+    name: "debug:window",
+    displayName: "Debugging Window",
+    customMesh: true,
+    meshVertices: [],
+    meshUVs: [],
+    meshFaces: [],
+    transparent: false,
+    walkable: true,
+    hardness: 1,
+    icon: "textures/blocks/debug.png"
+  });
 })();
