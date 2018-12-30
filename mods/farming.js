@@ -75,7 +75,7 @@
           }
         }
         
-        //TODO: wet/drt farmland
+        //TODO: wet/dry farmland
       }
     }
   });
@@ -89,4 +89,9 @@
     }
     return false;
   };
+  
+  ["diamond", "gold", "iron", "stone", "wood"].forEach(function(toolType) {
+    setItemProp("default:" + toolType + "_hoe", "placeable", true);
+    setItemProp("default:" + toolType + "_hoe", "onPlace", function(pos) {if("farmingTill" in mods) {var ret=mods.farmingTill(pos);if(ret) {useHUDActiveItem();}} return false;});
+  });
 })();
