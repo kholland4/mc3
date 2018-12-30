@@ -33,4 +33,14 @@
     
     return "You are at " + pos.x.toFixed(1) + ", " + pos.y.toFixed(1) + ", " + pos.z.toFixed(1) + "\n";
   });
+  mods.registerChatCommand("/give", function(str) {
+    if(!isNaN(parseInt(str))) {
+      str = parseInt(str);
+    }
+    if(getItemProps(str) == null) {
+      return "Item not found\n";
+    }
+    
+    givePlayerInventoryItem(new InvItem(str, 1));
+  });
 })();
