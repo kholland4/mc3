@@ -75,7 +75,7 @@
   var seeds = ["farming:wheat_seeds", "default:carrot", "default:potato"];
   var seedDisplayNames = ["Wheat Seeds", null, null];
   var seedIcons = ["textures/items/seeds_wheat.png", null, null];
-  var stages = ["farming:wheat_stage_", "default:carrot_stage_", "default:potato_stage_"];
+  var stages = ["farming:wheat_stage_", "farming:carrot_stage_", "farming:potato_stage_"];
   var numStages = [8, 4, 4];
   var stageIcons = ["textures/blocks/wheat_stage_", "textures/blocks/carrots_stage_", "textures/blocks/potatoes_stage_"];
   var texOffset = [new THREE.Vector2(256, 0), new THREE.Vector2(256, 16), new THREE.Vector2(256, 32)];
