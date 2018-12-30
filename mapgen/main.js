@@ -48,6 +48,13 @@ function treeNoise(position) {
   return n;
 }
 
+function caveNoise(position) {
+  if(position.y > -64) {
+    return false;
+  }
+  return noise3D(position, 29) < 0.3;
+}
+
 function genChunk(chunkPos) {
   var data = [];
   var trees = [];
@@ -58,7 +65,10 @@ function genChunk(chunkPos) {
         var pos = localToGlobal(new THREE.Vector3(x, y, z), chunkPos);
         var height = mapHeight(new THREE.Vector2(pos.x, pos.z));
         var thisEmpty = false;
-        if(pos.y < height) {
+        if(caveNoise(pos)) {
+          data.push(getItemID("default:air"));
+          thisEmpty = true;
+        } else if(pos.y < height) {
           if(coalOreNoise(pos)) {
             data.push(getItemID("ores:coal_ore"));
           } else if(ironOreNoise(pos)) {
