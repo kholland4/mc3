@@ -367,13 +367,13 @@ function initItem(i) {
         0.0 + (items[i].textureOffset[0].x * textureMapIndexScale), 0.0 + (items[i].textureOffset[0].y * textureMapIndexScale),
         
         //face 2
-        0.0 + (items[i].textureOffset[0].x * textureMapIndexScale), uvSize + (items[i].textureOffset[0].y * textureMapIndexScale),
-        uvSize + (items[i].textureOffset[0].x * textureMapIndexScale), uvSize + (items[i].textureOffset[0].y * textureMapIndexScale),
-        0.0 + (items[i].textureOffset[0].x * textureMapIndexScale), 0.0 + (items[i].textureOffset[0].y * textureMapIndexScale),
+        0.0 + (items[i].textureOffset[1].x * textureMapIndexScale), uvSize + (items[i].textureOffset[1].y * textureMapIndexScale),
+        uvSize + (items[i].textureOffset[1].x * textureMapIndexScale), uvSize + (items[i].textureOffset[1].y * textureMapIndexScale),
+        0.0 + (items[i].textureOffset[1].x * textureMapIndexScale), 0.0 + (items[i].textureOffset[1].y * textureMapIndexScale),
 
-        uvSize + (items[i].textureOffset[0].x * textureMapIndexScale), uvSize + (items[i].textureOffset[0].y * textureMapIndexScale),
-        uvSize + (items[i].textureOffset[0].x * textureMapIndexScale), 0.0 + (items[i].textureOffset[0].y * textureMapIndexScale),
-        0.0 + (items[i].textureOffset[0].x * textureMapIndexScale), 0.0 + (items[i].textureOffset[0].y * textureMapIndexScale)
+        uvSize + (items[i].textureOffset[1].x * textureMapIndexScale), uvSize + (items[i].textureOffset[1].y * textureMapIndexScale),
+        uvSize + (items[i].textureOffset[1].x * textureMapIndexScale), 0.0 + (items[i].textureOffset[1].y * textureMapIndexScale),
+        0.0 + (items[i].textureOffset[1].x * textureMapIndexScale), 0.0 + (items[i].textureOffset[1].y * textureMapIndexScale)
       ];
       items[i].meshFaces = [
         {dir: new THREE.Vector3(0, 1, 0), length: 6},
