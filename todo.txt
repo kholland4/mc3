@@ -1,3 +1,4 @@
+-Fix mouseover text (pointer events)
 -Quartz crafting
 -Better inventory interaction
   -Crafting - picking up when max stack exceeded
