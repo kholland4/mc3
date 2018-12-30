@@ -43,4 +43,33 @@
     
     givePlayerInventoryItem(new InvItem(str, 1));
   });
+  mods.registerChatCommand("/renderdist", function(str) {
+    if(str == undefined) {
+      return "Render distance is " + VIEW_RANGE.x + ", " + VIEW_RANGE.y + ", " + VIEW_RANGE.z + "\n";
+    }
+    
+    if(str.indexOf(",") == -1) {
+      return;
+    }
+    var x = str.substring(0, str.indexOf(","));
+    str = str.substring(str.indexOf(",") + 1);
+    if(str.indexOf(",") == -1) {
+      return;
+    }
+    var y = str.substring(0, str.indexOf(","));
+    str = str.substring(str.indexOf(",") + 1);
+    var z = str;
+    
+    var pos = new THREE.Vector3(parseFloat(x), parseFloat(y), parseFloat(z));
+    
+    for(var i = 0; i < 3; i++) {
+      if(isNaN(pos.getComponent(i)) || !isFinite(pos.getComponent(i))) {
+        return;
+      }
+    }
+    
+    VIEW_RANGE.copy(pos);
+    
+    return "Render distance set to " + pos.x + ", " + pos.y + ", " + pos.z + "\n";
+  });
 })();
