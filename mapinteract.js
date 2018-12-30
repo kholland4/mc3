@@ -126,7 +126,10 @@ function interactBreakBlock() {
     var props = getItemProps(old);
     
     if(props.onDestroy != null) {
-      props.onDestroy(pos);
+      var ret = props.onDestroy(selector.destroy.clone());
+      if(ret === false) {
+        return;
+      }
     }
     
     if(props.drops != null) {
@@ -162,6 +165,13 @@ function interactPlaceBlock() {
   if(itemToPlace != null) {
     var props = getItemProps(itemToPlace);
     if(props.placeable) {
+      if(props.onPlace != null) {
+        var ret = props.onPlace(selector.place.clone());
+        if(ret === false) {
+          return;
+        }
+      }
+      
       var old = getBlock(selector.place);
       //TODO: don't allow placing if there's already a block there? but depends on what block
       setBlock(selector.place, itemToPlace);

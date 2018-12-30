@@ -52,3 +52,7 @@ function arrayEquals(array1, array2) {
   }
   return true;
 }
+
+function randint(a, b) {
+  return Math.max(Math.min(a + Math.floor(Math.random() * (b - a + 1)), b), a);
+}

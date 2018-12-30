@@ -15,6 +15,7 @@ function initMods() {
   //loadMod("mods/chat.js?r=" + r);
   loadMod("mods/gamemode.js?r=" + r);
   loadMod("mods/chatcommands.js?r=" + r);
+  loadMod("mods/farming.js?r=" + r);
 }
 
 function loadMod(url) {
