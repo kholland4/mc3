@@ -1,6 +1,9 @@
 (function() {
   //Some useful chat commands
-  mods.registerChatCommand("/loadmod", loadMod);
+  mods.registerChatCommand("/loadmod", function(str) {
+    loadMod(str);
+    return "Loaded mod " + str + "\n";
+  });
   mods.registerChatCommand("/tp", function(str) {
     if(str.indexOf(",") == -1) {
       return;

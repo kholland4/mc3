@@ -28,6 +28,8 @@
       if(ret != undefined) {
         chatLog += ret;
       }
+    } else {
+      chatLog += "Command not found\n";
     }
   }
   

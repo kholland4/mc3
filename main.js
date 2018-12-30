@@ -1,4 +1,6 @@
 var VIEW_RANGE = new THREE.Vector3(3, 2, 3);
+var NOCLIP = false;
+var CHUNK_LOAD_RATE = 1;
 
 var realMovement = new THREE.Vector3(0, 0, 0);
 
@@ -96,27 +98,31 @@ function animate() {
   //}
   
   //---Movement---
-  var oldPos = controls.getObject().position.clone();
-  controls.getObject().translateOnAxis(realMovement, timeScale * moveScale);
-  var newPos = controls.getObject().position.clone();
-  controls.getObject().position.copy(oldPos);
-  [0, 1, 2].forEach(function(index) {
-    var axisPos = [new THREE.Vector3(newPos.x, oldPos.y, oldPos.z), new THREE.Vector3(oldPos.x, newPos.y, oldPos.z), new THREE.Vector3(oldPos.x, oldPos.y, newPos.z)][index];
-    if(!collide(axisPos)) {
-      controls.getObject().position.copy(axisPos);
-      oldPos = controls.getObject().position.clone();
-    } else {
-      //For gravity
-      if(index == 1 && !MOVEMENT_FLY) {
-        realMovement.y = 0;
+  if(NOCLIP) {
+    controls.getObject().translateOnAxis(realMovement, timeScale * moveScale);
+  } else {
+    var oldPos = controls.getObject().position.clone();
+    controls.getObject().translateOnAxis(realMovement, timeScale * moveScale);
+    var newPos = controls.getObject().position.clone();
+    controls.getObject().position.copy(oldPos);
+    [0, 1, 2].forEach(function(index) {
+      var axisPos = [new THREE.Vector3(newPos.x, oldPos.y, oldPos.z), new THREE.Vector3(oldPos.x, newPos.y, oldPos.z), new THREE.Vector3(oldPos.x, oldPos.y, newPos.z)][index];
+      if(!collide(axisPos)) {
+        controls.getObject().position.copy(axisPos);
+        oldPos = controls.getObject().position.clone();
+      } else {
+        //For gravity
+        if(index == 1 && !MOVEMENT_FLY) {
+          realMovement.y = 0;
+        }
       }
-    }
-  });
+    });
+  }
   
   //---Loading/unloading chunks---
   if(frameCount % 1 == 0) {
     var chunkIn = vectorDivide(controls.getObject().position, CHUNK_SIZE);
-    chunkMeshAutoload(chunkIn, VIEW_RANGE, 1);
+    chunkMeshAutoload(chunkIn, VIEW_RANGE, CHUNK_LOAD_RATE);
   }
   
   camera.updateProjectionMatrix();
