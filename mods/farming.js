@@ -163,13 +163,15 @@
         var block = getBlock(pos);
         var name = getItemName(block);
         
-        for(var i = 0; i < stages.length; i++) {
-          var prefix = stages[i];
-          if(name.startsWith(prefix)) {
-            var n = parseInt(name.substring(prefix.length));
-            if(n < 7) {
-              n++;
-              intelligentSetBlock(pos, getItemID(prefix + n.toString()));
+        if(name.startsWith("farming:")) {
+          for(var i = 0; i < stages.length; i++) {
+            var prefix = stages[i];
+            if(name.startsWith(prefix)) {
+              var n = parseInt(name.substring(prefix.length));
+              if(n < 7) {
+                n++;
+                intelligentSetBlock(pos, getItemID(prefix + n.toString()));
+              }
             }
           }
         }
