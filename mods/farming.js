@@ -1,4 +1,63 @@
 (function() {
+  var plantMeshVertices = [
+    //front
+    -0.5, 0.5, 0.25,
+    0.5, 0.5, 0.25,
+    -0.5, -0.5, 0.25,
+
+    0.5, 0.5, 0.25,
+    0.5, -0.5, 0.25,
+    -0.5, -0.5, 0.25,
+    
+    //back
+    -0.5, 0.5, -0.25,
+    0.5, 0.5, -0.25,
+    -0.5, -0.5, -0.25,
+
+    0.5, 0.5, -0.25,
+    0.5, -0.5, -0.25,
+    -0.5, -0.5, -0.25,
+    
+    //left
+    -0.25, 0.5, -0.5,
+    -0.25, 0.5, 0.5,
+    -0.25, -0.5, -0.5,
+
+    -0.25, 0.5, 0.5,
+    -0.25, -0.5, 0.5,
+    -0.25, -0.5, -0.5,
+    
+    //right
+    0.25, 0.5, -0.5,
+    0.25, 0.5, 0.5,
+    0.25, -0.5, -0.5,
+
+    0.25, 0.5, 0.5,
+    0.25, -0.5, 0.5,
+    0.25, -0.5, -0.5
+  ];
+  function getPlantMeshUVs(tex) {
+    var uvs = [];
+    for(var i = 0; i < 4; i++) {
+      uvs.push.apply(uvs, [
+        0.0 + (tex.x * textureMapIndexScale), uvSize + (tex.y * textureMapIndexScale),
+        uvSize + (tex.x * textureMapIndexScale), uvSize + (tex.y * textureMapIndexScale),
+        0.0 + (tex.x * textureMapIndexScale), 0.0 + (tex.y * textureMapIndexScale),
+
+        uvSize + (tex.x * textureMapIndexScale), uvSize + (tex.y * textureMapIndexScale),
+        uvSize + (tex.x * textureMapIndexScale), 0.0 + (tex.y * textureMapIndexScale),
+        0.0 + (tex.x * textureMapIndexScale), 0.0 + (tex.y * textureMapIndexScale)
+      ]);
+    }
+    return uvs;
+  }
+  var plantMeshFaces = [
+    {dir: new THREE.Vector3(0, 1, 0), length: 6},
+    {dir: new THREE.Vector3(0, 1, 0), length: 6},
+    {dir: new THREE.Vector3(0, 1, 0), length: 6},
+    {dir: new THREE.Vector3(0, 1, 0), length: 6}
+  ];
+  
   registerItem({
     name: "farming:farmland",
     drops: new InvItem("default:dirt", 1),
@@ -30,8 +89,10 @@
       icon: "textures/blocks/wheat_stage_" + stage + ".png",
       drops: new InvItem("farming:wheat_seeds", 1),
       inInventory: false,
-      xmesh: true,
-      textureOffsetAlt: {all: new THREE.Vector2(256 + (stage * 16), 0)},
+      customMesh: true,
+      meshVertices: plantMeshVertices,
+      meshUVs: getPlantMeshUVs(new THREE.Vector2(256 + (stage * 16), 0)),
+      meshFaces: plantMeshFaces,
       transparent: true,
       walkable: true,
       groups: ["farming_plant"],
@@ -48,8 +109,10 @@
       return false;
     },
     inInventory: false,
-    xmesh: true,
-    textureOffsetAlt: {all: new THREE.Vector2(256 + (7 * 16), 0)},
+    customMesh: true,
+    meshVertices: plantMeshVertices,
+    meshUVs: getPlantMeshUVs(new THREE.Vector2(256 + (7 * 16), 0)),
+    meshFaces: plantMeshFaces,
     transparent: true,
     walkable: true,
     groups: ["farming_plant"],

@@ -17,8 +17,9 @@
 -Signs mod
 -Glass panes, iron bars, etc.
 -Beds mod
--Farming mod
-  -Seeds
+-*Farming mod
+  -*Seeds
+  -Fix selector highlight for farming meshes
 -Minecart mod
 -Cake
 -Flint and steel
