@@ -45,6 +45,7 @@
       chat.style.color = "white";
       chat.style.fontSize = "14px";
       chat.style.fontFamily = "monospace";
+      chat.style.overflowY = "auto";
       chat.style.display = "none";
       document.body.appendChild(chat);
     }
@@ -69,11 +70,12 @@
         chatInput = chatInput.substring(0, chatInput.length - 1);
       }
     } else {
-      //TODO check for printable chat
+      //TODO check for printable char
       chatInput += str;
     }
     
     chat.innerText = chatLog + "] " + chatInput;
+    chat.scrollBy(0, 1000);
   }
   
   function closeChat() {
