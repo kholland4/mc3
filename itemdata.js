@@ -212,7 +212,7 @@ var items = [
   {name: "default:mushroom_brown", displayName: "Brown Mushroom", xmesh: true, textureOffsetAlt: {all: new THREE.Vector2(128, 128)}, transparent: true, walkable: true, icon: "textures/blocks/mushroom_brown.png", hardness: 0},
   {name: "default:mushroom_red", displayName: "Red Mushroom", xmesh: true, textureOffsetAlt: {all: new THREE.Vector2(144, 128)}, transparent: true, walkable: true, icon: "textures/blocks/mushroom_red.png", hardness: 0},
   {name: "default:flower_rose", displayName: "Rose", xmesh: true, textureOffsetAlt: {all: new THREE.Vector2(0, 80)}, transparent: true, walkable: true, icon: "textures/blocks/flower_rose.png", hardness: 0},
-  {name: "default:grass", displayName: "Grass", xmesh: true, textureOffsetAlt: {all: new THREE.Vector2(0, 64)}, transparent: true, walkable: true, icon: "textures/misc/double_plant_grass_top_color.png", hardness: 0},
+  {name: "default:grass", displayName: "Grass", xmesh: true, textureOffsetAlt: {all: new THREE.Vector2(0, 64)}, transparent: true, walkable: true, icon: "textures/misc/grass.png", hardness: 0},
   {name: "default:sugarcane", displayName: "Sugarcane", xmesh: true, textureOffsetAlt: {all: new THREE.Vector2(96, 64)}, transparent: true, walkable: true, icon: "textures/items/reeds.png", hardness: 0},
   {name: "default:deadbush", displayName: "Dead Bush", xmesh: true, textureOffsetAlt: {all: new THREE.Vector2(224, 0)}, transparent: true, walkable: true, icon: "textures/blocks/deadbush.png", hardness: 0},
   
