@@ -173,11 +173,21 @@ function initTrees() {
   });
 }
 
+function treeTypeNoise(position) {
+  var scale = 20;
+  var n = noise.perlin2(position.x / scale, position.y / scale);
+  //convert to the 0 - 1 range and invert
+  n = (n + 1) / 2;
+  n = 1 - n;
+  return n;
+}
+
 function genTree(pos) {
-  var noise = treeNoise(new THREE.Vector2(pos.x, pos.z));
-  if(noise < 0.88) {
+  var noise = treeTypeNoise(new THREE.Vector2(pos.x, pos.z));
+  console.log(noise);
+  if(noise < 0.6) {
     return treeData[0];
-  } else if(noise < 0.9) {
+  } else if(noise < 0.77) {
     return treeData[1];
   } else if(noise < 1.0) {
     return treeData[2];

@@ -48,6 +48,15 @@ function treeNoise(position) {
   return n;
 }
 
+function treeTypeNoise(position) {
+  var scale = 2;
+  var n = noise.perlin2(position.x / scale, position.y / scale);
+  //convert to the 0 - 1 range and invert
+  n = (n + 1) / 2;
+  n = 1 - n;
+  return n;
+}
+
 function caveNoise(position) {
   if(position.y > -64) {
     return false;
