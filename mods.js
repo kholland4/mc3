@@ -19,6 +19,9 @@ function initMods() {
   loadMod("mods/chatcommands.js?r=" + r);
   loadMod("mods/farming.js?r=" + r);
   loadMod("mods/health.js?r=" + r);
+  loadMod("mods/hunger.js?r=" + r);
+  
+  //loadMod("mods/entitytest.js?r=" + r);
   
   for(var i = 0; i < modsInit.length; i++) {
     modsInit[i]();

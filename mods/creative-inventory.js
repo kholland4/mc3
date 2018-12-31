@@ -2,9 +2,12 @@
   var creativeInventoryOpen = false;
   //registerInputHandler("keydown", function(e) {});
   
-  CREATIVE_BLOCK_PLACE = true;
-  CREATIVE_BLOCK_DESTROY = true;
-  mods.CREATIVE_MODE = true;
+  //CREATIVE_BLOCK_PLACE = true;
+  //CREATIVE_BLOCK_DESTROY = true;
+  //mods.CREATIVE_MODE = true;
+  if(!("CREATIVE_MODE" in mods)) {
+    mods.CREATIVE_MODE = false;
+  }
   
   document.addEventListener("keydown", function(e) {
     if(document.pointerLockElement == renderer.domElement && !e.repeat) {

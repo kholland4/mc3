@@ -1,6 +1,7 @@
 (function() {
   registerModsInit(function() {
     mods.health = {};
+    mods.health.enabled = true;
     
     var hud = document.getElementById("hud");
     var container = document.createElement("div");
@@ -28,10 +29,12 @@
       healthBar.appendChild(heart);
     }
     mods.health.hearts = hearts;
+    mods.health.healthBar = healthBar;
     container.appendChild(healthBar);
     document.body.appendChild(container);
     
     mods.health.level = 20;
+    mods.health.max = 20;
     mods.health.get = function() {
       return mods.health.level;
     };
@@ -53,16 +56,29 @@
     
     var oldYSpeed = 0;
     registerOnFrame(function(timeScale) {
-      ySpeed = realMovement.y;
-      if(!MOVEMENT_FLY) {
-        var delta = Math.abs(ySpeed - oldYSpeed) * timeScale;
-        if(delta > 0.2) {
-          var healthHit = Math.floor((delta - 0.2) * 20);
-          console.log(healthHit);
-          mods.health.set(mods.health.get() - healthHit);
+      if(mods.health.enabled) {
+        ySpeed = realMovement.y;
+        if(!MOVEMENT_FLY) {
+          var delta = Math.abs(ySpeed - oldYSpeed) * timeScale;
+          if(delta > 0.2) {
+            var healthHit = Math.floor((delta - 0.2) * 20);
+            console.log(healthHit);
+            mods.health.set(mods.health.get() - healthHit);
+          }
         }
+        oldYSpeed = ySpeed;
       }
-      oldYSpeed = ySpeed;
     });
+    
+    mods.health.enable = function() {
+      mods.health.enabled = true;
+      oldYSpeed = realMovement.y;
+      mods.health.healthBar.style.display = "block";
+    };
+    
+    mods.health.disable = function() {
+      mods.health.enabled = false;
+      mods.health.healthBar.style.display = "none";
+    };
   });
 })();

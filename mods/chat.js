@@ -46,6 +46,7 @@
       chat.style.fontSize = "14px";
       chat.style.fontFamily = "monospace";
       chat.style.overflowY = "auto";
+      chat.style.zIndex = "2";
       chat.style.display = "none";
       document.body.appendChild(chat);
     }

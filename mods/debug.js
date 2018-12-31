@@ -59,6 +59,30 @@
     }
   });
   
+  mods.registerChatCommand("/reseed", function(arg) {
+    if(arg != undefined) {
+      var seed = parseInt(arg);
+      if(!isNaN(seed)) {
+        noise.seed(seed);
+        chunkMap = [];
+        chunkData = [];
+        lightMapMap = [];
+        lightMapData = [];
+        
+        for(var i = 0; i < chunkMeshMap.length; i++) {
+          unloadChunkMesh(chunkMeshMap[i].pos);
+          i--;
+        }
+        
+        var startPos = controls.getObject().position;
+        startPos.y = mapHeight(new THREE.Vector2(startPos.x, startPos.z)) + 5;
+        controls.getObject().position.copy(startPos);
+        
+        chunkMeshAutoload(vectorDivide(startPos, CHUNK_SIZE), new THREE.Vector3(1, 1, 1), Infinity);
+      }
+    }
+  });
+  
   registerItem({
     name: "debug:window",
     displayName: "Debugging Window",
