@@ -184,7 +184,6 @@ function treeTypeNoise(position) {
 
 function genTree(pos) {
   var noise = treeTypeNoise(new THREE.Vector2(pos.x, pos.z));
-  console.log(noise);
   if(noise < 0.6) {
     return treeData[0];
   } else if(noise < 0.77) {
