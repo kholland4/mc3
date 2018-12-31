@@ -50,5 +50,19 @@
         }
       }
     };
+    
+    var oldYSpeed = 0;
+    registerOnFrame(function(timeScale) {
+      ySpeed = realMovement.y;
+      if(!MOVEMENT_FLY) {
+        var delta = Math.abs(ySpeed - oldYSpeed) * timeScale;
+        if(delta > 0.2) {
+          var healthHit = Math.floor((delta - 0.2) * 20);
+          console.log(healthHit);
+          mods.health.set(mods.health.get() - healthHit);
+        }
+      }
+      oldYSpeed = ySpeed;
+    });
   });
 })();
