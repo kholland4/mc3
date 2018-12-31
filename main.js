@@ -15,6 +15,10 @@ function animate() {
   prevTime = time;
   var timeScale = timeDelta / 1000;
   
+  if(timeScale > 2) {
+    return;
+  }
+  
   modsOnFrame(timeScale);
   
   //---Raycast---

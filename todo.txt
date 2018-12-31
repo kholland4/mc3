@@ -5,14 +5,16 @@
   -Partial merges
   -Picking up all of crafted or full stack in creative inventory
 -Directional block placement
--More types of trees
+-*More types of trees
   -Biomes?
+  -All trees
+  -Better generation
 -Flowing water
 *-Crafting
 -Save/load mod
 -Stairs mod
 -Slab mod
--Mineral blocks
+-*Mineral blocks
 -Fence mod
 -Furnace mod
 -Signs mod
@@ -32,3 +34,6 @@
 -E/n/t/i/t/i/e/s
 -Fix backwards UV mapping
 -Naturally occuring clay
+-Gravel and dirt deposits underground
+-Less blobby noise
+-Fix fluid/gravity

@@ -1,9 +1,12 @@
 (function() {
   var craftingOpen = false;
   
-  CREATIVE_BLOCK_PLACE = false;
-  CREATIVE_BLOCK_DESTROY = false;
-  mods.CREATIVE_MODE = false;
+  //CREATIVE_BLOCK_PLACE = false;
+  //CREATIVE_BLOCK_DESTROY = false;
+  //mods.CREATIVE_MODE = false;
+  if(!("CREATIVE_MODE" in mods)) {
+    mods.CREATIVE_MODE = false;
+  }
   
   var CRAFT_GRID_SIZE = new THREE.Vector2(3, 3);
   

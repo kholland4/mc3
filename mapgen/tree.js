@@ -1,4 +1,4 @@
-var MAX_TREE_RADIUS = new THREE.Vector3(3, 7, 3);
+var MAX_TREE_RADIUS = new THREE.Vector3(3, 8, 3);
 var TREE_FREQ = 0.85;
 
 var treeData = [];
