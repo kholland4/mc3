@@ -132,6 +132,9 @@ function genChunk(chunkPos) {
   for(var i = 0; i < trees.length; i++) {
     var pos = trees[i];
     var tree = genTree(trees[i]);
+    if(tree == null) {
+      continue;
+    }
     for(var x = 0; x < tree.size.x; x++) {
       for(var y = 0; y < tree.size.y; y++) {
         for(var z = 0; z < tree.size.z; z++) {

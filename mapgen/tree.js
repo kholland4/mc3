@@ -1,5 +1,5 @@
 var MAX_TREE_RADIUS = new THREE.Vector3(3, 8, 3);
-var TREE_FREQ = 0.85;
+var TREE_FREQ = 0.8; //was 0.85 before grass
 
 var treeData = [];
 
@@ -171,6 +171,11 @@ function initTrees() {
          air,    air,    air,    air,    air,    air,    air
     ]
   });
+  
+  treeData.push({
+    size: new THREE.Vector3(1, 1, 1),
+    data: [ getItemID("default:grass") ]
+  });
 }
 
 function treeTypeNoise(position) {
@@ -184,7 +189,14 @@ function treeTypeNoise(position) {
 
 function genTree(pos) {
   var noise = treeTypeNoise(new THREE.Vector2(pos.x, pos.z));
-  if(noise < 0.6) {
+  var noise2 = treeNoise(new THREE.Vector2(pos.x, pos.z));
+  if(noise2 < 0.85) {
+    //grass
+    if(noise > 0.5) {
+      return treeData[3];
+    }
+    return null;
+  } else if(noise < 0.6) {
     return treeData[0];
   } else if(noise < 0.77) {
     return treeData[1];
