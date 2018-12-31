@@ -1,5 +1,7 @@
 var modsRunOnFrame = [];
 var mods = {};
+var modsInit = [];
+var modsInitted = false;
 
 function initMods() {
   var r = 5; //Useful to force reload mod files
@@ -16,6 +18,12 @@ function initMods() {
   loadMod("mods/gamemode.js?r=" + r);
   loadMod("mods/chatcommands.js?r=" + r);
   loadMod("mods/farming.js?r=" + r);
+  loadMod("mods/health.js?r=" + r);
+  
+  for(var i = 0; i < modsInit.length; i++) {
+    modsInit[i]();
+  }
+  modsInitted = true;
 }
 
 function loadMod(url) {
@@ -48,5 +56,13 @@ function removeOnFrame(callback) {
       modsRunOnFrame.splice(i, 1);
       return;
     }
+  }
+}
+
+function registerModsInit(callback) {
+  if(modsInitted) {
+    callback();
+  } else {
+    modsInit.push(callback);
   }
 }
