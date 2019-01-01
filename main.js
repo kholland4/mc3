@@ -123,6 +123,11 @@ function animate() {
     });
   }
   
+  //---Move skybox---
+  if(frameCount % 60 == 0) {
+    skybox.position.copy(controls.getObject().position);
+  }
+  
   //---Loading/unloading chunks---
   if(frameCount % 1 == 0) {
     var chunkIn = vectorDivide(controls.getObject().position, CHUNK_SIZE);
