@@ -1,5 +1,5 @@
 var MAX_TREE_RADIUS = new THREE.Vector3(3, 8, 3);
-var TREE_FREQ = 0.8; //was 0.85 before grass
+var TREE_FREQ = 0.7; //was 0.85 before grass
 
 var treeData = [];
 
@@ -188,11 +188,12 @@ function treeTypeNoise(position) {
 }
 
 function genTree(pos) {
-  var noise = treeTypeNoise(new THREE.Vector2(pos.x, pos.z));
-  var noise2 = treeNoise(new THREE.Vector2(pos.x, pos.z));
+  var noise = treeTypeNoise(new THREE.Vector2(pos.x, pos.z)); //type of tree
+  var noise2 = treeNoise(new THREE.Vector2(pos.x, pos.z)); //tree or not
+  var noise3 = noise2D(new THREE.Vector2(pos.x, pos.z), 1000); //grassland or not
   if(noise2 < 0.85) {
     //grass
-    if(noise > 0.5) {
+    if((noise3 > 0.8 && noise > 0.23) || (noise2 > 0.77 && noise > 0.5)) {
       return treeData[3];
     }
     return null;
