@@ -1,5 +1,6 @@
 -Fix mouseover text (pointer events)
 -Quartz crafting
+-New textures!!!
 -Better inventory interaction
   -Crafting - picking up when max stack exceeded
   -Partial merges
@@ -37,3 +38,4 @@
 -Gravel and dirt deposits underground
 -Less blobby noise
 -Fix fluid/gravity
+-Fix slab icons

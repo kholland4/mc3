@@ -20,6 +20,8 @@ function initMods() {
   loadMod("mods/farming.js?r=" + r);
   loadMod("mods/health.js?r=" + r);
   loadMod("mods/hunger.js?r=" + r);
+  loadMod("mods/stairs.js?r=" + r);
+  loadMod("mods/slab.js?r=" + r);
   
   //loadMod("mods/entitytest.js?r=" + r);
   
