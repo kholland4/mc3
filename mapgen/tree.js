@@ -176,6 +176,11 @@ function initTrees() {
     size: new THREE.Vector3(1, 1, 1),
     data: [ getItemID("default:grass") ]
   });
+  
+  treeData.push({
+    size: new THREE.Vector3(1, 1, 1),
+    data: [ getItemID("default:flower_rose") ]
+  });
 }
 
 function treeTypeNoise(position) {
@@ -195,6 +200,10 @@ function genTree(pos) {
     //grass
     if((noise3 > 0.8 && noise > 0.23) || (noise2 > 0.77 && noise > 0.5)) {
       return treeData[3];
+    }
+    //rose
+    if(noise2 > 0.77 && noise < 0.4) {
+      return treeData[4];
     }
     return null;
   } else if(noise < 0.6) {
