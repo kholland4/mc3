@@ -71,6 +71,27 @@ function initWebGL() {
   skybox.material.side = THREE.BackSide;
   scene.add(skybox);
   
+  /*var sunTex = THREE.ImageUtils.loadTexture("textures/misc/sun_clear.png");
+  sunTex.minFilter = THREE.NearestFilter;
+  sunTex.magFilter = THREE.NearestFilter;
+  
+  var sunGeo = new THREE.PlaneGeometry(512, 512);
+  var material = new THREE.MeshLambertMaterial({map: sunTex, color: 0x7ec0ee, transparent: true});
+  var sun = new THREE.Mesh(sunGeo, material);
+  for(var face = 0; face < sun.geometry.faces.length; face++) {
+    for(var comp = 0; comp < 3; comp++) {
+      //console.log(sun.geometry.faces[face].vertexNormals[comp]);
+      sun.geometry.faces[face].vertexNormals[comp] = new THREE.Vector3(0, 0, -2);
+    }
+  }
+  sun.geometry.normalsNeedUpdate = true;
+  sun.geometry.elementsNeedUpdate = true;
+  sun.geometry.verticesNeedUpdate = true;
+  sun.position.set(0, 900, 0);
+  sun.rotation.x = Math.PI / 2;
+  //sun.material.side = THREE.BackSide;
+  scene.add(sun);*/
+  
   /*var geometry = new THREE.BoxGeometry(1, 1, 1);
   var material = new THREE.MeshLambertMaterial({color: 0xff0000});
   cube = new THREE.Mesh(geometry, material);
