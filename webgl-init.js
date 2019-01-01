@@ -3,6 +3,8 @@ var renderer;
 var scene;
 var controls;
 
+var skybox;
+
 function initWebGL() {
   scene = new THREE.Scene();  
   
@@ -65,9 +67,9 @@ function initWebGL() {
   
   var skyGeo = new THREE.SphereGeometry(1000, 25, 25);
   var material = new THREE.MeshBasicMaterial({color: 0x7ec0ee});
-  sky = new THREE.Mesh(skyGeo, material);
-  sky.material.side = THREE.BackSide;
-  scene.add(sky);
+  skybox = new THREE.Mesh(skyGeo, material);
+  skybox.material.side = THREE.BackSide;
+  scene.add(skybox);
   
   /*var geometry = new THREE.BoxGeometry(1, 1, 1);
   var material = new THREE.MeshLambertMaterial({color: 0xff0000});
