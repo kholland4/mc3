@@ -134,7 +134,8 @@
       {dir: new THREE.Vector3(0, 1, 0), length: 6},
       {dir: new THREE.Vector3(0, -1, 0), length: 6}
     ],
-    transparent: true
+    transparent: true,
+    customHitbox: [new THREE.Box3(new THREE.Vector3(-0.5, -0.5, 0.375), new THREE.Vector3(0.5, 1.5, 0.5))]
   });
   
   registerItem({
@@ -265,7 +266,7 @@
       {dir: new THREE.Vector3(0, -1, 0), length: 6}
     ],
     transparent: true,
-    walkable: true
+    customHitbox: [new THREE.Box3(new THREE.Vector3(-0.5, -0.5, -0.5), new THREE.Vector3(-0.375, 1.5, 0.5))]
   });
   
   mods.registerCraft({
