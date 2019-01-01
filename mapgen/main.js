@@ -26,17 +26,37 @@ function noise3D(position, scale) {
   return n;
 }
 
-function mapHeight(position) {
+function mapHeight(position, bn) {
+  //biome-ish noise
+  var recursive = true;
+  if(bn == undefined) {
+    bn = (noise2D(position, 3000) * 0.6) + 0.4;
+    recursive = false;
+  }
+  
   //very low frequency noise; on a continent scale
-  var xlf = range(noise2D(position, 5000), -3000, 2000);
+  var xlf = range(noise2D(position, 5000), -3000 * bn, 2000 * bn);
   
   //low frequency noise - large mountains, hills, etc.
-  var lf = range(noise2D(position, 500), 0, 1000);
+  var lf = range(noise2D(position, 500), 0 * bn, 1000 * bn);
   
   //medium frequency noise
-  var mf = range(noise2D(position, 50), 100, 400);
+  var mf = range(noise2D(position, 50), 100 * bn, 400 * bn);
   
-  return Math.round((xlf + lf + mf) / 10);
+  //high frequency noise - more "natural" texture
+  var hf = range(noise2D(position, 15), -30 * bn, 30 * bn);
+  //var hf = 0;
+  
+  //mountain noise
+  //var mn = range(noise2D(position, 300), 0 * bn, 1000 * bn);
+  var mn = 0;
+  
+  var height = Math.floor((xlf + lf + mf + hf + mn) / 10);
+  if(height < 2 && !recursive) {
+    return mapHeight(position, Math.max(bn, 0.8));
+  } else {
+    return height;
+  }
 }
 
 function treeNoise(position) {
