@@ -13,11 +13,11 @@
 -Flowing water
 *-Crafting
 -Save/load mod
--Stairs mod
--Slab mod
+-*Stairs mod
+-*Slab mod
 -*Mineral blocks
 -Fence mod
--Furnace mod
+-*Furnace mod
 -Signs mod
 -Glass panes, iron bars, etc.
 -Beds mod
@@ -39,3 +39,4 @@
 -Less blobby noise
 -Fix fluid/gravity
 -Fix slab icons
+-Selector that encompasses entire block?

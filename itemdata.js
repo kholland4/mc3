@@ -43,7 +43,8 @@ var itemDefaults = {
   furnaceFuel: null,
   isFood: false,
   foodPoints: 0,
-  foodSat: 0
+  foodSat: 0,
+  customHitbox: null
 };
 var items = [
   {name: "default:air", visible: false, walkable: true, transparent: true, placeable: false, inInventory: false},

@@ -150,6 +150,8 @@
         newProps.groups.splice(newProps.groups.indexOf("planks"), 1);
       }
       
+      newProps.customHitbox = [new THREE.Box3(new THREE.Vector3(-0.5, -0.5, -0.5), new THREE.Vector3(0.5, 0, 0.5))];
+      
       registerItem(newProps);
       
       mods.registerCraft({
