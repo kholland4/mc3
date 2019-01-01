@@ -553,4 +553,11 @@
     transparent: true,
     customHitbox: [new THREE.Box3(new THREE.Vector3(-0.5, -0.5, -0.5), new THREE.Vector3(-0.375, 0.5, 0.5))]
   });
+  
+  mods.registerCraft({
+    size: new THREE.Vector2(3, 2),
+    shapeless: false,
+    in: ["group:planks", "group:planks", "group:planks", "group:planks", "group:planks", "group:planks"],
+    out: new InvItem("door:trapdoor_closed", 2)
+  });
 })();
