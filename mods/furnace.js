@@ -220,7 +220,7 @@
       if(meta.isSmelting) {
         arrowPos = 1 - (meta.itemCountdown / meta.itemCountdownInitial);
       }
-      arrow.src = "textures/misc/arrow_stage_" + range(arrowPos, 1, 23) + ".png";
+      arrow.src = TEXTUREPACK + "textures/misc/arrow_stage_" + range(arrowPos, 1, 23) + ".png";
       
       var firePos = 0;
       if("fuelCountdown" in meta) {
@@ -228,7 +228,7 @@
           firePos = meta.fuelCountdown / meta.fuelCountdownInitial;
         }
       }
-      fire.src = "textures/misc/fire_stage_" + range(firePos, 1, 13) + ".png";
+      fire.src = TEXTUREPACK + "textures/misc/fire_stage_" + range(firePos, 1, 13) + ".png";
     };
     
     function updatePIGrid() {
@@ -253,7 +253,7 @@
       }
     }
     var fire = document.createElement("img");
-    fire.src = "textures/misc/fire_stage_" + range(firePos, 1, 13) + ".png";
+    fire.src = TEXTUREPACK + "textures/misc/fire_stage_" + range(firePos, 1, 13) + ".png";
     fire.style.display = "block";
     fire.className = "guiPixelArt";
     fire.style.width = "70px";
@@ -269,7 +269,7 @@
     }
     var arrowPadding = HUD_CELL_SIZE / 2;
     var arrow = document.createElement("img");
-    arrow.src = "textures/misc/arrow_stage_" + range(arrowPos, 1, 23) + ".png";
+    arrow.src = TEXTUREPACK + "textures/misc/arrow_stage_" + range(arrowPos, 1, 23) + ".png";
     arrow.style.display = "block";
     arrow.className = "guiPixelArt";
     arrow.style.width = "120px";
