@@ -24,7 +24,7 @@
       drumstick.className = "guiPixelArt";
       drumstick.style.width = "27px";
       drumstick.style.height = "27px";
-      drumstick.src = "textures/misc/drumstick_full.png";
+      drumstick.src = TEXTUREPACK + "textures/misc/drumstick_full.png";
       drumsticks.push(drumstick);
       hungerBar.appendChild(drumstick);
     }
@@ -47,12 +47,12 @@
       for(var i = 0; i < 10; i++) {
         if(level > i * 2) {
           if(level >= (i + 1) * 2) {
-            mods.hunger.drumsticks[9 - i].src = "textures/misc/drumstick_full.png";
+            mods.hunger.drumsticks[9 - i].src = TEXTUREPACK + "textures/misc/drumstick_full.png";
           } else {
-            mods.hunger.drumsticks[9 - i].src = "textures/misc/drumstick_half.png";
+            mods.hunger.drumsticks[9 - i].src = TEXTUREPACK + "textures/misc/drumstick_half.png";
           }
         } else {
-          mods.hunger.drumsticks[9 - i].src = "textures/misc/drumstick_empty.png";
+          mods.hunger.drumsticks[9 - i].src = TEXTUREPACK + "textures/misc/drumstick_empty.png";
         }
       }
     }

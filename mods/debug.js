@@ -83,6 +83,28 @@
     }
   });
   
+  mods.registerChatCommand("/texturepack", function(name) {
+    if(name != undefined) {
+      TEXTUREPACK = name;
+      updateHUD();
+      if("health" in mods) { mods.health.set(mods.health.get()); }
+      if("hunger" in mods) { mods.hunger.set(mods.hunger.get()); }
+      
+      textureMap = THREE.ImageUtils.loadTexture(TEXTUREPACK + "textures/textureMap.png");
+      textureMap.minFilter = THREE.NearestFilter;
+      textureMap.magFilter = THREE.NearestFilter;
+      
+      for(var i = 0; i < chunkMeshMap.length; i++) {
+        unloadChunkMesh(chunkMeshMap[i].pos);
+        i--;
+      }
+      
+      chunkMeshAutoload(vectorDivide(controls.getObject().position, CHUNK_SIZE), new THREE.Vector3(1, 1, 1), Infinity);
+    } else {
+      return "Texture pack is " + TEXTUREPACK;
+    }
+  });
+  
   registerItem({
     name: "debug:window",
     displayName: "Debugging Window",

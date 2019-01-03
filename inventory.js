@@ -76,7 +76,7 @@ class InvItem {
     if(props.icon != null) {
       icon = props.icon;
     } else {
-      icon = "textures/blocks/beacon.png"; //TODO: question mark?
+      icon = TEXTUREPACK + "textures/blocks/beacon.png"; //TODO: question mark?
     }
     
     container.title = props.displayName;
@@ -87,7 +87,7 @@ class InvItem {
     img.style.height = iconSize + "px";
     img.style.top = ((cellSize - iconSize) / 2) + "px";
     img.style.left = ((cellSize - iconSize) / 2) + "px";
-    img.src = icon;
+    img.src = TEXTUREPACK + icon;
     container.appendChild(img);
     
     if(this.qty > 1) {
