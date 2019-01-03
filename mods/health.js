@@ -24,7 +24,7 @@
       heart.className = "guiPixelArt";
       heart.style.width = "27px";
       heart.style.height = "27px";
-      heart.src = "textures/misc/heart_full.png";
+      heart.src = TEXTUREPACK + "textures/misc/heart_full.png";
       hearts.push(heart);
       healthBar.appendChild(heart);
     }
@@ -44,12 +44,12 @@
       for(var i = 0; i < 10; i++) {
         if(level > i * 2) {
           if(level >= (i + 1) * 2) {
-            mods.health.hearts[i].src = "textures/misc/heart_full.png";
+            mods.health.hearts[i].src = TEXTUREPACK + "textures/misc/heart_full.png";
           } else {
-            mods.health.hearts[i].src = "textures/misc/heart_half.png";
+            mods.health.hearts[i].src = TEXTUREPACK + "textures/misc/heart_half.png";
           }
         } else {
-          mods.health.hearts[i].src = "textures/misc/heart_empty.png";
+          mods.health.hearts[i].src = TEXTUREPACK + "textures/misc/heart_empty.png";
         }
       }
     };

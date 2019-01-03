@@ -1,0 +1,77 @@
+TODO
+-Emerald block
+-Lapis block
+-Redstone block
+-Crafting table
+-Emerald ore
+-Lapis ore
+-Redstone ore
+-Pumpkin/carved pumpkin/jack-o-lantern
+-Spruce planks, log, leaves
+-Quartz, derative blocks, quartz ore
+-Cracked and mossy stonebrick
+-Melon
+-Dead bush
+-Chest
+-Carrot plant
+-Potato plant
+
+-Fix sandstone
+-Fix stonebrick_carved
+
+textures/items/apple_golden.png
+textures/items/beef_cooked.png
+textures/items/beef_raw.png
+textures/items/carrot.png
+textures/items/carrot_golden.png
+textures/items/chicken_cooked.png
+textures/items/chicken_raw.png
+textures/misc/cocoa_beans.png
+textures/items/cookie.png
+textures/items/egg.png
+textures/items/fish_cod_cooked.png
+textures/items/fish_cod_raw.png
+textures/items/fish_salmon_cooked.png
+textures/items/fish_salmon_raw.png
+textures/items/melon.png
+textures/items/mushroom_stew.png
+textures/items/porkchop_cooked.png
+textures/items/porkchop_raw.png
+textures/items/potato.png
+textures/items/potato_baked.png
+textures/items/pumpkin_pie.png
+textures/items/sugar.png
+textures/items/arrow.png
+textures/items/bone.png
+textures/items/book_writable.png
+textures/items/bowl.png
+textures/items/bow_standby.png
+textures/items/feather.png
+textures/items/fishing_rod_uncast.png
+textures/items/leather.png
+textures/items/string.png
+textures/items/shears.png
+
+textures/items/emerald.png
+textures/items/dye_powder_blue.png
+textures/items/redstone_dust.png
+
+-Fix charcoal
+
+textures/misc/drumstick_full.png
+textures/misc/drumstick_half.png
+textures/misc/drumstick_empty.png
+
+-Quartz and related icons
+-Mossy stone brick slab/stairs icon
+-Bedrock icon
+-Pumpkin icons (3)
+-Crafting table icon
+-Emerald, lapis, redstone block and ore icons
+-Melon icon
+-Cracked and mossy stone brick icons
+-Light blue wool icon
+
+-Fix bookshelf icon
+-Fix sandstone smooth/carved icons
+-Fix chest icon
