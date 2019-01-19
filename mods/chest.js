@@ -316,7 +316,8 @@
       {dir: new THREE.Vector3(1, 0, 0), length: 6}  //latch right
     ],
     transparent: true,
-    furnaceFuel: 15
+    furnaceFuel: 15,
+    directional: true
   });
   
   mods.registerCraft({

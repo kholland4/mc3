@@ -315,7 +315,8 @@
     icon: "textures/icons/furnace.png",
     groups: ["stone"],
     hardness: 3.5,
-    interact: openFurnace
+    interact: openFurnace,
+    directional: true
   });
   registerItem({
     name: "furnace:furnace_on",
@@ -326,7 +327,8 @@
     icon: "textures/icons/furnace.png",
     groups: ["stone"],
     hardness: 3.5,
-    interact: openFurnace
+    interact: openFurnace,
+    directional: true
   });
   
   mods.registerCraft({

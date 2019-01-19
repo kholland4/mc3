@@ -178,6 +178,14 @@ function interactPlaceBlock() {
       if(collide(controls.getObject().position)) {
         setBlock(selector.place, old);
       } else {
+        if(props.directional) {
+          var rot = mod(controls.getObject().rotation.y, Math.PI * 2);
+          var facing = 0;
+          facing = Math.round((rot / (Math.PI * 2)) * 4);
+          var meta = getBlockMeta(selector.place);
+          meta.facing = facing;
+          setBlockMeta(selector.place, meta);
+        }
         useHUDActiveItem();
         intelligentReloadChunkMeshNear(selector.place);
       }
