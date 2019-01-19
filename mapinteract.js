@@ -187,6 +187,11 @@ function interactPlaceBlock() {
           setBlockMeta(selector.place, meta);
         }
         useHUDActiveItem();
+        
+        if(props.postPlace != null) {
+          props.postPlace(selector.place.clone(), itemToPlace);
+        }
+        
         intelligentReloadChunkMeshNear(selector.place);
       }
     }

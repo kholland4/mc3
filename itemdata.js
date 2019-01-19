@@ -29,6 +29,7 @@ var itemDefaults = {
   inInventory: true,
   interact: null,
   onPlace: null,
+  postPlace: null,
   onDestroy: null,
   noRenderAdjacent: false, //used for water and similar - even if the block is transparent, don't render its side face if the block on that side is the same as this block
   raycast: true,

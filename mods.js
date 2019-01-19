@@ -22,6 +22,7 @@ function initMods() {
   loadMod("mods/hunger.js?r=" + r);
   loadMod("mods/stairs.js?r=" + r);
   loadMod("mods/slab.js?r=" + r);
+  loadMod("mods/logic.js?r=" + r);
   
   //loadMod("mods/entitytest.js?r=" + r);
   
