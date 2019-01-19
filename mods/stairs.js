@@ -218,6 +218,8 @@
         new THREE.Box3(new THREE.Vector3(-0.5, -0.5, -0.5), new THREE.Vector3(0.5, 0.5, 0))
       ];
       
+      newProps.directional = true;
+      
       registerItem(newProps);
       
       mods.registerCraft({

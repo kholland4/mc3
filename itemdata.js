@@ -46,7 +46,8 @@ var itemDefaults = {
   isFood: false,
   foodPoints: 0,
   foodSat: 0,
-  customHitbox: null
+  customHitbox: null,
+  directional: false
 };
 var items = [
   {name: "default:air", visible: false, walkable: true, transparent: true, placeable: false, inInventory: false},
@@ -181,8 +182,8 @@ var items = [
   {name: "default:ice", displayName: "Ice", textureOffsetAlt: {all: new THREE.Vector2(208, 112)}, icon: "textures/icons/ice.png", transparent: true, noRenderAdjacent: true, groups: ["glass", "pickaxe"], hardness: 0.5}, //TODO: slippery ice
   {name: "default:obsidian", displayName: "Obsidian", textureOffsetAlt: {all: new THREE.Vector2(224, 112)}, icon: "textures/icons/obsidian.png", hardness: 50, groups: ["pickaxe"], reqToolLevel: TOOL_LEVEL_DIAMOND},
   {name: "default:pumpkin", displayName: "Pumpkin", textureOffsetAlt: {top: new THREE.Vector2(240, 112), bottom: new THREE.Vector2(240, 112), sides: new THREE.Vector2(192, 96)}, icon: "textures/icons/pumpkin.png", hardness: 1, groups: ["axe"]},
-  {name: "default:pumpkin_off", displayName: "Carved Pumpkin", textureOffsetAlt: {top: new THREE.Vector2(240, 112), bottom: new THREE.Vector2(240, 112), sides: new THREE.Vector2(192, 96), front: new THREE.Vector2(208, 96)}, icon: "textures/icons/carved_pumpkin.png", hardness: 1, groups: ["axe"]},
-  {name: "default:pumpkin_on", displayName: "Jack-o-Lantern", textureOffsetAlt: {top: new THREE.Vector2(240, 112), bottom: new THREE.Vector2(240, 112), sides: new THREE.Vector2(192, 96), front: new THREE.Vector2(224, 96)}, icon: "textures/icons/carved_pumpkin_on.png", lightLevel: 10, hardness: 1, groups: ["axe"]},
+  {name: "default:pumpkin_off", displayName: "Carved Pumpkin", textureOffsetAlt: {top: new THREE.Vector2(240, 112), bottom: new THREE.Vector2(240, 112), sides: new THREE.Vector2(192, 96), front: new THREE.Vector2(208, 96)}, icon: "textures/icons/carved_pumpkin.png", hardness: 1, groups: ["axe"], directional: true},
+  {name: "default:pumpkin_on", displayName: "Jack-o-Lantern", textureOffsetAlt: {top: new THREE.Vector2(240, 112), bottom: new THREE.Vector2(240, 112), sides: new THREE.Vector2(192, 96), front: new THREE.Vector2(224, 96)}, icon: "textures/icons/carved_pumpkin_on.png", lightLevel: 10, hardness: 1, groups: ["axe"], directional: true},
   {name: "default:melon", displayName: "Melon", drops: new InvItem("default:melon_slice", 5), textureOffsetAlt: {top: new THREE.Vector2(192, 0), bottom: new THREE.Vector2(192, 0), sides: new THREE.Vector2(208, 0)}, icon: "textures/icons/melon.png", hardness: 1, groups: ["axe"]},
   
   {name: "default:sandstone", displayName: "Sandstone", textureOffsetAlt: {top: new THREE.Vector2(240, 64), bottom: new THREE.Vector2(192, 48), sides: new THREE.Vector2(208, 48)}, icon: "textures/icons/sandstone.png", hardness: 0.8, groups: ["pickaxe"], reqToolLevel: TOOL_LEVEL_WOOD},

@@ -116,8 +116,30 @@ function genChunkMesh(chunkPos) {
           continue;
         }
         
+        var facing = null;
+        if(props.directional) {
+          var meta = getBlockMeta(localToGlobal(blockPos, chunkPos));
+          if("facing" in meta) {
+            facing = meta.facing;
+          }
+        }
+        
         if(props.customMesh) {
           var meshVertices = deepcopy(props.meshVertices);
+          
+          if(facing != null) {
+            for(var n = 0; n < facing; n++) {
+              for(var i = 0; i < meshVertices.length; i += 3) {
+                var v_x = meshVertices[i];
+                var v_y = meshVertices[i + 1];
+                var v_z = meshVertices[i + 2];
+                meshVertices[i] = v_z;
+                meshVertices[i + 1] = v_y;
+                meshVertices[i + 2] = -v_x;
+              }
+            }
+          }
+          
           for(var i = 0; i < meshVertices.length; i += 3) {
             meshVertices[i] += blockPos.x;
             meshVertices[i + 1] += blockPos.y;
@@ -225,10 +247,21 @@ function genChunkMesh(chunkPos) {
           
           //---UVs---
           
+          var tFace = face;
+          if(facing != null) {
+            if(tFace >= 2) {
+              tFace -= 2;
+              if(tFace == 0) { tFace = 3; } else if(tFace == 3) { tFace = 0; }
+              tFace = (tFace + (facing + 3)) % 4;
+              if(tFace == 0) { tFace = 3; } else if(tFace == 3) { tFace = 0; }
+              tFace += 2;
+            }
+          }
+          
           var uv = deepcopy(blockMeshFaceUVs);
           for(var i = 0; i < uv.length; i += 2) {
-            uv[i] += props.textureOffset[face].x * textureMapIndexScale;
-            uv[i + 1] += props.textureOffset[face].y * textureMapIndexScale;
+            uv[i] += props.textureOffset[tFace].x * textureMapIndexScale;
+            uv[i + 1] += props.textureOffset[tFace].y * textureMapIndexScale;
           }
           
           //---Normals---

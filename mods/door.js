@@ -139,7 +139,8 @@
       {dir: new THREE.Vector3(0, -1, 0), length: 6}
     ],
     transparent: true,
-    customHitbox: [new THREE.Box3(new THREE.Vector3(-0.5, -0.5, 0.375), new THREE.Vector3(0.5, 1.5, 0.5))]
+    customHitbox: [new THREE.Box3(new THREE.Vector3(-0.5, -0.5, 0.375), new THREE.Vector3(0.5, 1.5, 0.5))],
+    directional: true
   });
   
   registerItem({
@@ -270,7 +271,8 @@
       {dir: new THREE.Vector3(0, -1, 0), length: 6}
     ],
     transparent: true,
-    customHitbox: [new THREE.Box3(new THREE.Vector3(-0.5, -0.5, -0.5), new THREE.Vector3(-0.375, 1.5, 0.5))]
+    customHitbox: [new THREE.Box3(new THREE.Vector3(-0.5, -0.5, -0.5), new THREE.Vector3(-0.375, 1.5, 0.5))],
+    directional: true
   });
   
   mods.registerCraft({
@@ -408,7 +410,8 @@
       {dir: new THREE.Vector3(0, 0, -1), length: 6}
     ],
     transparent: true,
-    customHitbox: [new THREE.Box3(new THREE.Vector3(-0.5, 0.375, -0.5), new THREE.Vector3(0.5, 0.5, 0.5))]
+    customHitbox: [new THREE.Box3(new THREE.Vector3(-0.5, 0.375, -0.5), new THREE.Vector3(0.5, 0.5, 0.5))],
+    directional: true
   });
   
   var tex = new THREE.Vector2(0, 128);
@@ -551,7 +554,8 @@
       {dir: new THREE.Vector3(0, 0, -1), length: 6}
     ],
     transparent: true,
-    customHitbox: [new THREE.Box3(new THREE.Vector3(-0.5, -0.5, -0.5), new THREE.Vector3(-0.375, 0.5, 0.5))]
+    customHitbox: [new THREE.Box3(new THREE.Vector3(-0.5, -0.5, -0.5), new THREE.Vector3(-0.375, 0.5, 0.5))],
+    directional: true
   });
   
   mods.registerCraft({

@@ -33,8 +33,29 @@ function collide(pos) {
       if(props.customHitbox == null) {
         return true;
       } else {
+        var facing = null;
+        if(props.directional) {
+          var meta = getBlockMeta(inBlock);
+          if("facing" in meta) {
+            facing = meta.facing;
+          }
+        }
+        
         for(var n = 0; n < props.customHitbox.length; n++) {
           var hitbox = props.customHitbox[n].clone();
+          if(facing != null) {
+            for(var n2 = 0; n2 < facing; n2++) {
+              var v_x = hitbox.min.x; var v_z = hitbox.min.z;
+              hitbox.min.x = v_z; hitbox.min.z = -v_x;
+              
+              var v_x = hitbox.max.x; var v_z = hitbox.max.z;
+              hitbox.max.x = v_z; hitbox.max.z = -v_x;
+            }
+          }
+          if(hitbox.min.x > hitbox.max.x) { var temp = hitbox.max.x; hitbox.max.x = hitbox.min.x; hitbox.min.x = temp; }
+          if(hitbox.min.y > hitbox.max.y) { var temp = hitbox.max.y; hitbox.max.y = hitbox.min.y; hitbox.min.y = temp; }
+          if(hitbox.min.z > hitbox.max.z) { var temp = hitbox.max.z; hitbox.max.z = hitbox.min.z; hitbox.min.z = temp; }
+          
           hitbox.min.add(inBlock);
           hitbox.max.add(inBlock);
           /*if(hitbox.containsPoint(newPos)) {

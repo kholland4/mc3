@@ -299,7 +299,8 @@
     icon: "textures/icons/crafting_table.png",
     groups: ["wood"],
     hardness: 2.5,
-    interact: openCrafting
+    interact: openCrafting,
+    directional: true
   });
   mods.registerCraft({
     size: new THREE.Vector2(2, 2),
