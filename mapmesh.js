@@ -252,7 +252,7 @@ function genChunkMesh(chunkPos) {
             if(tFace >= 2) {
               tFace -= 2;
               if(tFace == 0) { tFace = 3; } else if(tFace == 3) { tFace = 0; }
-              tFace = (tFace + (facing + 3)) % 4;
+              tFace = (tFace + (facing)) % 4;
               if(tFace == 0) { tFace = 3; } else if(tFace == 3) { tFace = 0; }
               tFace += 2;
             }

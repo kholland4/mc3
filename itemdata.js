@@ -1,6 +1,6 @@
 //Groups: dirt, wood, stone, ore, glass, leaves, ore_block, wool, planks, log, axe, pickaxe
 
-var TEXTUREPACK = "texturepack-minetest/";
+var TEXTUREPACK = "texturepack-original/";
 
 var TOOL_LEVEL_NONE = 0;
 var TOOL_LEVEL_WOOD = 1;
@@ -330,7 +330,7 @@ function initItem(i) {
     if("all" in texAlt) {
       tex = [texAlt.all, texAlt.all, texAlt.all, texAlt.all, texAlt.all, texAlt.all];
     } else if("top" in texAlt && "bottom" in texAlt && "front" in texAlt && "sides" in texAlt) {
-      tex = [texAlt.top, texAlt.bottom, texAlt.sides, texAlt.front, texAlt.sides, texAlt.sides];
+      tex = [texAlt.top, texAlt.bottom, texAlt.sides, texAlt.sides, texAlt.front, texAlt.sides];
     } else if("top" in texAlt && "bottom" in texAlt && "sides" in texAlt) {
       tex = [texAlt.top, texAlt.bottom, texAlt.sides, texAlt.sides, texAlt.sides, texAlt.sides];
     } else if("top" in texAlt && "bottom" in texAlt && "front" in texAlt && "back" in texAlt && "left" in texAlt && "right" in texAlt) {
