@@ -17,6 +17,10 @@
           if(nearbyProps.logic_source) {
             connections[face - 2] = 1;
           }
+        } else if("logic_sink" in nearbyProps) {
+          if(nearbyProps.logic_sink) {
+            connections[face - 2] = 1;
+          }
         }
       }
       
@@ -67,6 +71,7 @@
     }
     
     var traverseLog = [];
+    var sinks = [];
     function logicWireTraverseOn(pos, targetState = false) {
       var block = getBlock(pos);
       var props = getItemProps(block);
@@ -107,6 +112,20 @@
             logicWireTraverseOn(pos, true);
             return;
           }
+        } else if("logic_sink" in nearbyProps) {
+          if(nearbyProps.logic_sink) {
+            var found = false;
+            for(var i = 0; i < sinks.length; i++) {
+              if(nearbyPos.equals(sinks[i].pos)) {
+                sinks[i].state = targetState;
+                found = true;
+                break;
+              }
+            }
+            if(!found) {
+              sinks.push({pos: nearbyPos, state: targetState});
+            }
+          }
         }
       }
     }
@@ -116,7 +135,30 @@
       //console.log(getItemName(getBlock(pos)));
       logicWireTraverseOff(pos);
       traverseLog = [];
+      sinks = [];
       logicWireTraverseOn(pos);
+      
+      for(var i = 0; i < sinks.length; i++) {
+        var state = false;
+        for(var face = 2; face < 6; face++) {
+          var nearbyPos = vectorAdd(sinks[i].pos, faces[face]);
+          var nearbyProps = getItemProps(getBlock(nearbyPos));
+          if(nearbyProps.groups.includes("logic_wire")) {
+            if("logic_wireState" in nearbyProps) {
+              if(nearbyProps.logic_wireState) {
+                state = true;
+                break;
+              }
+            }
+          }
+        }
+        
+        var block = getBlock(sinks[i].pos);
+        var props = getItemProps(block);
+        if("logic_sink_update" in props) {
+          props.logic_sink_update(sinks[i].pos, state);
+        }
+      }
       
       var chunksTouched = [];
       for(var i = 0; i < traverseLog.length; i++) {
@@ -254,5 +296,40 @@
       setItemProp("ores:redstone_block", "postPlace", logicWirePostPlace);
       setItemProp("ores:redstone_block", "onDestroy", logicWireDestroy);
     }
+    
+    //Sinks
+    function lampUpdate(pos, state) {
+      var block = getBlock(pos);
+      if(block == getItemID("logic:lamp_off") && state == true) {
+        setBlock(pos, getItemID("logic:lamp_on"));
+      }
+      if(block == getItemID("logic:lamp_on") && state == false) {
+        setBlock(pos, getItemID("logic:lamp_off"));
+      }
+    }
+    registerItem({
+      name: "logic:lamp_off",
+      displayName: "Redstone Lamp",
+      icon: "textures/icons/redstone_lamp.png",
+      textureOffsetAlt: {all: new THREE.Vector2(256, 80)},
+      hardness: 0.3,
+      logic_sink: true,
+      logic_sink_update: lampUpdate,
+      postPlace: logicWirePostPlace,
+      onDestroy: logicWireDestroy
+    });
+    registerItem({
+      name: "logic:lamp_on",
+      displayName: "Redstone Lamp",
+      drops: new InvItem("logic:lamp_off", 1),
+      inInventory: false,
+      textureOffsetAlt: {all: new THREE.Vector2(272, 80)},
+      hardness: 0.3,
+      lightLevel: 10,
+      logic_sink: true,
+      logic_sink_update: lampUpdate,
+      postPlace: logicWirePostPlace,
+      onDestroy: logicWireDestroy
+    });
   });
 })();
