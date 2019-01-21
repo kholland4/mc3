@@ -366,11 +366,16 @@
       var targetPos2 = vectorAdd(targetPos, faces[mod(f[facing], 6)]);
       var targetBlock2 = getBlock(targetPos2);
       
-      if(block == getItemID("logic:piston_off") && state == true) {
+      var suffix = "";
+      if(block == getItemID("logic:piston_off_sticky") || block == getItemID("logic:piston_on_sticky")) {
+        suffix = "_sticky";
+      }
+      
+      if((block == getItemID("logic:piston_off") || block == getItemID("logic:piston_off_sticky")) && state == true) {
         if(targetBlock2 == getItemID("default:air")) { //targetBlock != getItemID("default:air") && 
-          setBlock(pos, getItemID("logic:piston_on"));
+          setBlock(pos, getItemID("logic:piston_on" + suffix));
           
-          setBlock(targetPos, getItemID("logic:piston_on_2"));
+          setBlock(targetPos, getItemID("logic:piston_on_2" + suffix));
           setBlock(targetPos2, targetBlock);
           var targetMeta = getBlockMeta(targetPos);
           if(Object.keys(targetMeta).length > 0) {
@@ -383,390 +388,483 @@
           logicWireChange(targetPos2);
         }
       }
-      if(block == getItemID("logic:piston_on") && state == false) {
-        setBlock(pos, getItemID("logic:piston_off"));
-        if(targetBlock == getItemID("logic:piston_on_2")) {
+      if((block == getItemID("logic:piston_on") || block == getItemID("logic:piston_on_sticky")) && state == false) {
+        setBlock(pos, getItemID("logic:piston_off" + suffix));
+        if(targetBlock == getItemID("logic:piston_on_2" + suffix)) {
           clearBlockMeta(targetPos);
           setBlock(targetPos, getItemID("default:air"));
         }
         
-        intelligentReloadChunkMeshNear(pos);
+        if(suffix == "_sticky") {
+          setBlock(targetPos2, getItemID("default:air"));
+          setBlock(targetPos, targetBlock2);
+          var targetMeta = getBlockMeta(targetPos2);
+          if(Object.keys(targetMeta).length > 0) {
+            setBlockMeta(targetPos, targetMeta);
+            clearBlockMeta(targetPos2);
+          }
+          
+          intelligentReloadChunkMeshNear(pos);
+          logicWireChange(targetPos);
+        } else {
+          intelligentReloadChunkMeshNear(pos);
+        }
       }
     }
-    var texLR = new THREE.Vector2(304, 80);
-    var texTB = new THREE.Vector2(320, 80);
-    var texB = new THREE.Vector2(336, 80);
-    var texF = new THREE.Vector2(288, 80);
-    var ts = textureMapIndexScale;
-    registerItem({
-      name: "logic:piston_off",
-      displayName: "Piston",
-      icon: "textures/icons/piston.png",
-      textureOffsetAlt: {front: new THREE.Vector2(288, 80), left: new THREE.Vector2(304, 80), right: new THREE.Vector2(304, 80), top: new THREE.Vector2(320, 80), bottom: new THREE.Vector2(320, 80), back: new THREE.Vector2(336, 80)},
-      customMesh: true,
-      meshVertices: [
-        -0.5, 0.5, -0.5, //top
-        0.5, 0.5, -0.5,
-        -0.5, 0.5, 0.5,
+    
+    var suffix = ["", "_sticky"];
+    var displayNames = ["Piston", "Sticky Piston"];
+    var icons = ["textures/icons/piston.png", "textures/icons/sticky_piston.png"];
+    
+    for(var type = 0; type < 2; type++) {
+      var frontTex = [new THREE.Vector3(288, 80), new THREE.Vector3(368, 80)];
+      var texLR = new THREE.Vector2(304, 80);
+      var texTB = new THREE.Vector2(320, 80);
+      var texB = new THREE.Vector2(336, 80);
+      var texF = frontTex[type];
+      var ts = textureMapIndexScale;
+      registerItem({
+        name: "logic:piston_off" + suffix[type],
+        displayName: displayNames[type],
+        icon: icons[type],
+        textureOffsetAlt: {front: frontTex[type], left: new THREE.Vector2(304, 80), right: new THREE.Vector2(304, 80), top: new THREE.Vector2(320, 80), bottom: new THREE.Vector2(320, 80), back: new THREE.Vector2(336, 80)},
+        customMesh: true,
+        meshVertices: [
+          -0.5, 0.5, -0.5, //top
+          0.5, 0.5, -0.5,
+          -0.5, 0.5, 0.5,
 
-        0.5, 0.5, -0.5,
-        0.5, 0.5, 0.5,
-        -0.5, 0.5, 0.5,
+          0.5, 0.5, -0.5,
+          0.5, 0.5, 0.5,
+          -0.5, 0.5, 0.5,
 
-        -0.5, -0.5, -0.5, //bottom
-        0.5, -0.5, -0.5,
-        -0.5, -0.5, 0.5,
+          -0.5, -0.5, -0.5, //bottom
+          0.5, -0.5, -0.5,
+          -0.5, -0.5, 0.5,
 
-        0.5, -0.5, -0.5,
-        0.5, -0.5, 0.5,
-        -0.5, -0.5, 0.5,
+          0.5, -0.5, -0.5,
+          0.5, -0.5, 0.5,
+          -0.5, -0.5, 0.5,
 
-        -0.5, 0.5, -0.5, //left
-        -0.5, 0.5, 0.5,
-        -0.5, -0.5, -0.5,
+          -0.5, 0.5, -0.5, //left
+          -0.5, 0.5, 0.5,
+          -0.5, -0.5, -0.5,
 
-        -0.5, 0.5, 0.5,
-        -0.5, -0.5, 0.5,
-        -0.5, -0.5, -0.5,
+          -0.5, 0.5, 0.5,
+          -0.5, -0.5, 0.5,
+          -0.5, -0.5, -0.5,
 
-        0.5, 0.5, -0.5, //right
-        0.5, 0.5, 0.5,
-        0.5, -0.5, -0.5,
+          0.5, 0.5, -0.5, //right
+          0.5, 0.5, 0.5,
+          0.5, -0.5, -0.5,
 
-        0.5, 0.5, 0.5,
-        0.5, -0.5, 0.5,
-        0.5, -0.5, -0.5,
+          0.5, 0.5, 0.5,
+          0.5, -0.5, 0.5,
+          0.5, -0.5, -0.5,
 
-        -0.5, 0.5, 0.5, //front
-        0.5, 0.5, 0.5,
-        -0.5, -0.5, 0.5,
+          -0.5, 0.5, 0.5, //front
+          0.5, 0.5, 0.5,
+          -0.5, -0.5, 0.5,
 
-        0.5, 0.5, 0.5,
-        0.5, -0.5, 0.5,
-        -0.5, -0.5, 0.5,
+          0.5, 0.5, 0.5,
+          0.5, -0.5, 0.5,
+          -0.5, -0.5, 0.5,
 
-        -0.5, 0.5, -0.5, //back
-        0.5, 0.5, -0.5,
-        -0.5, -0.5, -0.5,
+          -0.5, 0.5, -0.5, //back
+          0.5, 0.5, -0.5,
+          -0.5, -0.5, -0.5,
 
-        0.5, 0.5, -0.5,
-        0.5, -0.5, -0.5,
-        -0.5, -0.5, -0.5
-      ],
-      meshUVs: [
-        0.0 + (texTB.x*ts), uvSize + (texTB.y*ts), //top
-        uvSize + (texTB.x*ts), uvSize + (texTB.y*ts),
-        0.0 + (texTB.x*ts), 0.0 + (texTB.y*ts),
+          0.5, 0.5, -0.5,
+          0.5, -0.5, -0.5,
+          -0.5, -0.5, -0.5
+        ],
+        meshUVs: [
+          0.0 + (texTB.x*ts), uvSize + (texTB.y*ts), //top
+          uvSize + (texTB.x*ts), uvSize + (texTB.y*ts),
+          0.0 + (texTB.x*ts), 0.0 + (texTB.y*ts),
 
-        uvSize + (texTB.x*ts), uvSize + (texTB.y*ts),
-        uvSize + (texTB.x*ts), 0.0 + (texTB.y*ts),
-        0.0 + (texTB.x*ts), 0.0 + (texTB.y*ts),
-        
-        0.0 + (texTB.x*ts), uvSize + (texTB.y*ts), //bottom
-        uvSize + (texTB.x*ts), uvSize + (texTB.y*ts),
-        0.0 + (texTB.x*ts), 0.0 + (texTB.y*ts),
+          uvSize + (texTB.x*ts), uvSize + (texTB.y*ts),
+          uvSize + (texTB.x*ts), 0.0 + (texTB.y*ts),
+          0.0 + (texTB.x*ts), 0.0 + (texTB.y*ts),
+          
+          0.0 + (texTB.x*ts), uvSize + (texTB.y*ts), //bottom
+          uvSize + (texTB.x*ts), uvSize + (texTB.y*ts),
+          0.0 + (texTB.x*ts), 0.0 + (texTB.y*ts),
 
-        uvSize + (texTB.x*ts), uvSize + (texTB.y*ts),
-        uvSize + (texTB.x*ts), 0.0 + (texTB.y*ts),
-        0.0 + (texTB.x*ts), 0.0 + (texTB.y*ts),
-        
-        0.0 + (texLR.x*ts), uvSize + (texLR.y*ts), //left
-        uvSize + (texLR.x*ts), uvSize + (texLR.y*ts),
-        0.0 + (texLR.x*ts), 0.0 + (texLR.y*ts),
+          uvSize + (texTB.x*ts), uvSize + (texTB.y*ts),
+          uvSize + (texTB.x*ts), 0.0 + (texTB.y*ts),
+          0.0 + (texTB.x*ts), 0.0 + (texTB.y*ts),
+          
+          0.0 + (texLR.x*ts), uvSize + (texLR.y*ts), //left
+          uvSize + (texLR.x*ts), uvSize + (texLR.y*ts),
+          0.0 + (texLR.x*ts), 0.0 + (texLR.y*ts),
 
-        uvSize + (texLR.x*ts), uvSize + (texLR.y*ts),
-        uvSize + (texLR.x*ts), 0.0 + (texLR.y*ts),
-        0.0 + (texLR.x*ts), 0.0 + (texLR.y*ts),
-        
-        0.0 + (texLR.x*ts), uvSize + (texLR.y*ts), //right
-        uvSize + (texLR.x*ts), uvSize + (texLR.y*ts),
-        0.0 + (texLR.x*ts), 0.0 + (texLR.y*ts),
+          uvSize + (texLR.x*ts), uvSize + (texLR.y*ts),
+          uvSize + (texLR.x*ts), 0.0 + (texLR.y*ts),
+          0.0 + (texLR.x*ts), 0.0 + (texLR.y*ts),
+          
+          0.0 + (texLR.x*ts), uvSize + (texLR.y*ts), //right
+          uvSize + (texLR.x*ts), uvSize + (texLR.y*ts),
+          0.0 + (texLR.x*ts), 0.0 + (texLR.y*ts),
 
-        uvSize + (texLR.x*ts), uvSize + (texLR.y*ts),
-        uvSize + (texLR.x*ts), 0.0 + (texLR.y*ts),
-        0.0 + (texLR.x*ts), 0.0 + (texLR.y*ts),
-        
-        0.0 + (texF.x*ts), uvSize + (texF.y*ts), //front
-        uvSize + (texF.x*ts), uvSize + (texF.y*ts),
-        0.0 + (texF.x*ts), 0.0 + (texF.y*ts),
+          uvSize + (texLR.x*ts), uvSize + (texLR.y*ts),
+          uvSize + (texLR.x*ts), 0.0 + (texLR.y*ts),
+          0.0 + (texLR.x*ts), 0.0 + (texLR.y*ts),
+          
+          0.0 + (texF.x*ts), uvSize + (texF.y*ts), //front
+          uvSize + (texF.x*ts), uvSize + (texF.y*ts),
+          0.0 + (texF.x*ts), 0.0 + (texF.y*ts),
 
-        uvSize + (texF.x*ts), uvSize + (texF.y*ts),
-        uvSize + (texF.x*ts), 0.0 + (texF.y*ts),
-        0.0 + (texF.x*ts), 0.0 + (texF.y*ts),
-        
-        0.0 + (texB.x*ts), uvSize + (texB.y*ts), //back
-        uvSize + (texB.x*ts), uvSize + (texB.y*ts),
-        0.0 + (texB.x*ts), 0.0 + (texB.y*ts),
+          uvSize + (texF.x*ts), uvSize + (texF.y*ts),
+          uvSize + (texF.x*ts), 0.0 + (texF.y*ts),
+          0.0 + (texF.x*ts), 0.0 + (texF.y*ts),
+          
+          0.0 + (texB.x*ts), uvSize + (texB.y*ts), //back
+          uvSize + (texB.x*ts), uvSize + (texB.y*ts),
+          0.0 + (texB.x*ts), 0.0 + (texB.y*ts),
 
-        uvSize + (texB.x*ts), uvSize + (texB.y*ts),
-        uvSize + (texB.x*ts), 0.0 + (texB.y*ts),
-        0.0 + (texB.x*ts), 0.0 + (texB.y*ts)
-      ],
-      meshFaces: [
-        {dir: new THREE.Vector3(0, 1, 0), length: 6},
-        {dir: new THREE.Vector3(0, -1, 0), length: 6},
-        {dir: new THREE.Vector3(-1, 0, 0), length: 6},
-        {dir: new THREE.Vector3(1, 0, 0), length: 6},
-        {dir: new THREE.Vector3(0, 0, 1), length: 6},
-        {dir: new THREE.Vector3(0, 0, -1), length: 6}
-      ],
-      hardness: 0.5,
-      logic_sink: true,
-      logic_sink_update: pistonUpdate,
-      postPlace: logicWirePostPlace,
-      onDestroy: logicWireDestroy,
-      directional: true
-    });
-    var texLR = new THREE.Vector2(304, 80);
-    var texTB = new THREE.Vector2(320, 80);
-    var texB = new THREE.Vector2(336, 80);
-    var texF = new THREE.Vector2(352, 80);
-    var ts = textureMapIndexScale;
-    registerItem({
-      name: "logic:piston_on",
-      displayName: "Piston",
-      drops: new InvItem("logic:piston_off", 1),
-      inInventory: false,
-      textureOffsetAlt: {all: new THREE.Vector2(272, 80)},
-      customMesh: true,
-      meshVertices: [
-        -0.5, 0.5, -0.5, //top
-        0.5, 0.5, -0.5,
-        -0.5, 0.5, 0.25,
+          uvSize + (texB.x*ts), uvSize + (texB.y*ts),
+          uvSize + (texB.x*ts), 0.0 + (texB.y*ts),
+          0.0 + (texB.x*ts), 0.0 + (texB.y*ts)
+        ],
+        meshFaces: [
+          {dir: new THREE.Vector3(0, 1, 0), length: 6},
+          {dir: new THREE.Vector3(0, -1, 0), length: 6},
+          {dir: new THREE.Vector3(-1, 0, 0), length: 6},
+          {dir: new THREE.Vector3(1, 0, 0), length: 6},
+          {dir: new THREE.Vector3(0, 0, 1), length: 6},
+          {dir: new THREE.Vector3(0, 0, -1), length: 6}
+        ],
+        hardness: 0.5,
+        logic_sink: true,
+        logic_sink_update: pistonUpdate,
+        postPlace: logicWirePostPlace,
+        onDestroy: logicWireDestroy,
+        directional: true
+      });
+      var texLR = new THREE.Vector2(304, 80);
+      var texTB = new THREE.Vector2(320, 80);
+      var texB = new THREE.Vector2(336, 80);
+      var texF = new THREE.Vector2(352, 80);
+      var ts = textureMapIndexScale;
+      registerItem({
+        name: "logic:piston_on" + suffix[type],
+        drops: new InvItem("logic:piston_off" + suffix[type], 1),
+        inInventory: false,
+        textureOffsetAlt: {all: new THREE.Vector2(272, 80)},
+        customMesh: true,
+        meshVertices: [
+          -0.5, 0.5, -0.5, //top
+          0.5, 0.5, -0.5,
+          -0.5, 0.5, 0.25,
 
-        0.5, 0.5, -0.5,
-        0.5, 0.5, 0.25,
-        -0.5, 0.5, 0.25,
+          0.5, 0.5, -0.5,
+          0.5, 0.5, 0.25,
+          -0.5, 0.5, 0.25,
 
-        -0.5, -0.5, -0.5, //bottom
-        0.5, -0.5, -0.5,
-        -0.5, -0.5, 0.25,
+          -0.5, -0.5, -0.5, //bottom
+          0.5, -0.5, -0.5,
+          -0.5, -0.5, 0.25,
 
-        0.5, -0.5, -0.5,
-        0.5, -0.5, 0.25,
-        -0.5, -0.5, 0.25,
+          0.5, -0.5, -0.5,
+          0.5, -0.5, 0.25,
+          -0.5, -0.5, 0.25,
 
-        -0.5, 0.5, -0.5, //left
-        -0.5, 0.5, 0.25,
-        -0.5, -0.5, -0.5,
+          -0.5, 0.5, -0.5, //left
+          -0.5, 0.5, 0.25,
+          -0.5, -0.5, -0.5,
 
-        -0.5, 0.5, 0.25,
-        -0.5, -0.5, 0.25,
-        -0.5, -0.5, -0.5,
+          -0.5, 0.5, 0.25,
+          -0.5, -0.5, 0.25,
+          -0.5, -0.5, -0.5,
 
-        0.5, 0.5, -0.5, //right
-        0.5, 0.5, 0.25,
-        0.5, -0.5, -0.5,
+          0.5, 0.5, -0.5, //right
+          0.5, 0.5, 0.25,
+          0.5, -0.5, -0.5,
 
-        0.5, 0.5, 0.25,
-        0.5, -0.5, 0.25,
-        0.5, -0.5, -0.5,
+          0.5, 0.5, 0.25,
+          0.5, -0.5, 0.25,
+          0.5, -0.5, -0.5,
 
-        -0.5, 0.5, 0.25, //front
-        0.5, 0.5, 0.25,
-        -0.5, -0.5, 0.25,
+          -0.5, 0.5, 0.25, //front
+          0.5, 0.5, 0.25,
+          -0.5, -0.5, 0.25,
 
-        0.5, 0.5, 0.25,
-        0.5, -0.5, 0.25,
-        -0.5, -0.5, 0.25,
+          0.5, 0.5, 0.25,
+          0.5, -0.5, 0.25,
+          -0.5, -0.5, 0.25,
 
-        -0.5, 0.5, -0.5, //back
-        0.5, 0.5, -0.5,
-        -0.5, -0.5, -0.5,
+          -0.5, 0.5, -0.5, //back
+          0.5, 0.5, -0.5,
+          -0.5, -0.5, -0.5,
 
-        0.5, 0.5, -0.5,
-        0.5, -0.5, -0.5,
-        -0.5, -0.5, -0.5
-      ],
-      meshUVs: [
-        0.0 + (texTB.x*ts), uvSize + (texTB.y*ts), //top
-        uvSize + (texTB.x*ts), uvSize + (texTB.y*ts),
-        0.0 + (texTB.x*ts), (uvSize/4) + (texTB.y*ts),
+          0.5, 0.5, -0.5,
+          0.5, -0.5, -0.5,
+          -0.5, -0.5, -0.5
+        ],
+        meshUVs: [
+          0.0 + (texTB.x*ts), uvSize + (texTB.y*ts), //top
+          uvSize + (texTB.x*ts), uvSize + (texTB.y*ts),
+          0.0 + (texTB.x*ts), (uvSize/4) + (texTB.y*ts),
 
-        uvSize + (texTB.x*ts), uvSize + (texTB.y*ts),
-        uvSize + (texTB.x*ts), (uvSize/4) + (texTB.y*ts),
-        0.0 + (texTB.x*ts), (uvSize/4) + (texTB.y*ts),
-        
-        0.0 + (texTB.x*ts), uvSize + (texTB.y*ts), //bottom
-        uvSize + (texTB.x*ts), uvSize + (texTB.y*ts),
-        0.0 + (texTB.x*ts), (uvSize/4) + (texTB.y*ts),
+          uvSize + (texTB.x*ts), uvSize + (texTB.y*ts),
+          uvSize + (texTB.x*ts), (uvSize/4) + (texTB.y*ts),
+          0.0 + (texTB.x*ts), (uvSize/4) + (texTB.y*ts),
+          
+          0.0 + (texTB.x*ts), uvSize + (texTB.y*ts), //bottom
+          uvSize + (texTB.x*ts), uvSize + (texTB.y*ts),
+          0.0 + (texTB.x*ts), (uvSize/4) + (texTB.y*ts),
 
-        uvSize + (texTB.x*ts), uvSize + (texTB.y*ts),
-        uvSize + (texTB.x*ts), (uvSize/4) + (texTB.y*ts),
-        0.0 + (texTB.x*ts), (uvSize/4) + (texTB.y*ts),
-        
-        0.0 + (texLR.x*ts), uvSize + (texLR.y*ts), //left
-        (uvSize*0.75) + (texLR.x*ts), uvSize + (texLR.y*ts),
-        0.0 + (texLR.x*ts), 0.0 + (texLR.y*ts),
+          uvSize + (texTB.x*ts), uvSize + (texTB.y*ts),
+          uvSize + (texTB.x*ts), (uvSize/4) + (texTB.y*ts),
+          0.0 + (texTB.x*ts), (uvSize/4) + (texTB.y*ts),
+          
+          0.0 + (texLR.x*ts), uvSize + (texLR.y*ts), //left
+          (uvSize*0.75) + (texLR.x*ts), uvSize + (texLR.y*ts),
+          0.0 + (texLR.x*ts), 0.0 + (texLR.y*ts),
 
-        (uvSize*0.75) + (texLR.x*ts), uvSize + (texLR.y*ts),
-        (uvSize*0.75) + (texLR.x*ts), 0.0 + (texLR.y*ts),
-        0.0 + (texLR.x*ts), 0.0 + (texLR.y*ts),
-        
-        0.0 + (texLR.x*ts), uvSize + (texLR.y*ts), //right
-        (uvSize*0.75) + (texLR.x*ts), uvSize + (texLR.y*ts),
-        0.0 + (texLR.x*ts), 0.0 + (texLR.y*ts),
+          (uvSize*0.75) + (texLR.x*ts), uvSize + (texLR.y*ts),
+          (uvSize*0.75) + (texLR.x*ts), 0.0 + (texLR.y*ts),
+          0.0 + (texLR.x*ts), 0.0 + (texLR.y*ts),
+          
+          0.0 + (texLR.x*ts), uvSize + (texLR.y*ts), //right
+          (uvSize*0.75) + (texLR.x*ts), uvSize + (texLR.y*ts),
+          0.0 + (texLR.x*ts), 0.0 + (texLR.y*ts),
 
-        (uvSize*0.75) + (texLR.x*ts), uvSize + (texLR.y*ts),
-        (uvSize*0.75) + (texLR.x*ts), 0.0 + (texLR.y*ts),
-        0.0 + (texLR.x*ts), 0.0 + (texLR.y*ts),
-        
-        0.0 + (texF.x*ts), uvSize + (texF.y*ts), //front
-        uvSize + (texF.x*ts), uvSize + (texF.y*ts),
-        0.0 + (texF.x*ts), 0.0 + (texF.y*ts),
+          (uvSize*0.75) + (texLR.x*ts), uvSize + (texLR.y*ts),
+          (uvSize*0.75) + (texLR.x*ts), 0.0 + (texLR.y*ts),
+          0.0 + (texLR.x*ts), 0.0 + (texLR.y*ts),
+          
+          0.0 + (texF.x*ts), uvSize + (texF.y*ts), //front
+          uvSize + (texF.x*ts), uvSize + (texF.y*ts),
+          0.0 + (texF.x*ts), 0.0 + (texF.y*ts),
 
-        uvSize + (texF.x*ts), uvSize + (texF.y*ts),
-        uvSize + (texF.x*ts), 0.0 + (texF.y*ts),
-        0.0 + (texF.x*ts), 0.0 + (texF.y*ts),
-        
-        0.0 + (texB.x*ts), uvSize + (texB.y*ts), //back
-        uvSize + (texB.x*ts), uvSize + (texB.y*ts),
-        0.0 + (texB.x*ts), 0.0 + (texB.y*ts),
+          uvSize + (texF.x*ts), uvSize + (texF.y*ts),
+          uvSize + (texF.x*ts), 0.0 + (texF.y*ts),
+          0.0 + (texF.x*ts), 0.0 + (texF.y*ts),
+          
+          0.0 + (texB.x*ts), uvSize + (texB.y*ts), //back
+          uvSize + (texB.x*ts), uvSize + (texB.y*ts),
+          0.0 + (texB.x*ts), 0.0 + (texB.y*ts),
 
-        uvSize + (texB.x*ts), uvSize + (texB.y*ts),
-        uvSize + (texB.x*ts), 0.0 + (texB.y*ts),
-        0.0 + (texB.x*ts), 0.0 + (texB.y*ts)
-      ],
-      meshFaces: [
-        {dir: new THREE.Vector3(0, 1, 0), length: 6},
-        {dir: new THREE.Vector3(0, -1, 0), length: 6},
-        {dir: new THREE.Vector3(-1, 0, 0), length: 6},
-        {dir: new THREE.Vector3(1, 0, 0), length: 6},
-        {dir: new THREE.Vector3(0, 0, 1), length: 6},
-        {dir: new THREE.Vector3(0, 0, -1), length: 6}
-      ],
-      transparent: true,
-      hardness: 0.5,
-      logic_sink: true,
-      logic_sink_update: pistonUpdate,
-      postPlace: logicWirePostPlace,
-      onDestroy: logicWireDestroy,
-      directional: true
-    });
-    var texLR = new THREE.Vector2(304, 80);
-    var texTB = new THREE.Vector2(320, 80);
-    var texB = new THREE.Vector2(288, 80);
-    var texF = new THREE.Vector2(288, 80);
-    var ts = textureMapIndexScale;
-    registerItem({
-      name: "logic:piston_on_2",
-      drops: new InvItem("logic:piston_off", 1),
-      inInventory: false,
-      textureOffsetAlt: {all: new THREE.Vector2(272, 80)},
-      customMesh: true,
-      meshVertices: [
-        -0.5, 0.5, 0.25, //top
-        0.5, 0.5, 0.25,
-        -0.5, 0.5, 0.5,
+          uvSize + (texB.x*ts), uvSize + (texB.y*ts),
+          uvSize + (texB.x*ts), 0.0 + (texB.y*ts),
+          0.0 + (texB.x*ts), 0.0 + (texB.y*ts)
+        ],
+        meshFaces: [
+          {dir: new THREE.Vector3(0, 1, 0), length: 6},
+          {dir: new THREE.Vector3(0, -1, 0), length: 6},
+          {dir: new THREE.Vector3(-1, 0, 0), length: 6},
+          {dir: new THREE.Vector3(1, 0, 0), length: 6},
+          {dir: new THREE.Vector3(0, 0, 1), length: 6},
+          {dir: new THREE.Vector3(0, 0, -1), length: 6}
+        ],
+        transparent: true,
+        hardness: 0.5,
+        logic_sink: true,
+        logic_sink_update: pistonUpdate,
+        postPlace: logicWirePostPlace,
+        onDestroy: logicWireDestroy,
+        directional: true
+      });
+      var texLR = new THREE.Vector2(304, 80);
+      var texTB = new THREE.Vector2(320, 80);
+      var texB = new THREE.Vector2(288, 80);
+      var texF = frontTex[type];
+      var ts = textureMapIndexScale;
+      registerItem({
+        name: "logic:piston_on_2" + suffix[type],
+        drops: new InvItem("logic:piston_off" + suffix[type], 1),
+        inInventory: false,
+        textureOffsetAlt: {all: new THREE.Vector2(272, 80)},
+        customMesh: true,
+        meshVertices: [
+          -0.5, 0.5, 0.25, //top
+          0.5, 0.5, 0.25,
+          -0.5, 0.5, 0.5,
 
-        0.5, 0.5, 0.25,
-        0.5, 0.5, 0.5,
-        -0.5, 0.5, 0.5,
+          0.5, 0.5, 0.25,
+          0.5, 0.5, 0.5,
+          -0.5, 0.5, 0.5,
 
-        -0.5, -0.5, 0.25, //bottom
-        0.5, -0.5, 0.25,
-        -0.5, -0.5, 0.5,
+          -0.5, -0.5, 0.25, //bottom
+          0.5, -0.5, 0.25,
+          -0.5, -0.5, 0.5,
 
-        0.5, -0.5, 0.25,
-        0.5, -0.5, 0.5,
-        -0.5, -0.5, 0.5,
+          0.5, -0.5, 0.25,
+          0.5, -0.5, 0.5,
+          -0.5, -0.5, 0.5,
 
-        -0.5, 0.5, 0.25, //left
-        -0.5, 0.5, 0.5,
-        -0.5, -0.5, 0.25,
+          -0.5, 0.5, 0.25, //left
+          -0.5, 0.5, 0.5,
+          -0.5, -0.5, 0.25,
 
-        -0.5, 0.5, 0.5,
-        -0.5, -0.5, 0.5,
-        -0.5, -0.5, 0.25,
+          -0.5, 0.5, 0.5,
+          -0.5, -0.5, 0.5,
+          -0.5, -0.5, 0.25,
 
-        0.5, 0.5, 0.25, //right
-        0.5, 0.5, 0.5,
-        0.5, -0.5, 0.25,
+          0.5, 0.5, 0.25, //right
+          0.5, 0.5, 0.5,
+          0.5, -0.5, 0.25,
 
-        0.5, 0.5, 0.5,
-        0.5, -0.5, 0.5,
-        0.5, -0.5, 0.25,
+          0.5, 0.5, 0.5,
+          0.5, -0.5, 0.5,
+          0.5, -0.5, 0.25,
 
-        -0.5, 0.5, 0.5, //front
-        0.5, 0.5, 0.5,
-        -0.5, -0.5, 0.5,
+          -0.5, 0.5, 0.5, //front
+          0.5, 0.5, 0.5,
+          -0.5, -0.5, 0.5,
 
-        0.5, 0.5, 0.5,
-        0.5, -0.5, 0.5,
-        -0.5, -0.5, 0.5,
+          0.5, 0.5, 0.5,
+          0.5, -0.5, 0.5,
+          -0.5, -0.5, 0.5,
 
-        -0.5, 0.5, 0.25, //back
-        0.5, 0.5, 0.25,
-        -0.5, -0.5, 0.25,
+          -0.5, 0.5, 0.25, //back
+          0.5, 0.5, 0.25,
+          -0.5, -0.5, 0.25,
 
-        0.5, 0.5, 0.25,
-        0.5, -0.5, 0.25,
-        -0.5, -0.5, 0.25
-      ],
-      meshUVs: [
-        0.0 + (texTB.x*ts), (uvSize*0.25) + (texTB.y*ts), //top
-        uvSize + (texTB.x*ts), (uvSize*0.25) + (texTB.y*ts),
-        0.0 + (texTB.x*ts), 0.0 + (texTB.y*ts),
+          0.5, 0.5, 0.25,
+          0.5, -0.5, 0.25,
+          -0.5, -0.5, 0.25,
+          
+          //---Shaft---
+          
+          -0.125, 0.125, -0.75, //top
+          0.125, 0.125, -0.75,
+          -0.125, 0.125, 0.25,
 
-        uvSize + (texTB.x*ts), (uvSize*0.25) + (texTB.y*ts),
-        uvSize + (texTB.x*ts), 0.0 + (texTB.y*ts),
-        0.0 + (texTB.x*ts), 0.0 + (texTB.y*ts),
-        
-        0.0 + (texTB.x*ts), uvSize + (texTB.y*ts), //bottom
-        uvSize + (texTB.x*ts), uvSize + (texTB.y*ts),
-        0.0 + (texTB.x*ts), (uvSize/4) + (texTB.y*ts),
+          0.125, 0.125, -0.75,
+          0.125, 0.125, 0.25,
+          -0.125, 0.125, 0.25,
 
-        uvSize + (texTB.x*ts), uvSize + (texTB.y*ts),
-        uvSize + (texTB.x*ts), (uvSize/4) + (texTB.y*ts),
-        0.0 + (texTB.x*ts), (uvSize/4) + (texTB.y*ts),
-        
-        (uvSize*0.75) + (texLR.x*ts), uvSize + (texLR.y*ts), //left
-        uvSize + (texLR.x*ts), uvSize + (texLR.y*ts),
-        (uvSize*0.75) + (texLR.x*ts), 0.0 + (texLR.y*ts),
+          -0.125, -0.125, -0.75, //bottom
+          0.125, -0.125, -0.75,
+          -0.125, -0.125, 0.25,
 
-        uvSize + (texLR.x*ts), uvSize + (texLR.y*ts),
-        uvSize + (texLR.x*ts), 0.0 + (texLR.y*ts),
-        (uvSize*0.75) + (texLR.x*ts), 0.0 + (texLR.y*ts),
-        
-        (uvSize*0.75) + (texLR.x*ts), uvSize + (texLR.y*ts), //right
-        uvSize + (texLR.x*ts), uvSize + (texLR.y*ts),
-        (uvSize*0.75) + (texLR.x*ts), 0.0 + (texLR.y*ts),
+          0.125, -0.125, -0.75,
+          0.125, -0.125, 0.25,
+          -0.125, -0.125, 0.25,
+          
+          -0.125, 0.125, -0.75, //left
+          -0.125, 0.125, 0.25,
+          -0.125, -0.125, -0.75,
 
-        uvSize + (texLR.x*ts), uvSize + (texLR.y*ts),
-        uvSize + (texLR.x*ts), 0.0 + (texLR.y*ts),
-        (uvSize*0.75) + (texLR.x*ts), 0.0 + (texLR.y*ts),
-        
-        0.0 + (texF.x*ts), uvSize + (texF.y*ts), //front
-        uvSize + (texF.x*ts), uvSize + (texF.y*ts),
-        0.0 + (texF.x*ts), 0.0 + (texF.y*ts),
+          -0.125, 0.125, 0.25,
+          -0.125, -0.125, 0.25,
+          -0.125, -0.125, -0.75,
 
-        uvSize + (texF.x*ts), uvSize + (texF.y*ts),
-        uvSize + (texF.x*ts), 0.0 + (texF.y*ts),
-        0.0 + (texF.x*ts), 0.0 + (texF.y*ts),
-        
-        0.0 + (texB.x*ts), uvSize + (texB.y*ts), //back
-        uvSize + (texB.x*ts), uvSize + (texB.y*ts),
-        0.0 + (texB.x*ts), 0.0 + (texB.y*ts),
+          0.125, 0.125, -0.75, //right
+          0.125, 0.125, 0.25,
+          0.125, -0.125, -0.75,
 
-        uvSize + (texB.x*ts), uvSize + (texB.y*ts),
-        uvSize + (texB.x*ts), 0.0 + (texB.y*ts),
-        0.0 + (texB.x*ts), 0.0 + (texB.y*ts)
-      ],
-      meshFaces: [
-        {dir: new THREE.Vector3(0, 1, 0), length: 6},
-        {dir: new THREE.Vector3(0, -1, 0), length: 6},
-        {dir: new THREE.Vector3(-1, 0, 0), length: 6},
-        {dir: new THREE.Vector3(1, 0, 0), length: 6},
-        {dir: new THREE.Vector3(0, 0, 1), length: 6},
-        {dir: new THREE.Vector3(0, 0, -1), length: 6}
-      ],
-      transparent: true,
-      hardness: 0.5,
-      logic_sink: true,
-      logic_sink_update: pistonUpdate,
-      postPlace: logicWirePostPlace,
-      onDestroy: logicWireDestroy,
-      directional: true
-    });
+          0.125, 0.125, 0.25,
+          0.125, -0.125, 0.25,
+          0.125, -0.125, -0.75
+        ],
+        meshUVs: [
+          0.0 + (texTB.x*ts), (uvSize*0.25) + (texTB.y*ts), //top
+          uvSize + (texTB.x*ts), (uvSize*0.25) + (texTB.y*ts),
+          0.0 + (texTB.x*ts), 0.0 + (texTB.y*ts),
+
+          uvSize + (texTB.x*ts), (uvSize*0.25) + (texTB.y*ts),
+          uvSize + (texTB.x*ts), 0.0 + (texTB.y*ts),
+          0.0 + (texTB.x*ts), 0.0 + (texTB.y*ts),
+          
+          0.0 + (texTB.x*ts), uvSize + (texTB.y*ts), //bottom
+          uvSize + (texTB.x*ts), uvSize + (texTB.y*ts),
+          0.0 + (texTB.x*ts), (uvSize/4) + (texTB.y*ts),
+
+          uvSize + (texTB.x*ts), uvSize + (texTB.y*ts),
+          uvSize + (texTB.x*ts), (uvSize/4) + (texTB.y*ts),
+          0.0 + (texTB.x*ts), (uvSize/4) + (texTB.y*ts),
+          
+          (uvSize*0.75) + (texLR.x*ts), uvSize + (texLR.y*ts), //left
+          uvSize + (texLR.x*ts), uvSize + (texLR.y*ts),
+          (uvSize*0.75) + (texLR.x*ts), 0.0 + (texLR.y*ts),
+
+          uvSize + (texLR.x*ts), uvSize + (texLR.y*ts),
+          uvSize + (texLR.x*ts), 0.0 + (texLR.y*ts),
+          (uvSize*0.75) + (texLR.x*ts), 0.0 + (texLR.y*ts),
+          
+          (uvSize*0.75) + (texLR.x*ts), uvSize + (texLR.y*ts), //right
+          uvSize + (texLR.x*ts), uvSize + (texLR.y*ts),
+          (uvSize*0.75) + (texLR.x*ts), 0.0 + (texLR.y*ts),
+
+          uvSize + (texLR.x*ts), uvSize + (texLR.y*ts),
+          uvSize + (texLR.x*ts), 0.0 + (texLR.y*ts),
+          (uvSize*0.75) + (texLR.x*ts), 0.0 + (texLR.y*ts),
+          
+          0.0 + (texF.x*ts), uvSize + (texF.y*ts), //front
+          uvSize + (texF.x*ts), uvSize + (texF.y*ts),
+          0.0 + (texF.x*ts), 0.0 + (texF.y*ts),
+
+          uvSize + (texF.x*ts), uvSize + (texF.y*ts),
+          uvSize + (texF.x*ts), 0.0 + (texF.y*ts),
+          0.0 + (texF.x*ts), 0.0 + (texF.y*ts),
+          
+          0.0 + (texB.x*ts), uvSize + (texB.y*ts), //back
+          uvSize + (texB.x*ts), uvSize + (texB.y*ts),
+          0.0 + (texB.x*ts), 0.0 + (texB.y*ts),
+
+          uvSize + (texB.x*ts), uvSize + (texB.y*ts),
+          uvSize + (texB.x*ts), 0.0 + (texB.y*ts),
+          0.0 + (texB.x*ts), 0.0 + (texB.y*ts),
+          
+          //---Shaft---
+          
+          (uvSize*0.75) + (texLR.x*ts), uvSize + (texLR.y*ts), //top
+          uvSize + (texLR.x*ts), uvSize + (texLR.y*ts),
+          (uvSize*0.75) + (texLR.x*ts), 0.0 + (texLR.y*ts),
+
+          uvSize + (texLR.x*ts), uvSize + (texLR.y*ts),
+          uvSize + (texLR.x*ts), 0.0 + (texLR.y*ts),
+          (uvSize*0.75) + (texLR.x*ts), 0.0 + (texLR.y*ts),
+          
+          (uvSize*0.75) + (texLR.x*ts), uvSize + (texLR.y*ts), //bottom
+          uvSize + (texLR.x*ts), uvSize + (texLR.y*ts),
+          (uvSize*0.75) + (texLR.x*ts), 0.0 + (texLR.y*ts),
+
+          uvSize + (texLR.x*ts), uvSize + (texLR.y*ts),
+          uvSize + (texLR.x*ts), 0.0 + (texLR.y*ts),
+          (uvSize*0.75) + (texLR.x*ts), 0.0 + (texLR.y*ts),
+          
+          0.0 + (texTB.x*ts), 0.0 + (texTB.y*ts), //left
+          uvSize + (texTB.x*ts), 0.0 + (texTB.y*ts),
+          0.0 + (texTB.x*ts), (uvSize*0.25) + (texTB.y*ts),
+
+          uvSize + (texTB.x*ts), 0.0 + (texTB.y*ts),
+          uvSize + (texTB.x*ts), (uvSize*0.25) + (texTB.y*ts),
+          0.0 + (texTB.x*ts), (uvSize*0.25) + (texTB.y*ts),
+          
+          0.0 + (texTB.x*ts), 0.0 + (texTB.y*ts), //right
+          uvSize + (texTB.x*ts), 0.0 + (texTB.y*ts),
+          0.0 + (texTB.x*ts), (uvSize*0.25) + (texTB.y*ts),
+
+          uvSize + (texTB.x*ts), 0.0 + (texTB.y*ts),
+          uvSize + (texTB.x*ts), (uvSize*0.25) + (texTB.y*ts),
+          0.0 + (texTB.x*ts), (uvSize*0.25) + (texTB.y*ts)
+        ],
+        meshFaces: [
+          {dir: new THREE.Vector3(0, 1, 0), length: 6},
+          {dir: new THREE.Vector3(0, -1, 0), length: 6},
+          {dir: new THREE.Vector3(-1, 0, 0), length: 6},
+          {dir: new THREE.Vector3(1, 0, 0), length: 6},
+          {dir: new THREE.Vector3(0, 0, 1), length: 6},
+          {dir: new THREE.Vector3(0, 0, -1), length: 6},
+          
+          {dir: new THREE.Vector3(0, 1, 0), length: 6},
+          {dir: new THREE.Vector3(0, -1, 0), length: 6},
+          {dir: new THREE.Vector3(-1, 0, 0), length: 6},
+          {dir: new THREE.Vector3(1, 0, 0), length: 6}
+        ],
+        transparent: true,
+        hardness: 0.5,
+        logic_sink: true,
+        logic_sink_update: pistonUpdate,
+        postPlace: logicWirePostPlace,
+        onDestroy: logicWireDestroy,
+        directional: true
+      });
+    }
   });
 })();
