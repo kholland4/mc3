@@ -283,16 +283,16 @@ function genChunkMesh(chunkPos) {
             lightLevel = Math.max(lightLevel, props.lightLevel);
           }
           
-          if(faces[face].y == 1) {
+          if(faces[tFace].y == 1) {
             lightLevel *= 1.5;
-          } else if(faces[face].y == -1) {
+          } else if(faces[tFace].y == -1) {
             lightLevel *= 0.8;
           }
           
           lightLevel = lightLevel / (MAX_LIGHT * 2);
           
           var normal = [];
-          var direction = (-faces[face].x) + faces[face].y + faces[face].z;
+          var direction = (-faces[tFace].x) + faces[tFace].y + faces[tFace].z;
           for(var i = 0; i < 18; i += 3) {
             normal.push(0);
             normal.push(-(direction * lightLevel));
