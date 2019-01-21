@@ -75,3 +75,5 @@ textures/misc/drumstick_empty.png
 -Fix bookshelf icon
 -Fix sandstone smooth/carved icons
 -Fix chest icon
+
+-Redstone wires!!!

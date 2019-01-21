@@ -100,6 +100,16 @@
       }
       
       chunkMeshAutoload(vectorDivide(controls.getObject().position, CHUNK_SIZE), new THREE.Vector3(1, 1, 1), Infinity);
+      
+      breakOverlayMaterials = [];
+      for(var i = 0; i < BREAK_NUM_STAGES; i++) {
+        var tex = THREE.ImageUtils.loadTexture(TEXTUREPACK + "textures/misc/destroy_stage_" + i + ".png");
+        tex.minFilter = THREE.NearestFilter;
+        tex.magFilter = THREE.NearestFilter;
+        
+        var material = new THREE.MeshBasicMaterial({map: tex, transparent: true});
+        breakOverlayMaterials.push(material);
+      }
     } else {
       return "Texture pack is " + TEXTUREPACK;
     }

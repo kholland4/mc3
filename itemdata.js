@@ -1,6 +1,6 @@
 //Groups: dirt, wood, stone, ore, glass, leaves, ore_block, wool, planks, log, axe, pickaxe
 
-var TEXTUREPACK = "texturepack-original/";
+var TEXTUREPACK = "texturepack-minetest/";
 
 var TOOL_LEVEL_NONE = 0;
 var TOOL_LEVEL_WOOD = 1;
