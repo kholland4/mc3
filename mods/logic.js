@@ -4,8 +4,14 @@
       var block = getBlock(pos);
       var props = getItemProps(block);
       
+      var affectFaces = [2, 3, 4, 5];
+      if("logic_wireFaces" in props) {
+        affectFaces = props.logic_wireFaces;
+      }
+      
       var connections = [0, 0, 0, 0];
-      for(var face = 2; face < 6; face++) {
+      for(var faceN = 0; faceN < affectFaces.length; faceN++) {
+        var face = affectFaces[faceN];
         var nearbyPos = vectorAdd(pos, faces[face]);
         var nearbyProps = getItemProps(getBlock(nearbyPos));
         if(nearbyProps.groups.includes("logic_wire")) {
@@ -24,7 +30,7 @@
         }
       }
       
-      if(!props.groups.includes("logic_wire")) {
+      if(!props.groups.includes("logic_wire_mut")) {
         return;
       }
       
@@ -57,7 +63,13 @@
         }
       }
       
-      for(var face = 2; face < 6; face++) {
+      var affectFaces = [2, 3, 4, 5];
+      if("logic_wireFaces" in props) {
+        affectFaces = props.logic_wireFaces;
+      }
+      
+      for(var faceN = 0; faceN < affectFaces.length; faceN++) {
+        var face = affectFaces[faceN];
         var nearbyPos = vectorAdd(pos, faces[face]);
         var nearbyProps = getItemProps(getBlock(nearbyPos));
         if(nearbyProps.groups.includes("logic_wire")) {
@@ -84,7 +96,13 @@
         }
       }
       
-      for(var face = 2; face < 6; face++) {
+      var affectFaces = [2, 3, 4, 5];
+      if("logic_wireFaces" in props) {
+        affectFaces = props.logic_wireFaces;
+      }
+      
+      for(var faceN = 0; faceN < affectFaces.length; faceN++) {
+        var face = affectFaces[faceN];
         var nearbyPos = vectorAdd(pos, faces[face]);
         var nearbyProps = getItemProps(getBlock(nearbyPos));
         if(nearbyProps.groups.includes("logic_wire")) {
@@ -246,7 +264,7 @@
         ],
         transparent: true,
         walkable: true,
-        groups: ["logic_wire"],
+        groups: ["logic_wire", "logic_wire_mut"],
         hardness: 0,
         logic_wireConnects: i,
         logic_wireState: false,
@@ -287,7 +305,7 @@
         ],
         transparent: true,
         walkable: true,
-        groups: ["logic_wire"],
+        groups: ["logic_wire", "logic_wire_mut"],
         hardness: 0,
         lightLevel: 5,
         logic_wireConnects: i,
@@ -296,6 +314,34 @@
         onDestroy: logicWireDestroy
       });
     }
+      
+    registerItem({
+      name: "logic:wire_vertical_off",
+      displayName: "Vertical Redstone",
+      textureOffsetAlt: {all: new THREE.Vector2(0, 0)},
+      groups: ["logic_wire"],
+      hardness: 0,
+      logic_wireConnects: 15,
+      logic_wireState: false,
+      logic_wireFaces: [0, 1, 2, 3, 4, 5],
+      postPlace: logicWirePostPlace,
+      onDestroy: logicWireDestroy
+    });
+    
+    registerItem({
+      name: "logic:wire_vertical_on",
+      inInventory: false,
+      drops: new InvItem("logic:wire_vertical_off", 1),
+      textureOffsetAlt: {all: new THREE.Vector2(0, 0)},
+      groups: ["logic_wire"],
+      hardness: 0,
+      lightLevel: 5,
+      logic_wireConnects: 15,
+      logic_wireState: true,
+      logic_wireFaces: [0, 1, 2, 3, 4, 5],
+      postPlace: logicWirePostPlace,
+      onDestroy: logicWireDestroy
+    });
     
     if(getItemProps("ores:redstone_block") != null) {
       setItemProp("ores:redstone_block", "logic_source", true);
@@ -665,7 +711,11 @@
         logic_sink_update: pistonUpdate,
         postPlace: logicWirePostPlace,
         onDestroy: logicWireDestroy,
-        directional: true
+        directional: true,
+        customHitbox: [
+          new THREE.Box3(new THREE.Vector3(-0.5, -0.5, -0.5), new THREE.Vector3(0.5, 0.5, 0.25)),
+          new THREE.Box3(new THREE.Vector3(-0.125, -0.125, 0.25), new THREE.Vector3(0.125, 0.125, 0.5))
+        ]
       });
       var texLR = new THREE.Vector2(304, 80);
       var texTB = new THREE.Vector2(320, 80);
@@ -863,7 +913,11 @@
         logic_sink_update: pistonUpdate,
         postPlace: logicWirePostPlace,
         onDestroy: logicWireDestroy,
-        directional: true
+        directional: true,
+        customHitbox: [
+          new THREE.Box3(new THREE.Vector3(-0.5, -0.5, 0.25), new THREE.Vector3(0.5, 0.5, 0.5)),
+          new THREE.Box3(new THREE.Vector3(-0.125, -0.125, -0.5), new THREE.Vector3(0.125, 0.125, 0.25))
+        ]
       });
     }
   });
