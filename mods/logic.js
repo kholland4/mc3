@@ -432,6 +432,7 @@
           
           intelligentReloadChunkMeshNear(pos);
           logicWireChange(targetPos2);
+          logicWireChange(targetPos);
         }
       }
       if((block == getItemID("logic:piston_on") || block == getItemID("logic:piston_on_sticky")) && state == false) {
@@ -452,6 +453,7 @@
           
           intelligentReloadChunkMeshNear(pos);
           logicWireChange(targetPos);
+          logicWireChange(targetPos2);
         } else {
           intelligentReloadChunkMeshNear(pos);
         }
