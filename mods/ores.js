@@ -106,7 +106,7 @@
   });
   registerItem({
     name: "ores:quartz_block_chiseled",
-    displayName: "Chuseled Quartz Block",
+    displayName: "Chiseled Quartz Block",
     textureOffsetAlt: {top: new THREE.Vector2(240, 80), bottom: new THREE.Vector2(240, 80), sides: new THREE.Vector2(224, 80)},
     icon: "textures/icons/quartz_block_chiseled.png",
     groups: ["stone", "ore_block"],
